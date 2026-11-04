@@ -1,0 +1,19 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Astéria — Les gardiens du savoir</title><style>/*STYLE*/</style></head><body>
+<div id="world"></div><div id="vignette"></div>
+<div id="loading"><div class="sigil">✦</div><h1>ASTÉRIA</h1><p>Un monde de découvertes prend vie…</p><div class="loadbar"><i></i></div></div>
+<main id="hud" class="hidden">
+<div class="hud-top"><div class="region"><span class="tiny" id="biome">LES PRAIRIES D’ÉMERAUDE</span><div class="world-time"><span id="clock">☀ 08:00</span><span id="day">Jour 1</span></div></div><nav><button id="questButton" title="Quêtes (J)">◈ <span>Quêtes</span></button><button id="bagButton" title="Inventaire et fabrication (I)">▦ <span>Fabriquer</span></button><button id="bookButton" title="Carnet (L)">▤ <span>Carnet</span></button><button id="pauseButton" title="Menu (Échap)">Ⅱ</button></nav></div>
+<div id="questTrack"><div class="tiny">QUÊTE SUIVIE</div><b id="trackedName"></b><p id="trackedText"></p><span id="waypointText"></span></div>
+<div id="compass"><span>O</span><i>· · ·</i><b id="compassDir">N</b><i>· · ·</i><span>E</span></div>
+<div id="waypoint" class="hidden"><span>◆</span><b></b></div>
+<canvas id="minimap" width="192" height="192" aria-label="Carte du monde"></canvas>
+<div id="crosshair"><i></i><b></b></div><div id="targetLabel"></div><div id="mineProgress"><i></i></div>
+<div id="toasts" aria-live="polite"></div><div id="saveIndicator">✓ Partie enregistrée</div>
+<div id="hud-bottom"><div class="vitals"><span id="health">♥ ♥ ♥ ♥ ♥</span><span id="xpLabel">EXPLORATEUR · NIVEAU 1</span><span id="food">● ● ● ● ●</span></div><div class="xp"><i id="xpFill"></i></div><div id="hotbar"></div><div id="hint">ZQSD / WASD : se déplacer · E : interagir · clic : miner · clic droit : poser · I : fabriquer</div></div>
+<div id="interactPrompt"><kbd>E</kbd><span>Parler</span></div>
+<div id="touchControls"><div class="dpad"><button data-move="w">▲</button><button data-move="a">◀</button><button data-move="s">▼</button><button data-move="d">▶</button></div><div class="touch-actions"><button id="touchJump">↑</button><button id="touchMine">⛏</button><button id="touchUse">E</button><button id="touchPlace">＋</button></div></div>
+</main>
+<div id="modal" class="hidden" role="dialog" aria-modal="true"><div id="modalBody"></div></div>
+<div id="title" class="hidden"><div class="title-shade"></div><div class="title-content"><div class="edition">UNE AVENTURE DE CONSTRUCTION & DE DÉCOUVERTE</div><h1>ASTÉRIA<span>LES GARDIENS DU SAVOIR</span></h1><p class="title-copy">Un monde à bâtir.<br>Mille choses à comprendre.</p><div class="title-actions"><button class="primary" id="playButton">Commencer l’aventure <span>→</span></button><button class="glass" id="titleGuide">Comment jouer</button></div><div class="title-meta"><span>5 biomes</span><i>✦</i><span>Un village vivant</span><i>✦</i><span>Construis librement</span></div></div><div class="title-bottom"><span>Une aventure solo • sauvegarde locale • jouable hors connexion</span><button id="creditsButton">À propos</button></div></div>
+<input type="file" id="importSave" accept="application/json,.json" class="hidden">
+<script>/*THREE*/</script><script>/*DATA*/</script><script>/*ENGINE*/</script><script>/*UI*/</script><script>/*MAIN*/</script></body></html>
