@@ -4,6 +4,7 @@ const {document}=parseHTML(fs.readFileSync(__dirname+'/shell.html','utf8'));
 document.defaultView.HTMLElement.prototype.focus=function(){};
 const saved=new Map();
 const ctx=vm.createContext({THREE,document,window:document.defaultView,console,localStorage:{getItem:k=>saved.get(k),setItem:(k,v)=>saved.set(k,v)},setTimeout(){},clearTimeout(){}});
+vm.runInContext(require('./content.cjs')(),ctx);
 for(const file of ['data','engine','ui','mill','learning','media','tablet'])vm.runInContext(fs.readFileSync(__dirname+'/'+file+'.js','utf8'),ctx);
 const run=s=>vm.runInContext(s,ctx),click=id=>document.getElementById(id).onclick();
 function check(name,fn){fn();console.log('PASS '+name)}

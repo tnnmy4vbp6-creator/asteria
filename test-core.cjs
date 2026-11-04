@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert'),path=require('path');
 const THREE=require('./three.min.js');
 const ctx={console,THREE,localStorage:{getItem(){return null},setItem(){}},document:{getElementById(){return null}},setTimeout(){},clearTimeout(){}};
-vm.createContext(ctx);for(let file of ['data.js','engine.js','learning.js','media.js','mill.js','tablet.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,file),'utf8'),ctx,{filename:file});const run=s=>vm.runInContext(s,ctx);
+vm.createContext(ctx);vm.runInContext(require('./content.cjs')(),ctx);for(let file of ['data.js','engine.js','learning.js','media.js','mill.js','tablet.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,file),'utf8'),ctx,{filename:file});const run=s=>vm.runInContext(s,ctx);
 let count=0;function check(name,f){f();count++;console.log('PASS '+name)}
 check('48 questions and 15 mission challenges',()=>{assert.equal(run('KNOWLEDGE.length'),48);assert.equal(run('Object.keys(CHALLENGES).length'),15)});
 check('resource deduction is atomic',()=>{assert.equal(run('spend({wood:3})'),false);assert.equal(run('S.inv.wood'),2);assert.equal(run('spend({wood:1})'),true);assert.equal(run('S.inv.wood'),1)});

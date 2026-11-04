@@ -1,0 +1,141 @@
+{
+  "wood": {
+    "name": "Bûche de chêne",
+    "icon": "🪵"
+  },
+  "plank": {
+    "name": "Planches",
+    "icon": "▤",
+    "color": "#c49962"
+  },
+  "stick": {
+    "name": "Bâtons",
+    "icon": "╱"
+  },
+  "stone": {
+    "name": "Pierre",
+    "icon": "🪨"
+  },
+  "dirt": {
+    "name": "Terre",
+    "icon": "▧",
+    "color": "#8a6546"
+  },
+  "sand": {
+    "name": "Sable",
+    "icon": "▧",
+    "color": "#d7c48a"
+  },
+  "leaf": {
+    "name": "Feuillage",
+    "icon": "🌿"
+  },
+  "brick": {
+    "name": "Briques de pierre",
+    "icon": "▦",
+    "color": "#8b9c95"
+  },
+  "glass": {
+    "name": "Verre",
+    "icon": "◇",
+    "color": "#82bdbb"
+  },
+  "coal": {
+    "name": "Charbon",
+    "icon": "⬟",
+    "color": "#343d41"
+  },
+  "ironOre": {
+    "name": "Minerai de fer",
+    "icon": "⬡",
+    "color": "#b48d73"
+  },
+  "iron": {
+    "name": "Lingot de fer",
+    "icon": "▰",
+    "color": "#bdc9c4"
+  },
+  "crystal": {
+    "name": "Cristal brut",
+    "icon": "◆",
+    "color": "#93d6d6"
+  },
+  "torch": {
+    "name": "Torche",
+    "icon": "🔥"
+  },
+  "bench": {
+    "name": "Établi",
+    "icon": "🛠"
+  },
+  "furnace": {
+    "name": "Four",
+    "icon": "▣"
+  },
+  "chest": {
+    "name": "Coffre",
+    "icon": "▣",
+    "color": "#b88b4b"
+  },
+  "bed": {
+    "name": "Lit",
+    "icon": "▰",
+    "color": "#b4736c"
+  },
+  "woodpick": {
+    "name": "Pioche en bois",
+    "icon": "⛏"
+  },
+  "stonepick": {
+    "name": "Pioche en pierre",
+    "icon": "⛏"
+  },
+  "ironpick": {
+    "name": "Pioche en fer",
+    "icon": "⛏"
+  },
+  "hoe": {
+    "name": "Houe",
+    "icon": "⚒"
+  },
+  "seed": {
+    "name": "Graines de blé",
+    "icon": "🌱"
+  },
+  "wheat": {
+    "name": "Blé",
+    "icon": "🌾"
+  },
+  "bread": {
+    "name": "Pain",
+    "icon": "🥖"
+  },
+  "apple": {
+    "name": "Pomme",
+    "icon": "🍎"
+  },
+  "wool": {
+    "name": "Laine",
+    "icon": "☁"
+  },
+  "flower": {
+    "name": "Fleur",
+    "icon": "🌼"
+  },
+  "emerald": {
+    "name": "Émeraude",
+    "icon": "💚"
+  },
+  "snow": {
+    "name": "Neige",
+    "icon": "❄"
+  },
+  "rune": {
+    "name": "Fragment ancien",
+    "icon": "◈"
+  },
+  "pickaxe": {
+    "name": "Outil de minage",
+    "icon": "⛏"
+  }
+}

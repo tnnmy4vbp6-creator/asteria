@@ -1,0 +1,133 @@
+[
+  {
+    "out": "plank",
+    "n": 4,
+    "cost": {
+      "wood": 1
+    },
+    "desc": "Débite une bûche pour construire et fabriquer."
+  },
+  {
+    "out": "stick",
+    "n": 4,
+    "cost": {
+      "plank": 2
+    },
+    "desc": "Des manches pour tes outils."
+  },
+  {
+    "out": "bench",
+    "n": 1,
+    "cost": {
+      "plank": 4
+    },
+    "desc": "Un établi à poser dans ton atelier."
+  },
+  {
+    "out": "woodpick",
+    "n": 1,
+    "cost": {
+      "plank": 3,
+      "stick": 2
+    },
+    "desc": "Permet de miner la pierre et le charbon."
+  },
+  {
+    "out": "stonepick",
+    "n": 1,
+    "cost": {
+      "stone": 3,
+      "stick": 2
+    },
+    "tool": 1,
+    "desc": "Permet d’extraire le minerai de fer."
+  },
+  {
+    "out": "hoe",
+    "n": 1,
+    "cost": {
+      "stone": 2,
+      "stick": 2
+    },
+    "desc": "Prépare les cultures du potager de Lila."
+  },
+  {
+    "out": "furnace",
+    "n": 1,
+    "cost": {
+      "stone": 8
+    },
+    "desc": "Permet de fondre le fer et de fabriquer du verre."
+  },
+  {
+    "out": "iron",
+    "n": 2,
+    "cost": {
+      "ironOre": 2,
+      "coal": 1
+    },
+    "furnace": true,
+    "desc": "Le charbon fournit la chaleur pour transformer le minerai."
+  },
+  {
+    "out": "ironpick",
+    "n": 1,
+    "cost": {
+      "iron": 3,
+      "stick": 2
+    },
+    "desc": "Permet de récolter les cristaux de la caverne."
+  },
+  {
+    "out": "torch",
+    "n": 4,
+    "cost": {
+      "coal": 1,
+      "stick": 1
+    },
+    "desc": "À poser pour éclairer la mine et tes constructions."
+  },
+  {
+    "out": "brick",
+    "n": 4,
+    "cost": {
+      "stone": 4
+    },
+    "desc": "Des blocs réguliers pour les murs et les tours."
+  },
+  {
+    "out": "glass",
+    "n": 4,
+    "cost": {
+      "sand": 4,
+      "coal": 1
+    },
+    "furnace": true,
+    "desc": "La chaleur transforme le sable en verre."
+  },
+  {
+    "out": "chest",
+    "n": 1,
+    "cost": {
+      "plank": 8
+    },
+    "desc": "Un coffre personnel. Pose-le, puis appuie sur E."
+  },
+  {
+    "out": "bed",
+    "n": 1,
+    "cost": {
+      "wool": 3,
+      "plank": 3
+    },
+    "desc": "Un lit à poser pour dormir et retrouver le matin."
+  },
+  {
+    "out": "bread",
+    "n": 2,
+    "cost": {
+      "wheat": 3
+    },
+    "desc": "Redonne de l’énergie : sélectionne une nourriture dans le sac."
+  }
+]

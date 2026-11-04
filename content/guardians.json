@@ -1,0 +1,155 @@
+[
+  {
+    "id": "lila",
+    "name": "Lila",
+    "role": "Botaniste & cultivatrice",
+    "x": 28,
+    "z": 51,
+    "coat": 7374416,
+    "hat": 12953187,
+    "quest": "Le jardin des équilibres",
+    "goal": "Fabrique une houe. Plante, arrose et récolte 3 blés dans le potager.",
+    "req": {
+      "wheat": 3
+    },
+    "requires": [
+      "hoe"
+    ],
+    "reward": {
+      "emerald": 4,
+      "seed": 6,
+      "bread": 3
+    },
+    "crystal": "du vivant",
+    "intro": "Une forêt n’est pas seulement une collection d’arbres. Chaque être vivant y joue un rôle. Aide-moi à remettre le jardin en route, puis découvrons ses liens cachés.",
+    "puzzles": [
+      "foodchain",
+      "garden",
+      "ecosystem"
+    ]
+  },
+  {
+    "id": "borin",
+    "name": "Borin",
+    "role": "Forgeron & inventeur",
+    "x": 37,
+    "z": 46,
+    "coat": 5860216,
+    "hat": 5326903,
+    "quest": "Le cœur de la forge",
+    "goal": "Fabrique une pioche en pierre et un four. Extrais du fer, puis fonds 4 lingots.",
+    "req": {
+      "iron": 4
+    },
+    "requires": [
+      "stonepick",
+      "furnace"
+    ],
+    "reward": {
+      "emerald": 5,
+      "torch": 8,
+      "iron": 3
+    },
+    "crystal": "de la matière",
+    "intro": "Un bon inventeur comprend ses matériaux. Le bois, le métal et le verre n’ont pas les mêmes propriétés. J’ai aussi un réseau de lampes à remettre en marche.",
+    "puzzles": [
+      "forge",
+      "materials",
+      "circuit"
+    ]
+  },
+  {
+    "id": "nora",
+    "name": "Nora",
+    "role": "Cartographe & exploratrice",
+    "x": 43,
+    "z": 42,
+    "coat": 10906440,
+    "hat": 8549193,
+    "quest": "Au-delà de la rivière",
+    "goal": "Apporte 12 planches à Nora. Elles serviront à reconstruire le pont vers le désert.",
+    "req": {
+      "plank": 12
+    },
+    "requires": [],
+    "reward": {
+      "emerald": 4,
+      "apple": 4
+    },
+    "crystal": "des horizons",
+    "intro": "Une carte est un langage. Les directions, les distances et les symboles nous permettent de voyager sans nous perdre. Le vieux pont attend notre expédition.",
+    "puzzles": [
+      "bridge",
+      "route",
+      "geography"
+    ]
+  },
+  {
+    "id": "soren",
+    "name": "Soren",
+    "role": "Archéologue & gardien des récits",
+    "x": 65,
+    "z": 27,
+    "coat": 10917230,
+    "hat": 14929056,
+    "quest": "Les voix des anciens",
+    "goal": "Explore les ruines du désert et trouve 3 fragments dans les coffres anciens.",
+    "req": {
+      "rune": 3
+    },
+    "requires": [],
+    "reward": {
+      "emerald": 6,
+      "glass": 8
+    },
+    "crystal": "du temps",
+    "intro": "Chaque objet ancien est un indice. Mais pour raconter le passé, il faut comparer les traces et distinguer ce que l’on sait de ce que l’on imagine.",
+    "puzzles": [
+      "timeline",
+      "archaeology",
+      "code"
+    ]
+  },
+  {
+    "id": "selene",
+    "name": "Sélène",
+    "role": "Astronome & observatrice",
+    "x": 34,
+    "z": 12,
+    "coat": 7956622,
+    "hat": 5460847,
+    "quest": "Les sentiers du ciel",
+    "goal": "Fabrique une pioche en fer. Trouve 3 cristaux bruts dans la caverne.",
+    "req": {
+      "crystal": 3
+    },
+    "requires": [
+      "ironpick"
+    ],
+    "reward": {
+      "emerald": 8,
+      "bread": 4
+    },
+    "crystal": "des étoiles",
+    "intro": "Le ciel n’est pas un dessin immobile. La Terre tourne, la Lune se déplace, et nos observations nous aident à comprendre leurs mouvements.",
+    "puzzles": [
+      "orbit",
+      "seasons",
+      "memory"
+    ]
+  },
+  {
+    "id": "atlas",
+    "name": "Atlas",
+    "role": "Gardien de pierre",
+    "x": 36,
+    "z": 35,
+    "coat": 9215118,
+    "hat": 7573361,
+    "quest": "Le réveil d’Astéria",
+    "goal": "Rassemble les cinq sceaux des gardiens pour rallumer le portail.",
+    "req": {},
+    "requires": [],
+    "intro": "Les cristaux ne s’éveillent pas avec la force. Ils répondent à la curiosité. Aide les cinq gardiens, puis reviens réunir leurs découvertes."
+  }
+]

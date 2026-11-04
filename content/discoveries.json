@@ -1,0 +1,578 @@
+[
+  [
+    "nature",
+    1,
+    "Pourquoi les champignons sont-ils importants dans une forêt ?",
+    [
+      "Ils participent à la décomposition et au recyclage de la matière",
+      "Ils fabriquent leur nourriture grâce au Soleil, comme les plantes vertes",
+      "Ils servent seulement de nourriture aux animaux"
+    ],
+    0,
+    "De nombreux champignons décomposent la matière morte. D’autres vivent en association avec les racines des plantes et échangent des ressources."
+  ],
+  [
+    "nature",
+    2,
+    "Un prédateur disparaît. Ses proies deviennent très nombreuses. Que peut-il arriver ensuite ?",
+    [
+      "Elles peuvent manquer de nourriture",
+      "La quantité de nourriture augmente automatiquement avec les proies",
+      "Les proies cessent de se reproduire dès qu’il n’y a plus de prédateur"
+    ],
+    0,
+    "Les êtres vivants sont liés. Une population de proies trop grande peut consommer beaucoup de végétaux et manquer ensuite de ressources."
+  ],
+  [
+    "nature",
+    1,
+    "Une chauve-souris vole. Pourquoi est-ce pourtant un mammifère ?",
+    [
+      "Elle nourrit ses petits avec du lait",
+      "Elle construit un nid pour ses petits",
+      "Elle utilise ses ailes pour voler la nuit"
+    ],
+    0,
+    "Les chauves-souris sont des mammifères. Elles ont des poils et allaitent leurs petits. Le vol ne suffit pas à classer un animal parmi les oiseaux."
+  ],
+  [
+    "nature",
+    2,
+    "Une plante se penche vers la fenêtre. Quelle hypothèse tester ?",
+    [
+      "Elle oriente sa croissance vers la lumière",
+      "Ses racines cherchent directement la lumière de la fenêtre",
+      "La vitre attire la tige grâce à sa chaleur, quelle que soit la lumière"
+    ],
+    0,
+    "Beaucoup de tiges s’orientent vers la lumière : c’est un phototropisme. On peut comparer deux plantes éclairées de directions différentes."
+  ],
+  [
+    "nature",
+    1,
+    "Quel exemple montre une adaptation au froid ?",
+    [
+      "Une fourrure épaisse",
+      "Une peau fine qui laisse facilement sortir la chaleur",
+      "Des oreilles très grandes qui évacuent davantage la chaleur"
+    ],
+    0,
+    "Une fourrure épaisse emprisonne de l’air et limite les pertes de chaleur. Les adaptations se transmettent au fil des générations."
+  ],
+  [
+    "nature",
+    2,
+    "Pourquoi varier les plantes d’un jardin ?",
+    [
+      "Pour offrir des ressources à différents êtres vivants",
+      "Pour que toutes les plantes fleurissent exactement au même moment",
+      "Pour que le jardin n’ait plus jamais besoin de pollinisateurs"
+    ],
+    0,
+    "La diversité des plantes peut offrir nourriture, abris et périodes de floraison variées à de nombreuses espèces."
+  ],
+  [
+    "nature",
+    2,
+    "Quel déchet peut généralement entrer dans un compost domestique ?",
+    [
+      "Des épluchures de légumes",
+      "Une barquette en plastique marquée recyclable",
+      "Du verre cassé en très petits morceaux"
+    ],
+    0,
+    "Les épluchures sont décomposées par des organismes. Les piles et les plastiques ordinaires ne doivent pas être mis au compost."
+  ],
+  [
+    "nature",
+    3,
+    "Une expérience compare deux plantes. Pour tester seulement l’effet de la lumière, il faut…",
+    [
+      "Garder la même eau, le même sol et varier l’éclairage",
+      "Changer le sol en même temps que la lumière",
+      "Donner plus d’eau seulement à la plante la moins éclairée"
+    ],
+    0,
+    "On change un seul facteur à la fois, autant que possible. Sinon, on ne sait pas quel changement explique le résultat."
+  ],
+  [
+    "science",
+    1,
+    "Pourquoi voit-on de la buée sur une vitre froide ?",
+    [
+      "La vapeur d’eau se condense en gouttelettes",
+      "L’eau liquide traverse le verre",
+      "La vitre transforme l’air sec en eau"
+    ],
+    0,
+    "La vapeur d’eau de l’air peut se refroidir au contact d’une vitre et se condenser en gouttes d’eau liquide."
+  ],
+  [
+    "science",
+    2,
+    "Du sel semble disparaître dans l’eau. Où est-il ?",
+    [
+      "Il est dissous dans l’eau",
+      "Les grains sont devenus trop légers et sont tous remontés dans l’air",
+      "Il s’est transformé en une nouvelle quantité d’eau"
+    ],
+    0,
+    "Le sel dissous est réparti dans l’eau. En laissant l’eau s’évaporer, on peut récupérer le sel."
+  ],
+  [
+    "science",
+    1,
+    "Pour séparer du sable et de l’eau, quel procédé convient ?",
+    [
+      "La filtration",
+      "L’évaporation de toute l’eau, si l’on veut garder l’eau liquide",
+      "Un filtre qui laisse aussi passer tous les grains de sable"
+    ],
+    0,
+    "Un filtre peut retenir les grains de sable en laissant passer l’eau. Il ne retire pas forcément les substances dissoutes."
+  ],
+  [
+    "science",
+    2,
+    "Deux objets tombent dans le vide, sans air. L’un est plus lourd. Que se passe-t-il ?",
+    [
+      "Ils ont la même accélération de chute",
+      "Le plus lourd a forcément une accélération plus grande",
+      "Le plus léger a forcément une accélération plus grande"
+    ],
+    0,
+    "Sans résistance de l’air, les objets soumis à la gravité terrestre ont la même accélération de chute, quelle que soit leur masse."
+  ],
+  [
+    "science",
+    1,
+    "Quel matériau un aimant ordinaire attire-t-il facilement ?",
+    [
+      "Le fer",
+      "Le cuivre",
+      "L’aluminium"
+    ],
+    0,
+    "Un aimant attire notamment le fer. Tous les métaux ne sont pas attirés : le cuivre et l’aluminium ne le sont pas comme le fer."
+  ],
+  [
+    "science",
+    2,
+    "Pourquoi entend-on souvent le tonnerre après avoir vu l’éclair ?",
+    [
+      "La lumière voyage beaucoup plus vite que le son",
+      "Le tonnerre est créé seulement lorsque l’éclair touche le sol",
+      "La lumière et le son voyagent à la même vitesse, mais le son part plus tard"
+    ],
+    0,
+    "L’éclair et le tonnerre sont liés au même événement. La lumière nous arrive bien plus vite que le son."
+  ],
+  [
+    "science",
+    2,
+    "Quelle transformation est réversible facilement ?",
+    [
+      "Faire fondre puis regeler de l’eau",
+      "Faire brûler puis refroidir du papier",
+      "Cuire puis refroidir un œuf"
+    ],
+    0,
+    "L’eau peut passer de solide à liquide puis redevenir solide. Brûler du papier ou cuire un œuf provoque des transformations qu’on n’inverse pas simplement."
+  ],
+  [
+    "science",
+    3,
+    "Une lampe reste éteinte malgré une pile neuve. Que vérifier d’abord ?",
+    [
+      "Si le circuit est fermé et les contacts reliés",
+      "Remplacer automatiquement la pile une deuxième fois",
+      "Ajouter un fil sans regarder où il est branché"
+    ],
+    0,
+    "Un courant électrique nécessite un circuit fermé. Un fil débranché ou un mauvais contact peut empêcher la lampe de s’allumer."
+  ],
+  [
+    "monde",
+    1,
+    "La légende d’une carte indique 1 cm = 2 km. Que représentent 3 cm ?",
+    [
+      "6 km",
+      "5 km",
+      "9 km"
+    ],
+    0,
+    "Une échelle relie une distance sur la carte à une distance réelle. 3 × 2 = 6 kilomètres."
+  ],
+  [
+    "monde",
+    2,
+    "En allant de l’équateur vers un pôle, la température moyenne a tendance à…",
+    [
+      "Diminuer",
+      "Augmenter parce que les pôles sont plus proches du Soleil",
+      "Rester identique si l’on reste au niveau de la mer"
+    ],
+    0,
+    "Les rayons solaires arrivent en moyenne plus obliquement vers les pôles. Leur énergie se répartit sur une plus grande surface."
+  ],
+  [
+    "monde",
+    2,
+    "Pourquoi l’eau des océans est-elle salée ?",
+    [
+      "Des sels dissous y arrivent et y restent lorsque l’eau s’évapore",
+      "L’évaporation transforme directement l’eau douce en sel",
+      "Les fleuves apportent seulement de l’eau parfaitement pure"
+    ],
+    0,
+    "L’eau transporte des substances dissoutes issues notamment des roches. L’évaporation emporte l’eau mais laisse les sels."
+  ],
+  [
+    "monde",
+    1,
+    "Un volcan est-il toujours une montagne qui fume ?",
+    [
+      "Non, certains sont sous la mer et beaucoup sont au repos",
+      "Oui : dès qu’il cesse de fumer, ce n’est plus un volcan",
+      "Non : seuls les reliefs qui ont de la lave visible sont des volcans"
+    ],
+    0,
+    "Il existe des volcans sous-marins et des volcans terrestres. Leur activité peut alterner entre longues périodes de repos et éruptions."
+  ],
+  [
+    "monde",
+    2,
+    "À quoi correspondent les lignes serrées d’une carte de relief ?",
+    [
+      "À une pente forte",
+      "À une pente faible",
+      "À des endroits ayant tous exactement la même altitude"
+    ],
+    0,
+    "Des courbes de niveau rapprochées indiquent que l’altitude change rapidement sur une courte distance : la pente est forte."
+  ],
+  [
+    "monde",
+    1,
+    "Quel fleuve traverse l’Égypte ?",
+    [
+      "Le Nil",
+      "Le Tigre",
+      "L’Euphrate"
+    ],
+    0,
+    "Le Nil traverse l’Égypte. Ses eaux et les terres de sa vallée ont joué un rôle majeur dans l’histoire de l’Égypte ancienne."
+  ],
+  [
+    "monde",
+    2,
+    "Pourquoi dit-on qu’une forêt peut protéger les sols ?",
+    [
+      "Les racines les maintiennent et la végétation freine l’eau",
+      "Les racines empêchent toute eau d’entrer dans le sol",
+      "Les arbres suppriment les pentes du terrain"
+    ],
+    0,
+    "Les racines aident à maintenir le sol. La végétation limite aussi le ruissellement et l’érosion, selon le terrain et les conditions."
+  ],
+  [
+    "monde",
+    3,
+    "Il est midi à un endroit et nuit ailleurs. Pourquoi ?",
+    [
+      "La Terre est ronde et une moitié seulement est éclairée à un instant donné",
+      "La Lune cache chaque nuit le Soleil à la moitié de la Terre",
+      "Les pays nocturnes sont simplement trop loin du Soleil"
+    ],
+    0,
+    "La Terre tourne sur elle-même. À un instant donné, la face tournée vers le Soleil est éclairée et l’autre est dans la nuit."
+  ],
+  [
+    "histoire",
+    1,
+    "Pourquoi les premiers villages se sont-ils souvent développés près de l’eau ?",
+    [
+      "Pour boire, cultiver et transporter",
+      "Parce que les rivières garantissent l’absence d’inondations",
+      "Parce que tous les sols au bord de l’eau sont identiques"
+    ],
+    0,
+    "L’eau facilite la vie quotidienne, l’agriculture et parfois le transport. Elle ne suffit pas à expliquer seule tous les emplacements."
+  ],
+  [
+    "histoire",
+    2,
+    "Un objet est trouvé très profondément. Est-il forcément plus ancien que tous les objets au-dessus ?",
+    [
+      "Non, le sol a pu être remué",
+      "Oui, la profondeur suffit toujours à dater un objet",
+      "Oui, même si une fosse a traversé les couches"
+    ],
+    0,
+    "Des couches intactes aident à établir une chronologie, mais des travaux, des terriers ou d’autres perturbations peuvent déplacer les objets."
+  ],
+  [
+    "histoire",
+    2,
+    "Quelle différence y a-t-il entre un témoignage et une preuve complète ?",
+    [
+      "Un témoignage est une source à comparer avec d’autres",
+      "Un témoin ne peut pas se tromper s’il était présent",
+      "Un récit écrit est toujours plus exact qu’un objet retrouvé"
+    ],
+    0,
+    "Les témoignages sont utiles mais peuvent être incomplets ou imprécis. Les historiens comparent plusieurs sources."
+  ],
+  [
+    "histoire",
+    1,
+    "Pourquoi l’invention de l’écriture est-elle importante ?",
+    [
+      "Elle permet de conserver et transmettre des informations",
+      "Elle garantit que chaque information conservée est vraie",
+      "Elle a été inventée partout au même moment"
+    ],
+    0,
+    "L’écriture permet de conserver des comptes, des lois, des récits et d’autres informations au-delà de la mémoire individuelle."
+  ],
+  [
+    "histoire",
+    2,
+    "Quelle invention a facilité la diffusion de nombreux livres en Europe au XVe siècle ?",
+    [
+      "L’imprimerie à caractères mobiles de Gutenberg",
+      "La machine à vapeur",
+      "Le télégraphe électrique"
+    ],
+    0,
+    "Gutenberg a développé en Europe une technique d’imprimerie à caractères mobiles métalliques. L’impression existait auparavant ailleurs, notamment en Asie."
+  ],
+  [
+    "histoire",
+    1,
+    "À quoi servaient les aqueducs romains ?",
+    [
+      "À transporter de l’eau",
+      "À transporter principalement des céréales",
+      "À faire remonter l’eau sans énergie sur n’importe quelle pente"
+    ],
+    0,
+    "Les aqueducs acheminaient de l’eau grâce à une pente soigneusement calculée, parfois sur de longues distances."
+  ],
+  [
+    "histoire",
+    2,
+    "Une monnaie porte le visage d’un souverain. Que peut-elle aider à étudier ?",
+    [
+      "Une époque, un pouvoir et des échanges",
+      "La profession exacte de chaque personne qui l’a utilisée",
+      "La date précise de chaque achat fait avec cette monnaie"
+    ],
+    0,
+    "Les monnaies renseignent sur les autorités, les périodes et parfois les échanges. Il faut les comparer avec d’autres traces."
+  ],
+  [
+    "histoire",
+    3,
+    "Deux récits anciens se contredisent. Quelle démarche est la plus utile ?",
+    [
+      "Examiner leur date, leurs auteurs et d’autres sources",
+      "Choisir celui dont l’auteur est le plus célèbre, sans autre vérification",
+      "Faire la moyenne des deux récits sans vérifier leurs sources"
+    ],
+    0,
+    "L’étude critique des sources cherche qui parle, quand, dans quel but et avec quelles informations."
+  ],
+  [
+    "espace",
+    1,
+    "La Lune brille parce qu’elle…",
+    [
+      "Réfléchit la lumière du Soleil",
+      "Produit sa propre lumière comme une étoile",
+      "Stocke la lumière du jour puis la fabrique pendant la nuit"
+    ],
+    0,
+    "La Lune réfléchit la lumière du Soleil. La partie éclairée que nous voyons change selon les positions de la Terre, de la Lune et du Soleil."
+  ],
+  [
+    "espace",
+    2,
+    "Une année terrestre correspond environ…",
+    [
+      "À un tour de la Terre autour du Soleil",
+      "À un tour de la Terre sur elle-même",
+      "À un tour de la Lune autour de la Terre"
+    ],
+    0,
+    "La Terre fait un tour autour du Soleil en environ 365 jours et un quart, d’où l’usage d’années bissextiles pour ajuster le calendrier."
+  ],
+  [
+    "espace",
+    2,
+    "Pourquoi les astronautes flottent-ils dans une station en orbite ?",
+    [
+      "Ils sont en chute libre permanente avec la station",
+      "La gravité de la Terre s’arrête dès que l’on sort de l’atmosphère",
+      "La station est trop loin de toute gravité"
+    ],
+    0,
+    "La gravité agit encore en orbite basse. La station et ses occupants tombent ensemble autour de la Terre : cela produit une sensation d’apesanteur."
+  ],
+  [
+    "espace",
+    1,
+    "Le Soleil est…",
+    [
+      "Une étoile",
+      "Une planète géante très chaude",
+      "Un satellite qui tourne chaque jour autour de la Terre"
+    ],
+    0,
+    "Le Soleil est une étoile. Il produit de l’énergie par des réactions de fusion dans son cœur."
+  ],
+  [
+    "espace",
+    2,
+    "Quelle planète possède les anneaux les plus faciles à observer depuis la Terre ?",
+    [
+      "Saturne",
+      "Jupiter",
+      "Uranus"
+    ],
+    0,
+    "Saturne possède un vaste système d’anneaux composé principalement de particules de glace, avec aussi de la poussière et des roches."
+  ],
+  [
+    "espace",
+    2,
+    "La même face de la Lune regarde presque toujours la Terre. Cela signifie…",
+    [
+      "Que la Lune tourne sur elle-même au même rythme qu’elle fait le tour de la Terre",
+      "Que la Lune ne tourne pas du tout sur elle-même",
+      "Que la Lune reste immobile par rapport au Soleil"
+    ],
+    0,
+    "La rotation de la Lune est synchronisée avec sa révolution autour de la Terre. Elle tourne donc bien sur elle-même."
+  ],
+  [
+    "espace",
+    3,
+    "Regarder une étoile très lointaine, c’est voir…",
+    [
+      "De la lumière partie dans le passé",
+      "L’état actuel de l’étoile, car la lumière arrive sans délai",
+      "Une image partie plus récemment que celle d’une étoile proche"
+    ],
+    0,
+    "La lumière a une vitesse finie. La lumière d’une étoile située à dix années-lumière met environ dix ans à nous parvenir."
+  ],
+  [
+    "espace",
+    2,
+    "Pourquoi une ombre change-t-elle de longueur dans la journée ?",
+    [
+      "L’angle du Soleil dans le ciel change",
+      "La distance Terre-Soleil change énormément chaque jour",
+      "La rotation de la Lune déplace directement les ombres"
+    ],
+    0,
+    "La rotation terrestre fait changer la position apparente du Soleil. Un Soleil bas produit généralement des ombres plus longues."
+  ],
+  [
+    "logique",
+    1,
+    "Tu as 20 pièces. Tu achètes 3 objets à 4 pièces. Combien reste-t-il ?",
+    [
+      "8",
+      "12",
+      "16"
+    ],
+    0,
+    "Les trois objets coûtent 3 × 4 = 12 pièces. Il reste 20 − 12 = 8 pièces."
+  ],
+  [
+    "logique",
+    2,
+    "Une moitié de 18 et un tiers de 12 font ensemble…",
+    [
+      "13",
+      "15",
+      "10"
+    ],
+    0,
+    "La moitié de 18 est 9. Le tiers de 12 est 4. 9 + 4 = 13."
+  ],
+  [
+    "logique",
+    2,
+    "Un rectangle mesure 5 blocs sur 3 blocs. Son périmètre est…",
+    [
+      "16 blocs",
+      "15 blocs",
+      "8 blocs"
+    ],
+    0,
+    "Le périmètre est le tour : 5 + 3 + 5 + 3 = 16 blocs. L’aire serait 5 × 3 = 15 blocs carrés."
+  ],
+  [
+    "logique",
+    1,
+    "Quelle suite respecte la règle « ajouter 3 » ?",
+    [
+      "2, 5, 8, 11",
+      "2, 4, 8, 16",
+      "3, 6, 7, 12"
+    ],
+    0,
+    "Dans 2, 5, 8, 11, chaque nombre est obtenu en ajoutant 3 au précédent."
+  ],
+  [
+    "logique",
+    3,
+    "Un sac contient seulement 5 pierres rouges et 5 bleues. Combien faut-il en prendre sans regarder pour être certain d’avoir deux pierres de même couleur ?",
+    [
+      "3",
+      "2",
+      "6"
+    ],
+    0,
+    "Avec deux pierres, on peut avoir une de chaque couleur. La troisième aura forcément la couleur d’une des deux premières."
+  ],
+  [
+    "logique",
+    2,
+    "Une recette pour 2 personnes utilise 3 pommes. Pour 6 personnes, il faut…",
+    [
+      "9 pommes",
+      "6 pommes",
+      "12 pommes"
+    ],
+    0,
+    "6 personnes, c’est trois fois 2 personnes. Il faut donc trois fois 3 pommes : 9."
+  ],
+  [
+    "logique",
+    3,
+    "Un robot avance de 2 cases puis recule d’une case. Il répète cela 5 fois. À quelle distance du départ finit-il ?",
+    [
+      "5 cases",
+      "10 cases",
+      "3 cases"
+    ],
+    0,
+    "Chaque répétition fait gagner une case : 2 − 1 = 1. Après cinq répétitions, le robot est cinq cases plus loin."
+  ],
+  [
+    "logique",
+    2,
+    "Un trajet commence à 14 h 35 et dure 40 minutes. Il finit à…",
+    [
+      "15 h 15",
+      "14 h 75",
+      "15 h 35"
+    ],
+    0,
+    "Il reste 25 minutes jusqu’à 15 h, puis encore 15 minutes : arrivée à 15 h 15."
+  ]
+]
