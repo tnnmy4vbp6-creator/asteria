@@ -4,11 +4,12 @@
   },
   "name": "asteria",
   "version": "2.1.0",
-  "private": "true",
+  "private": true,
   "scripts": {
     "test": "node test-core.cjs && node test-campaign.cjs && node test-mill.cjs",
     "build": "node build.cjs",
-    "start": "node serve.cjs"
+    "start": "node serve.cjs",
+    "publish:pages": "node publish.cjs"
   },
   "devDependencies": {
     "esbuild": "0.25.12",

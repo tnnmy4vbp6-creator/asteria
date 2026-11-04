@@ -1,0 +1,32 @@
+[
+  {
+    "id": "bee",
+    "name": "L’abeille du verger",
+    "place": "au bord des cultures de Lila",
+    "x": 29.8,
+    "z": 50.9,
+    "mark": "Pollinisation",
+    "story": "Regarde les pattes jaunes. En passant d’une fleur à une autre, l’abeille transporte du pollen. Chez de nombreuses plantes, cela aide les fleurs à donner des fruits.",
+    "action": "Suivre l’abeille"
+  },
+  {
+    "id": "fossil",
+    "name": "La spirale de la galerie",
+    "place": "dans le fond de la mine",
+    "x": 14.5,
+    "z": 21.5,
+    "mark": "Fossiles",
+    "story": "Une coquille en spirale se dessine dans la roche. Les ammonites vivaient dans les mers. Leurs fossiles peuvent raconter l’histoire d’un lieu qui se trouve aujourd’hui sur la terre ferme.",
+    "action": "Relever la spirale"
+  },
+  {
+    "id": "moth",
+    "name": "La lunelle de nacre",
+    "place": "près du télescope, après le coucher du soleil",
+    "x": 34.5,
+    "z": 13.6,
+    "mark": "Vie nocturne",
+    "story": "La lunelle est une créature imaginaire d’Astéria. Comme de vrais papillons de nuit, elle déploie ses ailes à la tombée de la nuit. Certains papillons nocturnes transportent aussi du pollen.",
+    "action": "Observer la lunelle"
+  }
+]
