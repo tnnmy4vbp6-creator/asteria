@@ -52,7 +52,7 @@ Le monde brut de 80 × 80 est encore résident en mémoire CPU. Les maillages GP
 
 La branche `main` contient les sources. GitHub Pages sert la distribution depuis `gh-pages`. Après avoir poussé les sources validées, `npm run publish:pages` relance les tests, produit le site et pousse le résultat dans cette branche sans écraser son historique. Vérifier le déploiement GitHub et relancer les deux scénarios navigateur avec l’URL publique.
 
-La configuration du workflow qui automatise ces opérations depuis `main` est aussi fournie. Son activation exige le droit GitHub `workflow`, le fichier dans `.github/workflows/pages.yml` et **Settings → Pages → GitHub Actions** comme source. [Guide officiel GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+Le [workflow fourni](docs/workflows/pages.yml) automatise ces opérations depuis `main`. Son activation exige le droit GitHub `workflow`, le fichier dans `.github/workflows/pages.yml` et **Settings → Pages → GitHub Actions** comme source. [Guide officiel GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 ## Documents de production
 
