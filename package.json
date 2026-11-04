@@ -1,5 +1,17 @@
 {
   "dependencies": {
     "linkedom": "^0.18.12"
+  },
+  "name": "asteria",
+  "version": "2.1.0",
+  "private": "true",
+  "scripts": {
+    "test": "node test-core.cjs && node test-campaign.cjs && node test-mill.cjs",
+    "build": "node build.cjs",
+    "start": "node serve.cjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "three": "0.160.0"
   }
 }
