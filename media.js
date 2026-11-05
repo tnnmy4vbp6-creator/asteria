@@ -12,6 +12,9 @@ const terrainSkins = {
   15: 'snow',
   17: 'brick',
   22: 'cactus_side',
+  24: 'sandstone_brick',
+  25: 'sandstone_block',
+  26: 'desert_sandstone_block',
 };
 async function dressTerrain(texture) {
   const names = [...new Set(Object.values(terrainSkins).flat())];

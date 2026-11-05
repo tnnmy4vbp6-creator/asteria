@@ -136,6 +136,10 @@ function updateHUD() {
     ':' +
     String(Math.floor((hour % 1) * 60)).padStart(2, '0');
   $('day').textContent = 'Jour ' + (Math.floor(S.time / 720) + 1);
+  if (typeof weatherAt === 'function') {
+    const weather = weatherAt(S.time, player.pos.x, player.pos.z);
+    if (weather) $('day').textContent += ' · ' + weather;
+  }
   $('health').textContent = '♥ '
     .repeat(Math.max(0, Math.ceil(S.health / 20)))
     .trim();
@@ -163,6 +167,17 @@ function updateHUD() {
       'Remonte la rive vers le nord.',
     ][S.mill.stage];
     $('waypointText').textContent = n.name + ' · ' + distance + ' m';
+  }
+  if (typeof temple !== 'undefined' && temple && player.pos.x >= temple.x && player.pos.x < temple.x+15 &&
+      player.pos.z >= temple.z && player.pos.z < temple.z+16) {
+    const s=S.temple, done=S.journal.includes(templeDiscovery);
+    const ray=traceTempleRay(s.mask);
+    const [a,b]=s.open ? [7,2] : mirrorTiles[ray.mirrors.at(-1)];
+    n={x:temple.x+a,z:temple.z+b,name:s.open ? 'Planétaire' : 'Miroir'};
+    distance=Math.round(Math.hypot(n.x+0.5-player.pos.x,n.z+0.5-player.pos.z));
+    $('trackedName').textContent=done ? 'Boussole retrouvée' : s.open ? 'Aligne les astres' : 'Guide la lumière';
+    $('trackedText').textContent=s.open ? 'Place la Lune entre le Soleil et la Terre.' : 'Pivote les miroirs vers le carré turquoise.';
+    $('waypointText').textContent=done ? 'Les caches sont sur ta carte.' : n.name+' · '+distance+' m';
   }
   let angle = ((((player.yaw * 180) / Math.PI) % 360) + 360) % 360;
   $('compassDir').textContent =
@@ -282,6 +297,17 @@ function drawMap(canvas, large = false) {
       g.fillText(n.name, x + 7, z + 4);
     }
   });
+  if (large && typeof temple !== 'undefined' && temple) {
+    g.fillStyle = '#183c45';
+    g.font = 'bold 12px Arial';
+    g.fillText('Temple', (temple.x+5)/80*w, (temple.z+8)/80*h);
+    if (S.journal.includes(templeDiscovery)) for (const chest of interactive) {
+      if (chest.kind !== 'treasure' || S.opened.includes(chest.id)) continue;
+      g.fillStyle = '#ffdd72'; g.strokeStyle = '#493828'; g.lineWidth = 2;
+      g.save(); g.translate(chest.pos.x/80*w,chest.pos.z/80*h); g.rotate(Math.PI/4);
+      g.fillRect(-4,-4,8,8); g.strokeRect(-4,-4,8,8); g.restore();
+    }
+  }
   for (const s of millSites) {
     let x = (s.x / 80) * w,
       z = (s.z / 80) * h;
@@ -410,7 +436,7 @@ function quests() {
   modal(
     'Les cinq gardiens',
     'JOURNAL DE QUÊTES',
-    `<article class="quest-card"><h3>Le moulin des deux rives</h3><b>${millHeading()}</b><p>${millClues[S.mill.stage]}</p></article><div class="banner">${NPCS.slice(0, 5).filter((n) => questProgress(n).done).length} / 5 sceaux réunis. Chaque mission associe une action dans le monde à une épreuve de réflexion.</div>${NPCS.map(
+    `${typeof temple !== 'undefined' && temple ? '<article class="quest-card"><h3>Le Temple des éclipses</h3><p>Dans la cour, trois miroirs dévient un rayon de lumière. Derrière la porte attend la boussole des caches.</p><button class="primary" id="visitTemple">Rejoindre le temple</button></article>' : ''}<article class="quest-card"><h3>Le moulin des deux rives</h3><b>${millHeading()}</b><p>${millClues[S.mill.stage]}</p></article><div class="banner">${NPCS.slice(0, 5).filter((n) => questProgress(n).done).length} / 5 sceaux réunis. Chaque mission associe une action dans le monde à une épreuve de réflexion.</div>${NPCS.map(
       (n) => {
         let p = questProgress(n);
         return `<div class="quest-card ${p.done ? 'complete' : ''}"><span class="tag">${p.done ? 'ACCOMPLIE' : p.started ? 'EN COURS' : 'À DÉCOUVRIR'} · ${n.name}</span><h3>${n.quest}</h3><p>${n.goal}</p>${
@@ -430,6 +456,7 @@ function quests() {
       },
     ).join('')}`,
   );
+  if ($('visitTemple')) $('visitTemple').onclick = visitTemple;
   document.querySelectorAll('[data-track]').forEach(
     (b) =>
       (b.onclick = () => {
@@ -932,6 +959,7 @@ function notebook() {
     .map((key) => {
       if (typeof key !== 'string') return null;
       let [type, id] = key.split(':');
+      if (key === 'temple:eclipse') return { title: 'Une éclipse solaire', text: 'La Lune passe entre la Terre et le Soleil. Son ombre atteint une partie de la Terre.' };
       if (type === 'field') {
         const e = FIELD_GUIDE.find((e) => e.id === id);
         return e ? { title: e.name, text: e.story } : null;
@@ -1027,6 +1055,7 @@ function interact() {
     toast('Approche-toi d’un habitant, d’une culture ou d’un coffre.');
     return;
   }
+  if (o.kind === 'temple') { useTemple(o.id); return; }
   if (o.kind === 'field') {
     observe(o.entry);
     return;
@@ -1298,6 +1327,6 @@ function credits() {
   modal(
     'Un monde pour apprendre',
     'À PROPOS D’ASTÉRIA',
-    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.2.1 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
+    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.3.0 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
   );
 }
