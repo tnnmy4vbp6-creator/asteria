@@ -64,6 +64,7 @@ function toast(text) {
 function stopInput() {
   keys = {};
   mouseDown = false;
+  miningFinger = null;
   mineTime = 0;
   dragging = null;
   document.exitPointerLock?.();
@@ -1096,6 +1097,12 @@ function interact() {
     return;
   }
   if (o.kind === 'animal') {
+    if (o.type === 'watcher') {
+      o.cooldown = 5;
+      toast('Le veilleur recule. Tu as le temps de rejoindre ton abri.');
+      sfx('place');
+      return;
+    }
     if (o.type === 'slime') {
       o.angle += Math.PI;
       walkAnimal(o, 0.1, 3);
@@ -1197,7 +1204,7 @@ function settings() {
   modal(
     'Une pause au village',
     'MENU & OPTIONS',
-    `<div class="row"><button class="primary" id="resume">Reprendre</button><button class="secondary" id="guide">Comment jouer</button><button class="secondary" id="parentMenu">Espace parent</button><button class="secondary" id="mapMenu">Carte</button></div><div class="settings-row"><label for="difficulty">Difficulté des énigmes<small>Curieux : accompagné · Aventurier : plusieurs étapes · Expert : défis plus exigeants</small></label><select id="difficulty"><option value="1">Curieux</option><option value="2">Aventurier</option><option value="3">Expert</option></select></div><div class="settings-row"><label for="peaceful">Créatures nocturnes<small>En mode paisible, les lutins mousse ne te bousculent pas.</small></label><select id="peaceful"><option value="true">Paisible</option><option value="false">Petite aventure</option></select></div><div class="settings-row"><label for="quality">Qualité graphique<small>Allégée : sans ombres, pour les appareils moins puissants.</small></label><select id="quality"><option value="auto">Automatique</option><option value="medium">Moyenne</option><option value="high">Élevée</option><option value="low">Allégée</option></select></div><div class="settings-row"><label for="music">Musique du village</label><select id="music"><option value="true">Activée</option><option value="false">Désactivée</option></select></div><div class="settings-row"><label for="sound">Effets sonores</label><select id="sound"><option value="true">Activés</option><option value="false">Désactivés</option></select></div><div class="settings-row"><label for="sensitivity">Sensibilité de la souris</label><select id="sensitivity"><option value="0.6">Douce</option><option value="1">Normale</option><option value="1.5">Rapide</option></select></div><div class="row" style="margin-top:25px"><button class="secondary" id="exportSave">Exporter la partie</button><button class="secondary" id="importButton">Importer une partie</button><button class="secondary" id="respawn">Retour au village</button><button class="secondary" id="freeBuild">${profile.mode === 'creative' ? 'Reprendre mon aventure' : 'Ouvrir mon monde créatif'}</button><button class="secondary danger" id="newGame">Nouvelle partie</button></div><p class="muted">Progression, inventaire, cultures et constructions sont sauvegardés localement. L’export permet de les garder ou de les transférer vers un autre navigateur.</p>`,
+    `<div class="row"><button class="primary" id="resume">Reprendre</button><button class="secondary" id="guide">Comment jouer</button><button class="secondary" id="parentMenu">Espace parent</button><button class="secondary" id="mapMenu">Carte</button></div><div class="settings-row"><label for="difficulty">Difficulté des énigmes<small>Curieux : accompagné · Aventurier : plusieurs étapes · Expert : défis plus exigeants</small></label><select id="difficulty"><option value="1">Curieux</option><option value="2">Aventurier</option><option value="3">Expert</option></select></div><div class="settings-row"><label for="peaceful">Créatures nocturnes<small>En Petite aventure, les veilleurs de brume rôdent la nuit près de la mine et au sud du village. Monte un mur pour te cacher ou pose une torche pour les faire reculer.</small></label><select id="peaceful"><option value="true">Paisible</option><option value="false">Petite aventure</option></select></div><div class="row" id="nightTrip" hidden><button class="secondary" id="waitNight">Attendre le crépuscule</button></div><div class="settings-row"><label for="quality">Qualité graphique<small>Allégée : sans ombres, pour les appareils moins puissants.</small></label><select id="quality"><option value="auto">Automatique</option><option value="medium">Moyenne</option><option value="high">Élevée</option><option value="low">Allégée</option></select></div><div class="settings-row"><label for="music">Musique du village</label><select id="music"><option value="true">Activée</option><option value="false">Désactivée</option></select></div><div class="settings-row"><label for="sound">Effets sonores</label><select id="sound"><option value="true">Activés</option><option value="false">Désactivés</option></select></div><div class="settings-row"><label for="sensitivity">Sensibilité de la souris</label><select id="sensitivity"><option value="0.6">Douce</option><option value="1">Normale</option><option value="1.5">Rapide</option></select></div><div class="row" style="margin-top:25px"><button class="secondary" id="exportSave">Exporter la partie</button><button class="secondary" id="importButton">Importer une partie</button><button class="secondary" id="respawn">Retour au village</button><button class="secondary" id="freeBuild">${profile.mode === 'creative' ? 'Reprendre mon aventure' : 'Ouvrir mon monde créatif'}</button><button class="secondary danger" id="newGame">Nouvelle partie</button></div><p class="muted">Progression, inventaire, cultures et constructions sont sauvegardés localement. L’export permet de les garder ou de les transférer vers un autre navigateur.</p>`,
   );
   for (let k of [
     'difficulty',
@@ -1218,6 +1225,7 @@ function settings() {
         S.level = S.settings.difficulty;
         S.streak = 0;
       }
+      if (k === 'peaceful') updateNightTrip();
       if (k === 'quality') {
         applyQuality();
         refreshTorches();
@@ -1226,6 +1234,17 @@ function settings() {
       saveGame(false);
     };
   }
+  function updateNightTrip() {
+    const phase = S.time % 720;
+    $('nightTrip').hidden = S.creative || S.settings.peaceful || phase < 18 || phase >= 343;
+  }
+  updateNightTrip();
+  $('waitNight').onclick = () => {
+    S.time = Math.floor(S.time / 720) * 720 + 350;
+    closeModal();
+    saveGame(false);
+    toast('Le soir tombe. Les veilleurs sortent près de la mine et au sud du village.');
+  };
   $('parentMenu').onclick = parentPanel;
   $('resume').onclick = closeModal;
   $('guide').onclick = guide;
@@ -1279,6 +1298,6 @@ function credits() {
   modal(
     'Un monde pour apprendre',
     'À PROPOS D’ASTÉRIA',
-    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin, le village et les personnages sont créés pour Astéria. Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.1.2 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
+    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.2.0 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
   );
 }
