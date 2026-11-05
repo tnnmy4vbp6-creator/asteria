@@ -295,6 +295,7 @@ function useTemple(id) {
 }
 
 function visitTemple() {
+  S.voyageGuide = false;
   closeModal();
   player.pos.set(temple.x + 7.5, 6.1, temple.z + 14.9);
   player.yaw = 0;

@@ -1558,3 +1558,15 @@ body:has(#hud:not(.hidden)):has(#modal.hidden) {
 @media (pointer: coarse) {
   #modal input, #modal select, #modal textarea { font-size: 16px; }
 }
+#wordForm input {
+  width: 10em;
+  max-width: 100%;
+  font: inherit;
+  padding: 10px;
+}
+.parcel { display: grid; gap: 14px; }
+.parcel output { font-size: 1.35em; font-weight: 700; }
+.question-scene [lang=en] { display: inline-block; margin-top: 8px; }
+@media (max-width: 650px) {
+  .title-actions { flex-wrap: wrap; }
+}

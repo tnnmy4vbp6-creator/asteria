@@ -1360,6 +1360,7 @@ function initEngine() {
   dressTerrain(atlas).catch(console.error);
   addDetails();
   buildMill();
+  buildVoyageBoat();
   buildField();
   anchorVillageProps();
   batchVillage();
@@ -1598,7 +1599,7 @@ function updateTarget() {
   $('interactPrompt').style.display = text ? 'flex' : 'none';
   $('interactPrompt').querySelector('span').textContent = text;
   showWorldName(best?.name ? best : name);
-  $('targetLabel').textContent = !best && target ? BLOCKS[target.id].name : '';
+  $('targetLabel').textContent = !best && target ? BLOCKS[target.id].name + (blockWords[target.id] ? ' · ' + blockWords[target.id] : '') : '';
 }
 function anchorVillageProps() {
   // Restore the footing even when loading an older, excavated village.
@@ -1674,6 +1675,7 @@ function mine(dt) {
       if (logs) give({ wood: logs });
     }
     give({ [b.drop]: 1 });
+    if (typeof discoverWhilePlaying === 'function') discoverWhilePlaying(b.drop);
     if (t.id === 5 && Math.random() < 0.12) give({ apple: 1 });
     if (t.id === 5 && Math.random() < 0.15) give({ seed: 1 });
     if (t.id === 14) {
