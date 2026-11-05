@@ -798,8 +798,40 @@ function humanoid(n) {
   if (n.id === 'selene')
     meshBox(g, 0.25, 1.9, 0.29, 0.11, 0.11, 0.03, 0xe4c674);
   if (giant) {
-    meshBox(g, 0, 1.03, 0.2, 0.22, 0.3, 0.07, 0x87c8b1);
-    meshBox(g, -0.32, 1.35, 0, 0.45, 0.2, 0.5, 0x6e9265);
+    // A carved stone brow and an inlaid compass distinguish the portal keeper at dusk.
+    for (const side of [-1, 1]) {
+      meshBox(
+        g,
+        side * 0.13,
+        1.8,
+        0.245,
+        0.2,
+        0.055,
+        0.07,
+        0x778b79,
+      ).rotation.z = side * 0.12;
+      meshBox(g, side * 0.38, 1.3, 0, 0.32, 0.27, 0.48, 0x829582);
+      meshBox(g, side * 0.4, 1.46, -0.02, 0.25, 0.08, 0.34, 0x80974c);
+      meshBox(g, side * 0.19, 1.97, 0.02, 0.09, 0.24, 0.12, 0xc2aa72);
+    }
+    const crystal = new THREE.Mesh(
+      new THREE.OctahedronGeometry(1),
+      new THREE.MeshStandardMaterial({
+        color: 0x95e2d6,
+        emissive: 0x289d97,
+        emissiveIntensity: 0.9,
+        flatShading: true,
+      }),
+    );
+    crystal.position.set(0, 1.05, 0.23);
+    crystal.scale.set(0.14, 0.23, 0.08);
+    g.add(crystal);
+    for (const side of [-1, 1]) {
+      const eye = new THREE.Mesh(CUBE, crystal.material);
+      eye.position.set(side * 0.12, 1.73, 0.265);
+      eye.scale.set(0.073, 0.038, 0.018);
+      g.add(eye);
+    }
   }
   g.scale.setScalar(s);
   let yy = world.heights[Math.floor(n.x) + Math.floor(n.z) * VW] + 1;
@@ -1068,14 +1100,12 @@ function addDetails() {
         z = Math.floor(v[2]),
         key = x + VW * z;
       if (!world.floraColumns.has(key)) world.floraColumns.set(key, []);
-      world.floraColumns
-        .get(key)
-        .push({
-          mesh: m,
-          index: i,
-          matrix: tmpMatrix.clone(),
-          base: Math.floor(v[1]),
-        });
+      world.floraColumns.get(key).push({
+        mesh: m,
+        index: i,
+        matrix: tmpMatrix.clone(),
+        base: Math.floor(v[1]),
+      });
     });
     m.receiveShadow = true;
     scene.add(m);
@@ -1445,7 +1475,12 @@ function showWorldName(actor) {
   v.y += actor.nameHeight;
   camera.updateMatrixWorld();
   v.project(camera);
-  if (v.z < 0 || v.z >= 1 || Math.abs(v.x) > 0.98 || Math.abs(v.y) > 1) return;
+  if (v.z < -1 || v.z >= 1 || Math.abs(v.x) > 1.05 || v.y < -1) return;
+  // At arm's length the head can extend above the phone while the torso is visible.
+  if (v.y > 1) {
+    if (actor.pos.clone().project(camera).y > 1) return;
+    v.y = 1;
+  }
   label.textContent = actor.name;
   label.hidden = false;
   const w = label.offsetWidth,
@@ -1512,7 +1547,6 @@ function updateTarget() {
       score = rank;
     }
   }
-  showWorldName(name);
   nearObject = best;
   let text = '';
   if (best) {
@@ -1548,6 +1582,7 @@ function updateTarget() {
           : 'Utiliser l’atelier';
   $('interactPrompt').style.display = text ? 'flex' : 'none';
   $('interactPrompt').querySelector('span').textContent = text;
+  showWorldName(best?.name ? best : name);
   $('targetLabel').textContent = !best && target ? BLOCKS[target.id].name : '';
 }
 function anchorVillageProps() {

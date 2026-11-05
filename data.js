@@ -168,17 +168,19 @@ function validSave(s) {
     return false;
   }
 }
+let hasSavedWorld = false;
 try {
   let raw = localStorage.getItem(SAVE_KEY);
   if (raw) {
     let s = JSON.parse(raw);
-    if (validSave(s))
+    if (validSave(s)) {
+      hasSavedWorld = true;
       S = {
         ...freshState(),
         ...s,
         settings: { ...freshState().settings, ...s.settings },
       };
-    else loadNotice = 'Une sauvegarde invalide a été ignorée.';
+    } else loadNotice = 'Une sauvegarde invalide a été ignorée.';
   }
 } catch (e) {
   loadNotice =
