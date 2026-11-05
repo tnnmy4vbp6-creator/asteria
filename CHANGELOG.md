@@ -1,5 +1,11 @@
 # Versions
 
+## v2.4.0 — Les commandes du village
+
+- Six expéditions relient 36 situations d’anglais, grammaire, mathématiques, problèmes, logique et culture générale à six habitants. Les consignes anglaises peuvent être prononcées en anglais. Les missions alternent choix, saisie de mots, quantités à préparer, problèmes et mises en ordre.
+- Chaque cargaison terminée fournit des matériaux et ajoute un fanion sur la barque du moulin. Les étapes se sauvegardent dès la réussite. Les indices, explications et révisions sont accessibles dans la partie et l’espace parent suit chaque notion.
+- La visée nomme les blocs courants en français et en anglais. Miner, semer et récolter enrichissent le carnet. L’atelier permet de calculer les quantités pour fabriquer deux lots en une fois.
+
 ## v2.3.0 — Le Temple des éclipses
 
 - Une cour de grès dans le désert et une chambre à verrière, accessibles depuis l’accueil, le journal ou le monde. Le temple choisit une parcelle libre parmi trois emplacements pour préserver les constructions des anciennes parties.

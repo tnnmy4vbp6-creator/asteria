@@ -3,7 +3,7 @@
     "linkedom": "^0.18.12"
   },
   "name": "asteria",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "private": true,
   "scripts": {
     "test": "node test-core.cjs && node test-campaign.cjs && node test-mill.cjs",

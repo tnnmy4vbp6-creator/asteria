@@ -1,10 +1,12 @@
 # Astéria — Les gardiens du savoir
 
-**Version 2.3.0 · Le Temple des éclipses.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
+**Version 2.4.0 · Les commandes du village.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
 
 **[Jouer dans le navigateur](https://tnnmy4vbp6-creator.github.io/asteria/)** · [Code source](https://github.com/tnnmy4vbp6-creator/asteria) · [Nouveautés](CHANGELOG.md)
 
 ## Pour la famille
+
+**Jouer et apprendre** ouvre six commandes de village. Touchez **Rejoindre** puis la main face au personnage. Chaque commande mêle six matières. Les réponses et les explications restent dans le carnet et les essais apparaissent dans l’espace parent. Dans l’atelier, **Préparer 2 lots** permet de doubler une vraie recette avec ses matériaux.
 
 Depuis l’accueil, **Explorer le temple** ouvre le chapitre des éclipses. Suivre le rayon doré et utiliser la main pour faire pivoter les miroirs. Lorsque la porte s’ouvre, entrer dans le planétaire. La lunette permet de vérifier l’alignement des astres. La boussole obtenue révèle les coffres anciens sur la grande carte. Depuis une partie en cours, l’accès se trouve aussi dans le journal des quêtes.
 

@@ -1,5 +1,6 @@
 const dayMs = 86400000;
 const skillNames = {
+  batch: 'Mathématiques · Doubler une recette',
   'mill-flow': 'Régler le débit',
   cargo: 'Préparer les livraisons',
 };
@@ -29,6 +30,11 @@ function recordPractice(id, correct, now = Date.now()) {
   saveGame(false);
 }
 function skillTitle(id) {
+  if (id.startsWith('v:')) {
+    const [, route, subject] = id.split(':');
+    const step = VOYAGES.find(v => v.id === route)?.steps.find(s => s.subject === subject);
+    if (step) return voyageSubjects[subject].label + ' · ' + step.title;
+  }
   if (id.startsWith('k:'))
     return KNOWLEDGE[Number(id.slice(2))]?.[2] || 'Découverte';
   if (id.startsWith('p:')) return CHALLENGES[id.slice(2)]?.title || 'Épreuve';
@@ -36,6 +42,13 @@ function skillTitle(id) {
 }
 function parentPanel() {
   const list = Object.entries(S.practice).sort((a, b) => a[1].next - b[1].next);
+  const topics = typeof voyageSubjects === 'undefined' ? [] : Object.entries(voyageSubjects).flatMap(([id, topic]) => {
+    const records = list.filter(([key]) => key.startsWith('v:') && key.endsWith(':' + id));
+    if (!records.length) return [];
+    const completed = records.filter(([key]) => S.journal.includes(key)).length;
+    const due = records.filter(([,p]) => p.next <= Date.now()).length;
+    return ['<li><b>' + topic.label + '</b> · ' + completed + ' / 6 étapes terminées' + (due ? ' · à revoir : ' + due : '') + '</li>'];
+  });
   const rows = list
     .map(
       ([id, p]) =>
@@ -66,6 +79,7 @@ function parentPanel() {
       ' fabrications · ' +
       S.learned.length +
       ' découvertes de culture générale.</p>' +
+      (topics.length ? '<h3>Les commandes du village</h3><ul>'+topics.join('')+'</ul>' : '') +
       (list.length
         ? '<div class="table-scroll"><table><thead><tr><th>Notion</th><th>Réussites / essais</th><th>Erreurs</th><th>Palier</th><th>Révision</th></tr></thead><tbody>' +
           rows +

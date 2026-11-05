@@ -219,6 +219,7 @@ function wireControls() {
     (profile.mode === 'creative' ? 'Créatif' : 'Aventure');
   $('creditsButton').onclick = credits;
   $('playButton').onclick = beginPlay;
+  $('titleVoyage').onclick = () => { beginPlay(); voyageBoard(); };
   $('titleTemple').onclick = () => {
     if (!temple) {
       modal('Les trois sites sont déjà bâtis', 'LE TEMPLE DES ÉCLIPSES',

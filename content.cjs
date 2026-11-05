@@ -1,6 +1,7 @@
 const fs = require('node:fs'),
   path = require('node:path');
 const files = {
+  VOYAGES: 'voyages',
   FIELD_GUIDE: 'field-guide',
   ITEMS: 'items',
   RECIPES: 'recipes',

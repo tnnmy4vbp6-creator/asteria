@@ -54,3 +54,6 @@ Restent aussi à vérifier sur la durée : mises à jour avec plusieurs onglets,
 # Vérification de la 2.3.0
 
 Le scénario `node test-temple.cjs chrome URL` (ou `webkit`) joue le chapitre sur écran tactile émulé en paysage. Il rejoint le temple depuis les quêtes, place le joueur à portée des mécanismes, utilise le bouton main, recharge une partie avant la résolution, vérifie la collision de la porte puis la traverse avec le moteur de déplacement. Il essaie une observation incorrecte, aligne la Lune et ouvre la carte depuis la récompense. Un second chargement contrôle la découverte, la porte et l’attribution unique de l’expérience. La validation avec un enfant sur tablette physique reste ouverte.
+# Vérification de la 2.4.0
+
+`node test-voyages.cjs chrome URL` ou `node test-voyages.cjs webkit URL` démarre une partie tactile en portrait depuis **Jouer et apprendre**. Le scénario touche la main, essaie une réponse anglaise incorrecte, lit son indice, réussit puis recharge avant de poursuivre. Il exerce ensuite les commandes de voyage, visée et formulaires pour les 35 étapes suivantes. Il contrôle les six fanions, le carnet, la validité de la sauvegarde, la révision sans double récompense et le calcul d’une vraie recette avant débit du sac.

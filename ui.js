@@ -41,14 +41,14 @@ function sfx(type) {
     o.stop(audioContext.currentTime + 0.18);
   } catch (e) {}
 }
-function speak(text) {
+function speak(text, lang = 'fr-FR') {
   if (!('speechSynthesis' in window)) {
     toast('La lecture vocale n’est pas disponible dans ce navigateur.');
     return;
   }
   speechSynthesis.cancel();
   let u = new SpeechSynthesisUtterance(text);
-  u.lang = 'fr-FR';
+  u.lang = lang;
   u.rate = 0.9;
   speechSynthesis.speak(u);
 }
@@ -178,6 +178,16 @@ function updateHUD() {
     $('trackedName').textContent=done ? 'Boussole retrouvée' : s.open ? 'Aligne les astres' : 'Guide la lumière';
     $('trackedText').textContent=s.open ? 'Place la Lune entre le Soleil et la Terre.' : 'Pivote les miroirs vers le carré turquoise.';
     $('waypointText').textContent=done ? 'Les caches sont sur ta carte.' : n.name+' · '+distance+' m';
+  }
+  if (S.voyageGuide) {
+    const job = nextJob();
+    if (job) {
+      n = job.npc;
+      distance = Math.round(Math.hypot(player.pos.x - n.x - 0.5, player.pos.z - n.z - 0.5));
+      $('trackedName').textContent = job.s.title;
+      $('trackedText').textContent = voyageSubjects[job.s.subject].label + ' · ' + job.v.title;
+      $('waypointText').textContent = n.name + ' · ' + distance + ' m';
+    }
   }
   let angle = ((((player.yaw * 180) / Math.PI) % 360) + 360) % 360;
   $('compassDir').textContent =
@@ -350,7 +360,7 @@ function inventory(tab = 'craft') {
     'INVENTAIRE & FABRICATION',
     `<div class="tabs"><button id="craftTab" class="${tab === 'craft' ? 'active' : ''}">Fabrication</button><button id="buildTab" class="${tab === 'build' ? 'active' : ''}">Sac & équipement</button><button id="tradeTab" class="${tab === 'trade' ? 'active' : ''}">Marché du village</button></div>${
       tab === 'craft'
-        ? `<div class="two-col"><div><h3>Tes matériaux</h3><div class="inventory">${items.map(([k, n]) => `<div class="inv-item">${itemIcon(k)}<small>${itemName(k)}</small><b>${n}</b></div>`).join('')}</div><p class="muted">La meilleure pioche fabriquée s’équipe automatiquement. Les outils ne se cassent pas.</p></div><div><h3>Le livre des recettes</h3>${RECIPES.map((r, i) => `<div class="recipe"><div class="name">${ITEMS[r.out].icon} ${r.n} × ${itemName(r.out)}</div><p>${r.desc}</p><div class="cost">${costHTML(r.cost)}${r.furnace && !S.inv.furnace && !Object.values(S.edits).includes(13) ? '<br><span class="missing">Un four est nécessaire</span>' : ''}</div><button class="secondary" data-craft="${i}" ${canCraft(r) ? '' : 'disabled'} style="margin-top:10px">Fabriquer</button></div>`).join('')}</div></div>`
+        ? `<button class="secondary" id="workshopLesson">Préparer une commande de maths</button><div class="two-col"><div><h3>Tes matériaux</h3><div class="inventory">${items.map(([k, n]) => `<div class="inv-item">${itemIcon(k)}<small>${itemName(k)}</small><b>${n}</b></div>`).join('')}</div><p class="muted">La meilleure pioche fabriquée s’équipe automatiquement. Les outils ne se cassent pas.</p></div><div><h3>Le livre des recettes</h3>${RECIPES.map((r, i) => `<div class="recipe"><div class="name">${ITEMS[r.out].icon} ${r.n} × ${itemName(r.out)}</div><p>${r.desc}</p><div class="cost">${costHTML(r.cost)}${r.furnace && !S.inv.furnace && !Object.values(S.edits).includes(13) ? '<br><span class="missing">Un four est nécessaire</span>' : ''}</div><button class="secondary" data-craft="${i}" ${canCraft(r) ? '' : 'disabled'} style="margin-top:10px">Fabriquer</button>${canCraft(r) && Object.entries(r.cost).every(([k,n]) => (S.inv[k] || 0) >= 2*n) ? ` <button class="secondary" data-batch="${i}">Préparer 2 lots</button>` : ''}</div>`).join('')}</div></div>`
         : tab === 'build'
           ? `<p>Clique sur un objet pour l’équiper dans l’emplacement actuellement sélectionné (${S.selected + 1}). La nourriture peut être mangée directement.</p><div class="inventory">${items.map(([k, n]) => `<button class="inv-item" data-equip="${k}">${itemIcon(k)}<small>${itemName(k)}</small><b>${n}</b></button>`).join('')}</div><div id="itemAction" style="margin-top:18px"></div>`
           : `<p>Les émeraudes gagnées en explorant et en aidant les gardiens servent aux échanges. Aucune monnaie réelle.</p><div class="banner">Le marché est accessible quand tu es près du village.</div><div class="two-col">${[
@@ -374,9 +384,15 @@ function inventory(tab = 'craft') {
               .join('')}</div>`
     }`,
   );
+  if ($('workshopLesson')) $('workshopLesson').onclick = () => {
+    const job = nextJob('calcul');
+    if (job) { S.voyageGuide=true; doJob(job.v,job.s); }
+    else voyageBoard();
+  };
   $('craftTab').onclick = () => inventory('craft');
   $('buildTab').onclick = () => inventory('build');
   $('tradeTab').onclick = () => inventory('trade');
+  document.querySelectorAll('[data-batch]').forEach(b=>b.onclick=()=>craftBatch(RECIPES[Number(b.dataset.batch)]));
   document.querySelectorAll('[data-craft]').forEach(
     (b) =>
       (b.onclick = () => {
@@ -436,7 +452,7 @@ function quests() {
   modal(
     'Les cinq gardiens',
     'JOURNAL DE QUÊTES',
-    `${typeof temple !== 'undefined' && temple ? '<article class="quest-card"><h3>Le Temple des éclipses</h3><p>Dans la cour, trois miroirs dévient un rayon de lumière. Derrière la porte attend la boussole des caches.</p><button class="primary" id="visitTemple">Rejoindre le temple</button></article>' : ''}<article class="quest-card"><h3>Le moulin des deux rives</h3><b>${millHeading()}</b><p>${millClues[S.mill.stage]}</p></article><div class="banner">${NPCS.slice(0, 5).filter((n) => questProgress(n).done).length} / 5 sceaux réunis. Chaque mission associe une action dans le monde à une épreuve de réflexion.</div>${NPCS.map(
+    `<article class="quest-card"><h3>Les commandes du village</h3><p>Prépare six expéditions avec les habitants.</p><button class="primary" id="voyageBook">Jouer et apprendre</button></article>${typeof temple !== 'undefined' && temple ? '<article class="quest-card"><h3>Le Temple des éclipses</h3><p>Dans la cour, trois miroirs dévient un rayon de lumière. Derrière la porte attend la boussole des caches.</p><button class="primary" id="visitTemple">Rejoindre le temple</button></article>' : ''}<article class="quest-card"><h3>Le moulin des deux rives</h3><b>${millHeading()}</b><p>${millClues[S.mill.stage]}</p></article><div class="banner">${NPCS.slice(0, 5).filter((n) => questProgress(n).done).length} / 5 sceaux réunis. Chaque mission associe une action dans le monde à une épreuve de réflexion.</div>${NPCS.map(
       (n) => {
         let p = questProgress(n);
         return `<div class="quest-card ${p.done ? 'complete' : ''}"><span class="tag">${p.done ? 'ACCOMPLIE' : p.started ? 'EN COURS' : 'À DÉCOUVRIR'} · ${n.name}</span><h3>${n.quest}</h3><p>${n.goal}</p>${
@@ -456,11 +472,13 @@ function quests() {
       },
     ).join('')}`,
   );
+  $('voyageBook').onclick = voyageBoard;
   if ($('visitTemple')) $('visitTemple').onclick = visitTemple;
   document.querySelectorAll('[data-track]').forEach(
     (b) =>
       (b.onclick = () => {
         S.millDismissed = true;
+        S.voyageGuide = false;
         S.tracked = b.dataset.track;
         closeModal();
         updateHUD();
@@ -616,11 +634,13 @@ function showChallenge(c, onNext, label = 'LE DÉFI DU SAVOIR') {
   function success() {
     if (solved || modalToken !== token) return;
     solved = true;
+    if (c.onSolved) c.onSolved();
     if (c.practiceId) recordPractice(c.practiceId, true);
     $('feedback').className = 'feedback';
     $('feedback').textContent = 'Bien raisonné ! ' + c.explain;
     $('nextChallenge').classList.remove('hidden');
     $('hintButton').classList.add('hidden');
+    $('readQuestion').textContent = 'Écouter l’explication';
     $('readQuestion').onclick = () => speak(c.explain);
     sfx('success');
     $('nextChallenge').onclick = () => onNext(attempts);
@@ -678,6 +698,18 @@ function showChallenge(c, onNext, label = 'LE DÉFI DU SAVOIR') {
                 'Reprends les données une par une et sépare les étapes.'
             : c.hint,
         );
+    };
+  }
+  if (c.type === 'pack') drawPackingTask(c, success, wrong);
+  if (c.type === 'write') {
+    $('puzzle').innerHTML = '<form id="wordForm"><label for="wordInput">Le mot manquant</label> <input id="wordInput" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="32" required> <button class="primary">Vérifier</button></form>';
+    $('wordForm').onsubmit = e => {
+      e.preventDefault();
+      if (solved) return;
+      if ($('wordInput').value.trim().normalize().toLocaleLowerCase('fr') === c.answer) {
+        $('wordInput').disabled = true;
+        success();
+      } else wrong();
     };
   }
   if (c.type === 'order') {
@@ -959,6 +991,12 @@ function notebook() {
     .map((key) => {
       if (typeof key !== 'string') return null;
       let [type, id] = key.split(':');
+      if (type === 'terrain' && Object.hasOwn(fieldLessons,id)) return {title:fieldLessons[id][0],text:fieldLessons[id][1]};
+      if (type === 'v') {
+        const v = VOYAGES.find(v => v.id === id);
+        const s = v?.steps.find(s => voyageKey(v,s) === key);
+        return s ? { title:s.title, text:s.explain } : null;
+      }
       if (key === 'temple:eclipse') return { title: 'Une éclipse solaire', text: 'La Lune passe entre la Terre et le Soleil. Son ombre atteint une partie de la Terre.' };
       if (type === 'field') {
         const e = FIELD_GUIDE.find((e) => e.id === id);
@@ -977,8 +1015,9 @@ function notebook() {
   modal(
     'Le carnet des découvertes',
     'OBSERVER · COMPRENDRE · RETENIR',
-    `<div class="row spread"><p>${entries.length} découvertes conservées.</p><button class="primary" id="learnMore">Un nouveau défi</button></div><div class="banner"><b>Le sentier des naturalistes</b><p>${FIELD_GUIDE.map((e) => (S.journal.includes('field:' + e.id) ? '✓ ' + e.name : 'À explorer : ' + e.place)).join('<br>')}</p></div>${entries.length ? entries.map((e) => `<article class="book-entry"><h3>${e.title}</h3><p>${escapeHTML(e.text)}</p></article>`).join('') : '<p>Les explications des épreuves et des défis apparaîtront ici. Elles restent disponibles après avoir quitté le jeu.</p>'}`,
+    `<div class="row spread"><p>${entries.length} découvertes conservées.</p><button class="primary" id="learnMore">Un nouveau défi</button><button class="secondary" id="reviewVoyage">Mes commandes et révisions</button></div><div class="banner"><b>Le sentier des naturalistes</b><p>${FIELD_GUIDE.map((e) => (S.journal.includes('field:' + e.id) ? '✓ ' + e.name : 'À explorer : ' + e.place)).join('<br>')}</p></div>${entries.length ? entries.map((e) => `<article class="book-entry"><h3>${e.title}</h3><p>${escapeHTML(e.text)}</p></article>`).join('') : '<p>Les explications des épreuves et des défis apparaîtront ici. Elles restent disponibles après avoir quitté le jeu.</p>'}`,
   );
+  $('reviewVoyage').onclick = voyageBoard;
   $('learnMore').onclick = () => knowledgeQuestion();
 }
 function chestUI(t) {
@@ -1066,7 +1105,16 @@ function interact() {
     return;
   }
   if (o.kind === 'npc') {
+    const subject = Object.keys(voyageSubjects).find(k => voyageSubjects[k].npc === o.npc.id);
+    const job = nextJob(subject);
+    if (S.voyageGuide && job) { doJob(job.v,job.s); return; }
     talk(o.npc);
+    if (job) {
+      const button = document.createElement('button');
+      button.className='secondary'; button.textContent=voyageSubjects[subject].label+' · '+job.s.title;
+      $('modalBody').querySelector('.modal-content').prepend(button);
+      button.onclick=()=>{S.voyageGuide=true;doJob(job.v,job.s);};
+    }
     return;
   }
   if (o.kind === 'treasure') {
@@ -1103,12 +1151,14 @@ function interact() {
       S.crops[o.id] = { at: S.time, watered: S.mill.stage === 3 };
       if (S.mill.stage === 3) toast('Graine plantée et arrosée par le moulin.');
       else toast('Graine plantée. Appuie encore sur E pour l’arroser.');
+      if (typeof discoverWhilePlaying === 'function') discoverWhilePlaying('seedling');
     } else if (S.time - crop.at >= (crop.watered ? 35 : 100)) {
       give({ wheat: 1, seed: 2 });
       S.stats.harvest++;
       S.xp += 8;
       delete S.crops[o.id];
       toast('+1 blé et +2 graines. Tu peux replanter.');
+      if (typeof discoverWhilePlaying === 'function') discoverWhilePlaying('harvest');
       sfx('harvest');
     } else if (!crop.watered) {
       crop.watered = true;
@@ -1327,6 +1377,6 @@ function credits() {
   modal(
     'Un monde pour apprendre',
     'À PROPOS D’ASTÉRIA',
-    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.3.0 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
+    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.4.0 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
   );
 }

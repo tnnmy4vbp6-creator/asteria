@@ -12,6 +12,7 @@ const scripts = {
   ENGINE: 'engine.js',
   UI: 'ui.js',
   LEARNING: 'learning.js',
+  VOYAGE: 'voyage.js',
   MEDIA: 'media.js',
   TEMPLE: 'temple.js',
   WEATHER: 'weather.js',

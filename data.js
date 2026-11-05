@@ -23,6 +23,7 @@ function freshState() {
     mill: { stage: 0, mask: 0, errors: 0 },
     practice: {},
     playSeconds: 0,
+    voyageGuide: false,
     player: { x: 35.5, y: 6, z: 59.5, yaw: 0, pitch: 0 },
     inv: { wood: 2, apple: 4, seed: 6 },
     quests: {},
@@ -78,6 +79,7 @@ function validSave(s) {
     return !!(
       s &&
       s.version === 2 &&
+      (s.voyageGuide === undefined || typeof s.voyageGuide === 'boolean') &&
       obj(s.player) &&
       ['x', 'y', 'z', 'yaw', 'pitch'].every((k) =>
         Number.isFinite(s.player[k]),
@@ -94,7 +96,8 @@ function validSave(s) {
         (obj(s.practice) &&
           Object.entries(s.practice).every(
             ([id, p]) =>
-              (['mill-flow', 'cargo'].includes(id) ||
+              (['mill-flow', 'cargo','batch'].includes(id) ||
+                VOYAGES.some(v => v.steps.some(step => id === 'v:' + v.id + ':' + step.subject)) ||
                 /^k:\d+$/.test(id) ||
                 (id.startsWith('p:') &&
                   Object.hasOwn(CHALLENGES, id.slice(2)))) &&

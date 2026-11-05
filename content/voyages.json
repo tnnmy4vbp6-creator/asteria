@@ -1,0 +1,591 @@
+[
+  {
+    "id": "jardin",
+    "title": "Le potager des voyageurs",
+    "reward": {
+      "seed": 4
+    },
+    "steps": [
+      {
+        "subject": "anglais",
+        "title": "Le sac de Lila",
+        "story": "Bring the seeds, not the apples.",
+        "type": "choice",
+        "options": [
+          "Des graines",
+          "Des pommes",
+          "Des planches"
+        ],
+        "answer": 0,
+        "hint": "Seeds désigne ce que l’on sème.",
+        "hint2": "Not écarte le second objet.",
+        "explain": "Bring the seeds veut dire « apporte les graines ». Not the apples veut dire « pas les pommes »."
+      },
+      {
+        "subject": "grammaire",
+        "title": "L’étiquette du semis",
+        "story": "Complète l’étiquette du bac : « Les petites graines … dans la terre. »",
+        "type": "choice",
+        "options": [
+          "germent",
+          "germe",
+          "germons"
+        ],
+        "answer": 0,
+        "hint": "Qui fait l’action ?",
+        "hint2": "Remplace les petites graines par « elles ».",
+        "explain": "Avec « elles », le verbe germer s’écrit « germent ». La terminaison -ent ne s’entend pas."
+      },
+      {
+        "subject": "calcul",
+        "title": "Le ruban du potager",
+        "story": "Borde une parcelle carrée. Chaque côté mesure 3 mètres. Pose la longueur totale de ruban.",
+        "type": "pack",
+        "answer": 12,
+        "unit": "m",
+        "lots": [
+          3,
+          1
+        ],
+        "hint": "Un carré possède quatre côtés égaux.",
+        "hint2": "Additionne 3 + 3 + 3 + 3.",
+        "explain": "Le tour complet mesure 12 mètres : c’est le périmètre."
+      },
+      {
+        "subject": "problemes",
+        "title": "Le partage des graines",
+        "story": "Lila a 3 sachets de 5 graines. Elle garde 3 graines et partage le reste entre 2 bacs. Combien dans chaque bac ?",
+        "type": "number",
+        "answer": 6,
+        "hint": "Commence par compter toutes les graines.",
+        "hint2": "Il en reste 12 à partager en deux parts égales.",
+        "explain": "3 × 5 = 15. Après la réserve, 12 graines restent. Chaque bac en reçoit 6."
+      },
+      {
+        "subject": "logique",
+        "title": "L’ordre des semis",
+        "story": "Le bac doit être rempli avant le semis. On arrose juste après le semis. La pancarte vient en dernier.",
+        "type": "order",
+        "items": [
+          "Remplir le bac",
+          "Semer",
+          "Arroser",
+          "Planter la pancarte"
+        ],
+        "answer": [
+          "Remplir le bac",
+          "Semer",
+          "Arroser",
+          "Planter la pancarte"
+        ],
+        "hint": "Quelle action prépare le bac ?",
+        "hint2": "Les deux actions du milieu se suivent sans interruption.",
+        "explain": "La terre accueille les graines. On arrose ensuite et on termine par l’étiquette."
+      },
+      {
+        "subject": "culture",
+        "title": "Une haie pour les oiseaux",
+        "story": "Pour le printemps, Lila garde un arbre qui perd ses feuilles en automne. Lequel étiquettes-tu ?",
+        "type": "choice",
+        "options": [
+          "Le chêne pédonculé",
+          "Le sapin",
+          "Le pin sylvestre"
+        ],
+        "answer": 0,
+        "hint": "Cherche un arbre à feuilles caduques.",
+        "hint2": "Parmi ces arbres, deux portent des aiguilles toute l’année.",
+        "explain": "Le chêne pédonculé est un feuillu caduc. Le sapin et le pin sylvestre gardent leurs aiguilles en hiver."
+      }
+    ]
+  },
+  {
+    "id": "pont",
+    "title": "Le pont du marché",
+    "reward": {
+      "plank": 6
+    },
+    "steps": [
+      {
+        "subject": "anglais",
+        "title": "Les planches du pont",
+        "story": "Take two long boards.",
+        "type": "choice",
+        "options": [
+          "Deux longues planches",
+          "Deux petites pierres",
+          "Trois longues planches"
+        ],
+        "answer": 0,
+        "hint": "Two indique une quantité.",
+        "hint2": "Long décrit la taille et boards désigne les planches.",
+        "explain": "Two long boards signifie « deux longues planches »."
+      },
+      {
+        "subject": "grammaire",
+        "title": "Le panneau du passage",
+        "story": "Écris « solide » comme sur l’étiquette de plusieurs planches : « les planches … ».",
+        "type": "write",
+        "answer": "solides",
+        "hint": "Le déterminant « les » annonce plusieurs objets.",
+        "hint2": "Regarde la fin du nom et de l’adjectif.",
+        "explain": "Dans « les planches solides », le nom et l’adjectif prennent chacun un s."
+      },
+      {
+        "subject": "calcul",
+        "title": "Les deux rives",
+        "story": "Le pont doit mesurer 15 mètres. Une section de 4 mètres est déjà posée. Assemble la longueur manquante.",
+        "type": "pack",
+        "answer": 11,
+        "unit": "m",
+        "lots": [
+          5,
+          2,
+          1
+        ],
+        "hint": "La partie construite compte déjà.",
+        "hint2": "Cherche le nombre qui, ajouté à 4, donne 15.",
+        "explain": "Il manque 11 mètres, car 4 + 11 = 15."
+      },
+      {
+        "subject": "problemes",
+        "title": "Les clous de Borin",
+        "story": "Borin a 4 boîtes de 6 clous. Il utilise 9 clous sur une rive et 5 sur l’autre. Combien reste-t-il ?",
+        "type": "number",
+        "answer": 10,
+        "hint": "Compte d’abord le contenu des boîtes.",
+        "hint2": "Retire les deux groupes de clous utilisés.",
+        "explain": "24 clous au départ, 14 utilisés, donc 10 restants."
+      },
+      {
+        "subject": "logique",
+        "title": "Les essais du pont",
+        "story": "Le sac passe après la plume, mais avant la charrette. La pierre passe juste avant le sac.",
+        "type": "order",
+        "items": [
+          "Plume",
+          "Pierre",
+          "Sac",
+          "Charrette"
+        ],
+        "answer": [
+          "Plume",
+          "Pierre",
+          "Sac",
+          "Charrette"
+        ],
+        "hint": "La charrette arrive après le sac.",
+        "hint2": "Garde la pierre et le sac ensemble, dans cet ordre.",
+        "explain": "La plume précède la paire pierre-sac. La charrette termine l’essai."
+      },
+      {
+        "subject": "culture",
+        "title": "Une arche ancienne",
+        "story": "Choisis la légende du pont du Gard pour la carte de Nora. Que transportait son aqueduc ?",
+        "type": "choice",
+        "options": [
+          "De l’eau",
+          "Du blé sur des rails",
+          "De l’électricité"
+        ],
+        "answer": 0,
+        "hint": "Le nom aqueduc est lié à l’eau.",
+        "hint2": "Une pente très douce guidait le courant vers Nîmes.",
+        "explain": "L’aqueduc romain qui passait sur le pont du Gard amenait de l’eau vers Nîmes grâce à la gravité."
+      }
+    ]
+  },
+  {
+    "id": "musee",
+    "title": "Le musée des traces",
+    "reward": {
+      "torch": 4
+    },
+    "steps": [
+      {
+        "subject": "anglais",
+        "title": "Le coffre du musée",
+        "story": "Open the small chest under the table.",
+        "type": "choice",
+        "options": [
+          "Le petit coffre sous la table",
+          "Le grand coffre sur la table",
+          "Le petit coffre sur la table"
+        ],
+        "answer": 0,
+        "hint": "Small veut dire petit.",
+        "hint2": "Under indique une position plus basse.",
+        "explain": "The small chest under the table est le petit coffre sous la table."
+      },
+      {
+        "subject": "grammaire",
+        "title": "Le cartel du musée",
+        "story": "Choisis le texte qui raconte ce que faisait Soren hier : « Hier, il … les fossiles. »",
+        "type": "choice",
+        "options": [
+          "observait",
+          "observera",
+          "observons"
+        ],
+        "answer": 0,
+        "hint": "« Hier » renvoie au passé.",
+        "hint2": "Cherche le verbe que l’on peut employer avec « il » au passé.",
+        "explain": "« Il observait » est à l’imparfait. « Il observera » annonce une action future."
+      },
+      {
+        "subject": "calcul",
+        "title": "Les vitrines",
+        "story": "Le musée expose 3 rangées de 6 pierres. Prépare autant de supports que de pierres.",
+        "type": "pack",
+        "answer": 18,
+        "unit": "supports",
+        "lots": [
+          6,
+          3,
+          1
+        ],
+        "hint": "Chaque pierre doit avoir son support.",
+        "hint2": "Une rangée en demande 6. Il y a trois rangées.",
+        "explain": "Trois groupes de 6 donnent 18 supports."
+      },
+      {
+        "subject": "problemes",
+        "title": "Les tessons",
+        "story": "Soren trouve 17 morceaux de poterie. Il en ajoute 7, puis remplit des plateaux de 4. Combien de plateaux pleins ?",
+        "type": "number",
+        "answer": 6,
+        "hint": "Rassemble d’abord les deux trouvailles.",
+        "hint2": "Cherche combien de groupes de 4 forment 24.",
+        "explain": "17 + 7 = 24. Six plateaux de 4 portent les 24 tessons."
+      },
+      {
+        "subject": "logique",
+        "title": "Ranger les strates",
+        "story": "Dans ce terrain intact, les couches les plus anciennes sont en bas. Du bas vers le haut : argile puis sable. Le gravier est au-dessus du sable et sous la terre. Classe-les.",
+        "type": "order",
+        "items": [
+          "Argile",
+          "Sable",
+          "Gravier",
+          "Terre"
+        ],
+        "answer": [
+          "Argile",
+          "Sable",
+          "Gravier",
+          "Terre"
+        ],
+        "hint": "Commence au fond.",
+        "hint2": "Le gravier vient entre le sable et la terre.",
+        "explain": "Du plus ancien au plus récent : argile, sable, gravier, terre. L’ordre des couches aide à reconstituer une histoire."
+      },
+      {
+        "subject": "culture",
+        "title": "Une mer disparue",
+        "story": "Dans une roche en montagne, Soren reconnaît une ammonite fossile. Quelle information inscrire ?",
+        "type": "choice",
+        "options": [
+          "Cette roche s’est formée dans un milieu marin",
+          "Les ammonites vivaient dans les arbres",
+          "La montagne a toujours eu sa hauteur actuelle"
+        ],
+        "answer": 0,
+        "hint": "Une ammonite était un animal marin.",
+        "hint2": "Un terrain peut se soulever très longtemps après sa formation.",
+        "explain": "Des sédiments se sont déposés en mer. Bien plus tard, la roche qui contenait le fossile a pu être soulevée."
+      }
+    ]
+  },
+  {
+    "id": "etoiles",
+    "title": "La nuit des astronomes",
+    "reward": {
+      "glass": 4
+    },
+    "steps": [
+      {
+        "subject": "anglais",
+        "title": "Le poste d’observation",
+        "story": "Look east before sunrise.",
+        "type": "choice",
+        "options": [
+          "Regarder vers l’est avant le lever du Soleil",
+          "Regarder vers l’ouest avant le lever du Soleil",
+          "Regarder vers l’est après le coucher du Soleil"
+        ],
+        "answer": 0,
+        "hint": "East nomme une direction.",
+        "hint2": "Before signifie « avant » et sunrise « lever du Soleil ».",
+        "explain": "Look east before sunrise veut dire « regarde vers l’est avant le lever du Soleil »."
+      },
+      {
+        "subject": "grammaire",
+        "title": "Le journal de Sélène",
+        "story": "Sélène écrit pour demain. Conjugue « observer » : « Demain, nous … la Lune. »",
+        "type": "write",
+        "answer": "observerons",
+        "hint": "Le mot demain indique le futur.",
+        "hint2": "Cherche la forme du futur avec « nous ».",
+        "explain": "« Nous observerons » exprime une action future. « Nous observions » raconte le passé."
+      },
+      {
+        "subject": "calcul",
+        "title": "Régler le sablier",
+        "story": "La première observation dure un quart d’heure. Règle cette durée en minutes.",
+        "type": "pack",
+        "answer": 15,
+        "unit": "min",
+        "lots": [
+          10,
+          5,
+          1
+        ],
+        "hint": "Une heure dure 60 minutes.",
+        "hint2": "Partage 60 en quatre durées égales.",
+        "explain": "Quatre quarts d’heure de 15 minutes forment une heure."
+      },
+      {
+        "subject": "problemes",
+        "title": "La veille de nuit",
+        "story": "Deux observations durent chacune 12 minutes. Entre elles, Sélène note ses dessins pendant 5 minutes. Combien de minutes en tout ?",
+        "type": "number",
+        "answer": 29,
+        "hint": "Il y a deux temps d’observation.",
+        "hint2": "Ajoute la pause d’écriture une seule fois.",
+        "explain": "12 + 12 + 5 = 29 minutes."
+      },
+      {
+        "subject": "logique",
+        "title": "Les carnets du ciel",
+        "story": "Le carnet bleu est avant le blanc. Le rouge est juste après le blanc. Le vert ferme la pile. Range-les du premier au dernier.",
+        "type": "order",
+        "items": [
+          "Bleu",
+          "Blanc",
+          "Rouge",
+          "Vert"
+        ],
+        "answer": [
+          "Bleu",
+          "Blanc",
+          "Rouge",
+          "Vert"
+        ],
+        "hint": "Commence par repérer la fin.",
+        "hint2": "La paire blanc-rouge doit rester dans cet ordre.",
+        "explain": "Bleu, blanc, rouge, vert respecte les trois indices."
+      },
+      {
+        "subject": "culture",
+        "title": "La fiche de la Lune",
+        "story": "Sélène veut expliquer pourquoi on voit la Lune briller. Choisis la légende du dessin.",
+        "type": "choice",
+        "options": [
+          "Elle renvoie une partie de la lumière du Soleil",
+          "Elle fabrique sa lumière comme le Soleil",
+          "Elle reçoit la lumière des nuages"
+        ],
+        "answer": 0,
+        "hint": "La Lune est un satellite rocheux.",
+        "hint2": "Pense à un objet éclairé par une lampe.",
+        "explain": "Le Soleil produit sa lumière. Une partie de cette lumière atteint la Lune, puis est réfléchie vers nos yeux."
+      }
+    ]
+  },
+  {
+    "id": "phares",
+    "title": "Les balises de la rivière",
+    "reward": {
+      "wood": 4
+    },
+    "steps": [
+      {
+        "subject": "anglais",
+        "title": "La rive indiquée",
+        "story": "Put the light on the left bank.",
+        "type": "choice",
+        "options": [
+          "Poser la lampe sur la rive gauche",
+          "Poser la lampe sur la rive droite",
+          "Cacher la lampe sous le pont"
+        ],
+        "answer": 0,
+        "hint": "Light désigne ici la lampe.",
+        "hint2": "Left signifie gauche, right signifie droite.",
+        "explain": "On demande de poser la lampe sur la rive gauche. Pour nommer les rives, on regarde dans le sens du courant."
+      },
+      {
+        "subject": "grammaire",
+        "title": "Le signal perdu",
+        "story": "Quel petit mot transforme « Les lampes brillent » en « Les lampes … brillent plus » pour signaler la panne ?",
+        "type": "choice",
+        "options": [
+          "ne",
+          "se",
+          "de"
+        ],
+        "answer": 0,
+        "hint": "On veut dire le contraire.",
+        "hint2": "La négation entoure le verbe : … brillent plus.",
+        "explain": "« Ne » et « plus » vont ensemble dans « Les lampes ne brillent plus »."
+      },
+      {
+        "subject": "calcul",
+        "title": "Baliser le quai",
+        "story": "Sur le plan, une case représente 2 mètres. Pose la longueur de corde pour border 7 cases.",
+        "type": "pack",
+        "answer": 14,
+        "unit": "m",
+        "lots": [
+          4,
+          2,
+          1
+        ],
+        "hint": "Une case vaut plus d’un mètre.",
+        "hint2": "Double 7 pour passer des cases aux mètres.",
+        "explain": "7 × 2 = 14 mètres. L’échelle relie la carte au terrain."
+      },
+      {
+        "subject": "problemes",
+        "title": "Les bidons",
+        "story": "La barque porte au maximum 20 litres d’eau. Il y a déjà 2 bidons de 6 litres. Combien de litres peux-tu ajouter ?",
+        "type": "number",
+        "answer": 8,
+        "hint": "Calcule d’abord la quantité à bord.",
+        "hint2": "12 litres sont déjà à bord. Compare à 20.",
+        "explain": "2 × 6 = 12. Il reste 20 − 12 = 8 litres de capacité."
+      },
+      {
+        "subject": "logique",
+        "title": "Le code lumineux",
+        "story": "La balise répète toujours : bleu, or, or. Elle a déjà émis quatre éclats : bleu, or, or, bleu. Choisis les trois suivants.",
+        "type": "choice",
+        "options": [
+          "Or, or, bleu",
+          "Bleu, or, or",
+          "Or, bleu, or"
+        ],
+        "answer": 0,
+        "hint": "Repère le motif de trois éclats.",
+        "hint2": "Le quatrième éclat commence un nouveau motif.",
+        "explain": "Après le premier bleu du nouveau motif viennent deux éclats or, puis le bleu suivant."
+      },
+      {
+        "subject": "culture",
+        "title": "Le trajet de l’eau",
+        "story": "La carte montre une rivière qui rejoint un fleuve. Laquelle de ces légendes convient à cet endroit ?",
+        "type": "choice",
+        "options": [
+          "Un confluent",
+          "Une source",
+          "Une embouchure sur la mer"
+        ],
+        "answer": 0,
+        "hint": "Cherche le mot pour la rencontre de deux cours d’eau.",
+        "hint2": "Une source est un point de départ.",
+        "explain": "Le lieu où deux cours d’eau se rejoignent est un confluent. Une embouchure sur la mer se situe à la fin du trajet du fleuve."
+      }
+    ]
+  },
+  {
+    "id": "expo",
+    "title": "La fête des inventions",
+    "reward": {
+      "emerald": 3
+    },
+    "steps": [
+      {
+        "subject": "anglais",
+        "title": "La machine à eau",
+        "story": "Turn the wheel, then open the gate.",
+        "type": "choice",
+        "options": [
+          "Tourner la roue puis ouvrir la vanne",
+          "Ouvrir la vanne puis tourner la roue",
+          "Fermer la vanne puis tourner la roue"
+        ],
+        "answer": 0,
+        "hint": "Wheel signifie roue.",
+        "hint2": "Then introduit la deuxième action.",
+        "explain": "La consigne demande deux gestes dans l’ordre : tourner la roue, ensuite ouvrir la vanne."
+      },
+      {
+        "subject": "grammaire",
+        "title": "La lettre des inventeurs",
+        "story": "Dans « Les inventeurs présentent leur machine », quel groupe peux-tu remplacer par « ils » ?",
+        "type": "choice",
+        "options": [
+          "Les inventeurs",
+          "leur machine",
+          "présentent"
+        ],
+        "answer": 0,
+        "hint": "Demande-toi qui fait l’action.",
+        "hint2": "Le verbe « présentent » est au pluriel.",
+        "explain": "« Les inventeurs » est le sujet. On peut écrire « Ils présentent leur machine »."
+      },
+      {
+        "subject": "calcul",
+        "title": "La monnaie du stand",
+        "story": "Un outil coûte 13 pièces. On te donne 20 pièces. Prépare exactement la monnaie à rendre.",
+        "type": "pack",
+        "answer": 7,
+        "unit": "pièces",
+        "lots": [
+          5,
+          2,
+          1
+        ],
+        "hint": "Compare le prix et la somme reçue.",
+        "hint2": "De 13 à 15, ajoute 2. De 15 à 20, ajoute encore 5.",
+        "explain": "Il faut rendre 7 pièces : 13 + 7 = 20."
+      },
+      {
+        "subject": "problemes",
+        "title": "Les places de la fête",
+        "story": "On attend 26 visiteurs. Il y a 4 bancs de 5 places. Combien de chaises faut-il ajouter pour que chacun puisse s’asseoir ?",
+        "type": "number",
+        "answer": 6,
+        "hint": "Compte les places déjà prêtes.",
+        "hint2": "Compare 20 places et 26 visiteurs.",
+        "explain": "4 × 5 = 20. Il manque 6 places pour recevoir les 26 visiteurs."
+      },
+      {
+        "subject": "logique",
+        "title": "La machine à trier",
+        "story": "Le filtre reçoit l’eau après le tuyau. La cuve reçoit l’eau filtrée. La roue se trouve entre la cuve et le jardin. Assemble la partie qui suit le tuyau.",
+        "type": "order",
+        "items": [
+          "Filtre",
+          "Cuve",
+          "Roue",
+          "Jardin"
+        ],
+        "answer": [
+          "Filtre",
+          "Cuve",
+          "Roue",
+          "Jardin"
+        ],
+        "hint": "Que rencontre l’eau en sortant du tuyau ?",
+        "hint2": "La cuve est entre le filtre et la roue.",
+        "explain": "Après le tuyau, l’eau suit filtre, cuve, roue, jardin."
+      },
+      {
+        "subject": "culture",
+        "title": "La fiche du moulin",
+        "story": "Quand l’eau entraîne la roue du moulin, quelle transformation montres-tu aux visiteurs ?",
+        "type": "choice",
+        "options": [
+          "Le mouvement de l’eau met la roue en mouvement",
+          "La roue crée de l’eau",
+          "Le bois de la roue devient du vent"
+        ],
+        "answer": 0,
+        "hint": "Observe ce qui bouge avant que la roue tourne.",
+        "hint2": "Le courant pousse les pales.",
+        "explain": "La roue reçoit de l’énergie de l’eau en mouvement. Son axe peut transmettre ce mouvement à une machine."
+      }
+    ]
+  }
+]
