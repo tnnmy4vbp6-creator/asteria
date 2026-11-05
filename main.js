@@ -22,6 +22,7 @@ function useAimedObject() {
 }
 function wireControls() {
   wireStick();
+  wireGameTouches();
   for (const surface of [$('world'), $('hud')]) {
     // Safari can also start native gestures on labels nested inside a control.
     for (const event of ['contextmenu', 'selectstart', 'dblclick', 'gesturestart', 'gesturechange']) {
@@ -35,7 +36,7 @@ function wireControls() {
   }
   canvas.addEventListener('pointerdown', (e) => {
     if (!playing || paused) return;
-    canvas.focus();
+    if (e.pointerType !== 'touch') canvas.focus({ preventScroll: true });
     if (e.button === 2) {
       buildAtAim();
       return;

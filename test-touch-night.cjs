@@ -79,6 +79,30 @@ async function verify() {
       return { followed, sheltered, fled, day, peaceful, creative, grounded };
     });
     assert(Object.values(result).every(Boolean), JSON.stringify(result));
+    await page.evaluate(() => {
+      const watcher = animals.find(a => a.type === 'watcher');
+      watcher.pos.copy(player.pos);
+      watcher.pos.z -= 1.9;
+      watcher.cooldown = 0;
+      updateTarget();
+      if (nearObject !== watcher) throw Error('Veilleur hors de visée');
+      window.touchLog = { starts: 0, ends: 0, clicks: 0 };
+      for (const [type, key] of [['touchstart', 'starts'], ['touchend', 'ends']]) {
+        window.addEventListener(type, e => { if (e.defaultPrevented) touchLog[key]++; });
+      }
+      $('touchUse').addEventListener('click', () => touchLog.clicks++);
+    });
+    const hand = await page.locator('#touchUse').boundingBox();
+    for (let i = 0; i < 5; i++)
+      await page.touchscreen.tap(hand.x + hand.width / 2, hand.y + hand.height / 2);
+    assert.deepEqual(await page.evaluate(() => [
+      touchLog, visualViewport.scale, animals.find(a => a.type === 'watcher').cooldown > 0,
+    ]), [{ starts: 5, ends: 5, clicks: 5 }, 1, true]);
+    await page.locator('#pauseButton').tap();
+    await page.locator('#resume').waitFor({ state: 'visible' });
+    const resume = await page.locator('#resume').boundingBox();
+    await page.touchscreen.tap(resume.x + resume.width / 2, resume.y + resume.height / 2);
+    await page.waitForFunction(() => !paused, null, { polling: 100, timeout: 5000 });
     mkdirSync('.qa', { recursive: true });
     await page.screenshot({ path: '.qa/veilleur-' + engine + '.png', timeout: 15000 });
     assert.deepEqual(errors, []);

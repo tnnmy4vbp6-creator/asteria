@@ -1,5 +1,9 @@
 # Versions
 
+## v2.2.1 — Double appui pendant une rencontre
+
+- Le jeu prend en charge le toucher dès que le doigt se pose, y compris pendant un message ou sur la main. Une pression relâchée sur la même commande effectue une action. Les menus conservent leur défilement.
+
 ## v2.2.0 — Les veilleurs de brume
 
 - Les commandes de jeu et l’inventaire bloquent la sélection de texte et le zoom par double appui. Chaque appui sur Construire vise à nouveau la surface.
