@@ -1,5 +1,11 @@
 # Versions
 
+## v2.1.2 — Reprendre sa partie sur téléphone
+
+- L’entrée jouer.html charge les scripts et la feuille de style identifiés par leur contenu, même en présence de la version hors ligne précédente.
+- La version figure à l’accueil. À la reprise, la quête suivie conserve la priorité sur le tutoriel de Zoé.
+- Le prénom du personnage regardé utilise une taille de 22 pixels CSS, y compris de près. Atlas possède un plastron et des yeux de cristal visibles au crépuscule.
+
 ## v2.1.1 — Correctifs téléphone et monde
 
 - Prénom lisible au-dessus du personnage regardé, y compris sur téléphone en portrait. La visée et les obstacles interviennent dans le choix de l’interaction.

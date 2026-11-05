@@ -9,7 +9,8 @@ self.addEventListener('install', (event) => {
         cache.addAll(
           files.map((file) => new Request(file, { cache: 'reload' })),
         ),
-      ),
+      )
+      .then(() => self.skipWaiting()),
   );
 });
 self.addEventListener('activate', (event) => {
@@ -32,11 +33,32 @@ self.addEventListener('fetch', (event) => {
     !event.request.url.startsWith(self.registration.scope)
   )
     return;
-  const key =
+  const entry = new URL(event.request.url).pathname.slice(
+    new URL(self.registration.scope).pathname.length,
+  );
+  if (
     event.request.mode === 'navigate' &&
-    new URL(event.request.url).pathname.endsWith('/')
-      ? new URL('index.html', self.registration.scope).href
-      : event.request;
+    ['', 'jouer.html', 'index.html'].includes(entry)
+  ) {
+    event.respondWith(
+      (async () => {
+        try {
+          const response = await fetch(event.request, { cache: 'no-cache' });
+          if (response.ok) return response;
+        } catch {
+          /* The installed edition can run offline. */
+        }
+        return (
+          (await (
+            await caches.open(cacheName)
+          ).match(new URL('index.html', self.registration.scope))) ||
+          Response.error()
+        );
+      })(),
+    );
+    return;
+  }
+  const key = event.request;
   event.respondWith(
     caches
       .open(cacheName)

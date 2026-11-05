@@ -1482,7 +1482,7 @@ kbd {
   color: white;
   background: #17322d;
   font:
-    700 17px/1.25 system-ui,
+    750 22px/1.25 system-ui,
     sans-serif;
   white-space: nowrap;
   pointer-events: none;

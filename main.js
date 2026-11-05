@@ -10,9 +10,10 @@ function beginPlay() {
   updateHUD();
   sfx('success');
   if (loadNotice) toast(loadNotice);
-  toast(
-    'Bienvenue au village ! Avance vers Zoé, près du chemin. Elle a besoin de toi au moulin.',
-  );
+  else if (!hasSavedWorld)
+    toast(
+      'Bienvenue au village ! Avance vers Zoé, près du chemin. Elle a besoin de toi au moulin.',
+    );
 }
 function useAimedObject() {
   if (!playing || paused) return;
@@ -208,7 +209,7 @@ function wireControls() {
     give({ ironpick: 1 });
     S.creative = true;
   }
-  if (S.stats.mined || S.xp || S.mill.stage)
+  if (hasSavedWorld)
     $('playButton').innerHTML = 'Continuer l’aventure <span>→</span>';
   $('importSave').onchange = async (e) => {
     let file = e.target.files[0];
@@ -250,6 +251,6 @@ try {
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   navigator.serviceWorker
-    .register('./sw.js')
+    .register('./sw.js', { updateViaCache: 'none' })
     .catch((err) => console.warn('Mode hors ligne indisponible', err));
 }

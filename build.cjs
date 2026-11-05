@@ -67,7 +67,23 @@ async function build() {
         '"></script>',
     );
   }
-  fs.writeFileSync(dir + '/index.html', html);
+  const versioned = new Map();
+  html = html
+    .replace(
+      /(src|href)="\.\/([\w.-]+\.(?:css|js))"/g,
+      (_, attribute, file) => {
+        const hash = createHash('sha256')
+          .update(fs.readFileSync(path.join(dir, file)))
+          .digest('hex')
+          .slice(0, 12);
+        const url = file + '?rev=' + hash;
+        versioned.set(file, url);
+        return attribute + '="./' + url + '"';
+      },
+    )
+    .replace('{{VERSION}}', require('./package.json').version);
+  for (const entry of ['index.html', 'jouer.html'])
+    fs.writeFileSync(path.join(dir, entry), html);
   fs.writeFileSync(dir + '/.nojekyll', '');
   function files(folder) {
     return fs
@@ -90,7 +106,10 @@ async function build() {
   }
   const sw = read('worker.js')
     .replace('VERSION_TOKEN', JSON.stringify(digest.digest('hex').slice(0, 14)))
-    .replace('FILES_TOKEN', JSON.stringify(urls));
+    .replace(
+      'FILES_TOKEN',
+      JSON.stringify(urls.map((url) => versioned.get(url) || url)),
+    );
   fs.writeFileSync(dir + '/sw.js', sw);
   console.log(
     urls.length +

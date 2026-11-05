@@ -8,6 +8,7 @@ function batchRigidParts(group, keep = []) {
     (part) =>
       part.isMesh &&
       part.geometry === CUBE &&
+      !part.material.emissive?.getHex() &&
       !part.material.transparent &&
       !keep.includes(part),
   );

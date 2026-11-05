@@ -1,3 +1,7 @@
+# Vérification de la 2.1.2
+
+Le scénario `test-atlas-upgrade.cjs` démarre un serveur avec la distribution publiée 2.1.0 (commit 5be2f2b de gh-pages), attend que son service worker contrôle la page, puis enregistre une partie devant Atlas au crépuscule avec la quête de Borin et des quantités connues de bois et de planches. Il remplace la distribution sur la même origine, suit le nouveau lien dans le même onglet et contrôle le prénom, sa taille effective, le cadrage et la progression conservée. Il recharge enfin la page hors connexion. Exécuter avec `node test-atlas-upgrade.cjs webkit CHEMIN_DISTRIBUTION_2.1.0` ou remplacer webkit par chrome. Passer l’URL en deuxième argument pour le contrôle de la version publique. [Capture du test en portrait](docs/Atlas-portrait.png).
+
 # Vérification de la 2.1.1
 
 En plus des 33 tests de logique, `node test-mobile-regressions.cjs URL chrome` et `node test-mobile-regressions.cjs URL webkit` rejouent les situations signalées. Les tests placent le joueur et les acteurs dans un profil jetable, puis utilisent le moteur et le modèle GLB de la distribution. Ils vérifient le sens tête–queue pendant 260 pas, l’absence de contact du modèle avec un mur, le ciblage de Borin avec un mouton derrière le joueur, les rectangles de l’interface à 390 × 695, 695 × 320 et 1024 × 768, ainsi que le retrait d’une fleur au minage et après rechargement. Les essais utilisent des navigateurs de bureau en émulation tactile. Le parcours existant du moulin est également rejoué.
