@@ -51,3 +51,6 @@ Les essais WebKit montrent une limite de cadence malgré le regroupement des pi�
 5. **Sur les deux plateformes.** Relever modèle, OS et navigateur, orientation, lisibilité au soleil, marche et rotation simultanées, température après vingt minutes et cadence dans la mine et le village. Ajouter l’icône à l’accueil, rouvrir en mode avion, puis exporter et importer entre appareils.
 
 Restent aussi à vérifier sur la durée : mises à jour avec plusieurs onglets, manque d’espace disque, croissance de très grandes sauvegardes et imports à la limite de taille. Le sac utilise des piles sans capacité maximale de cases en jeu. Les scénarios de sac plein, météo et boss seront à écrire lors de l’introduction de ces systèmes.
+# Vérification de la 2.3.0
+
+Le scénario `node test-temple.cjs chrome URL` (ou `webkit`) joue le chapitre sur écran tactile émulé en paysage. Il rejoint le temple depuis les quêtes, place le joueur à portée des mécanismes, utilise le bouton main, recharge une partie avant la résolution, vérifie la collision de la porte puis la traverse avec le moteur de déplacement. Il essaie une observation incorrecte, aligne la Lune et ouvre la carte depuis la récompense. Un second chargement contrôle la découverte, la porte et l’attribution unique de l’expérience. La validation avec un enfant sur tablette physique reste ouverte.

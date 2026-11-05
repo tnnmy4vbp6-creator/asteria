@@ -53,6 +53,9 @@ const BLOCKS = {
   21: { name: 'Torche', drop: 'torch', color: '#d7a85e', hard: 0.2 },
   22: { name: 'Cactus', drop: 'leaf', color: '#6f8d53', hard: 0.4 },
   23: { name: 'Lit', drop: 'bed', color: '#a76e68', hard: 0.5 },
+  24: { name: 'Grès sculpté', color: '#c89a67', protected: true },
+  25: { name: 'Dalle de grès', color: '#e3cba3', protected: true },
+  26: { name: 'Grès ocre', color: '#b47a4d', protected: true },
 };
 const PLACE = {
   dirt: 2,
@@ -485,7 +488,7 @@ function textureAtlas() {
   c.width = 256;
   c.height = 256;
   let g = c.getContext('2d');
-  for (let id = 1; id <= 23; id++)
+  for (let id = 1; id <= 26; id++)
     for (let face = 0; face < 3; face++) {
       let tile = (id - 1) * 3 + face,
         tx = (tile % 16) * 16,
@@ -1348,6 +1351,7 @@ function initEngine() {
   });
   chunkGroup = new THREE.Group();
   scene.add(chunkGroup);
+  buildTemple();
   streamTerrain(true);
   for (const key of world.dirty) {
     rebuildChunk(...key.split(',').map(Number));
@@ -1560,7 +1564,7 @@ function updateTarget() {
   let text = '';
   if (best) {
     text =
-      best.kind === 'field' || best.kind === 'mill'
+      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple'
         ? best.label
         : best.kind === 'npc'
           ? `Parler à ${best.npc.name}`
@@ -1729,6 +1733,7 @@ function placeBlock() {
   if (
     !world.inBounds(x, y, z) ||
     world.get(x, y, z) !== 0 ||
+    (typeof temple !== 'undefined' && temple && x >= temple.x && x <= temple.x + 14 && z >= temple.z && z <= temple.z + 15 && y >= 5 && y <= 12) ||
     y < 1 ||
     y > 25 ||
     intersectsPlayer(x, y, z) ||
@@ -1969,6 +1974,8 @@ function animateWorld(dt) {
     g.visible = night;
   }
   animateField(night);
+  animateTemple(elapsed);
+  animateWeather();
   if (millWheel && S.mill.stage === 3) millWheel.rotation.z -= dt * 1.6;
   portal.material.opacity = S.won ? 0.5 + Math.sin(elapsed * 2) * 0.12 : 0.07;
   for (let p of particles) {

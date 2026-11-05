@@ -13,6 +13,8 @@ const scripts = {
   UI: 'ui.js',
   LEARNING: 'learning.js',
   MEDIA: 'media.js',
+  TEMPLE: 'temple.js',
+  WEATHER: 'weather.js',
   MILL: 'mill.js',
   BATCHING: 'batching.js',
   FIELD: 'field.js',

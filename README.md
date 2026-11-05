@@ -1,10 +1,12 @@
 # Astéria — Les gardiens du savoir
 
-**Version 2.2.1 · Le moulin des deux rives.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
+**Version 2.3.0 · Le Temple des éclipses.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
 
 **[Jouer dans le navigateur](https://tnnmy4vbp6-creator.github.io/asteria/)** · [Code source](https://github.com/tnnmy4vbp6-creator/asteria) · [Nouveautés](CHANGELOG.md)
 
 ## Pour la famille
+
+Depuis l’accueil, **Explorer le temple** ouvre le chapitre des éclipses. Suivre le rayon doré et utiliser la main pour faire pivoter les miroirs. Lorsque la porte s’ouvre, entrer dans le planétaire. La lunette permet de vérifier l’alignement des astres. La boussole obtenue révèle les coffres anciens sur la grande carte. Depuis une partie en cours, l’accès se trouve aussi dans le journal des quêtes.
 
 Ouvrir le lien sur la tablette en paysage et toucher **Commencer l’aventure**. Zoé porte une casquette brune, juste à côté du point de départ. Le pouce gauche déplace le personnage ; glisser sur le décor à droite oriente la caméra. La main sert à parler et à utiliser un mécanisme.
 

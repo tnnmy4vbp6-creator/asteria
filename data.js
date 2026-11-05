@@ -19,6 +19,7 @@ let replacingSave = false;
 function freshState() {
   return {
     version: 2,
+    temple: { site: -1, mask: 6, open: false, moon: 0 },
     mill: { stage: 0, mask: 0, errors: 0 },
     practice: {},
     playSeconds: 0,
@@ -81,6 +82,7 @@ function validSave(s) {
       ['x', 'y', 'z', 'yaw', 'pitch'].every((k) =>
         Number.isFinite(s.player[k]),
       ) &&
+      (s.temple === undefined || (obj(s.temple) && Number.isInteger(s.temple.site) && s.temple.site >= -1 && s.temple.site < 3 && int(s.temple.mask, 8) && int(s.temple.moon, 8) && typeof s.temple.open === 'boolean')) &&
       (s.mill === undefined ||
         (obj(s.mill) &&
           int(s.mill.stage, 4) &&

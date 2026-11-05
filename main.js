@@ -219,6 +219,15 @@ function wireControls() {
     (profile.mode === 'creative' ? 'Créatif' : 'Aventure');
   $('creditsButton').onclick = credits;
   $('playButton').onclick = beginPlay;
+  $('titleTemple').onclick = () => {
+    if (!temple) {
+      modal('Les trois sites sont déjà bâtis', 'LE TEMPLE DES ÉCLIPSES',
+        '<p>Tes constructions occupent les emplacements du temple. Pour explorer ce chapitre, choisis une autre partie depuis Mes parties.</p>');
+      return;
+    }
+    beginPlay();
+    visitTemple();
+  };
   if (profile.mode === 'creative' && !S.inv.ironpick) {
     give(Object.fromEntries(Object.keys(PLACE).map((k) => [k, 64])));
     give({ ironpick: 1 });

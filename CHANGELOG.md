@@ -1,5 +1,13 @@
 # Versions
 
+## v2.3.0 — Le Temple des éclipses
+
+- Une cour de grès dans le désert et une chambre à verrière, accessibles depuis l’accueil, le journal ou le monde. Le temple choisit une parcelle libre parmi trois emplacements pour préserver les constructions des anciennes parties.
+- Le rayon lumineux se réfléchit selon l’orientation réelle de trois miroirs. Atteindre le récepteur ouvre le passage. Dans la chambre, aligner la Lune sur le Soleil et observer depuis la Terre permet de découvrir une éclipse.
+- La boussole gagnée marque sur la grande carte les coffres anciens encore fermés. Le carnet conserve l’explication et la partie garde les réglages du temple.
+- Trois textures de grès de Minetest Game, attribuées dans le registre des médias.
+- Une averse traverse la vallée chaque jour. Elle arrose les parcelles exposées, tombe en neige sur les cimes et épargne le désert. Un toit protège la culture située dessous.
+
 ## v2.2.1 — Double appui pendant une rencontre
 
 - Le jeu prend en charge le toucher dès que le doigt se pose, y compris pendant un message ou sur la main. Une pression relâchée sur la même commande effectue une action. Les menus conservent leur défilement.
