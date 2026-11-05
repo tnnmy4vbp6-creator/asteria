@@ -1540,6 +1540,11 @@ kbd {
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
 }
+html:has(#hud:not(.hidden)):has(#modal.hidden),
+body:has(#hud:not(.hidden)):has(#modal.hidden) {
+  touch-action: none;
+  overscroll-behavior: none;
+}
 #title, #modal, #modalBody, .modal-content {
   touch-action: manipulation;
 }

@@ -1,4 +1,43 @@
 let stickInput = { x: 0, y: 0 };
+function wireGameTouches() {
+  const taps = new Map();
+  const options = { capture: true, passive: false };
+  const actionAt = (el) => el?.closest('#hud button, #interactPrompt');
+  document.addEventListener('touchstart', (e) => {
+    if (!playing || paused) return;
+    // Claim gameplay touches before iOS can combine them into a page gesture.
+    // The stick, camera and held tools continue to use their pointer events.
+    if (e.cancelable) e.preventDefault();
+    for (const t of e.changedTouches) {
+      const action = actionAt(t.target);
+      taps.set(t.identifier, { action, x: t.clientX, y: t.clientY });
+    }
+  }, options);
+  document.addEventListener('touchmove', (e) => {
+    for (const t of e.changedTouches) {
+      const tap = taps.get(t.identifier);
+      if (!tap) continue;
+      if (e.cancelable) e.preventDefault();
+      if (Math.hypot(t.clientX - tap.x, t.clientY - tap.y) > 14) tap.action = null;
+    }
+  }, options);
+  function finish(e) {
+    for (const t of e.changedTouches) {
+      const tap = taps.get(t.identifier);
+      if (!tap) continue;
+      taps.delete(t.identifier);
+      if (e.cancelable) e.preventDefault();
+      if (e.type === 'touchcancel' || !playing || paused || !tap.action) continue;
+      const action = actionAt(document.elementFromPoint(t.clientX, t.clientY));
+      // An inventory update can replace the button under a finger.
+      const sameSlot = action?.dataset.slot !== undefined && action.dataset.slot === tap.action.dataset.slot;
+      if ((action === tap.action || sameSlot) && action.onclick) action.click();
+    }
+  }
+  document.addEventListener('touchend', finish, options);
+  document.addEventListener('touchcancel', finish, options);
+  window.addEventListener('blur', () => taps.clear());
+}
 function wireStick() {
   const base = $('joystick'),
     thumb = base.firstElementChild;
