@@ -1,3 +1,7 @@
+# Vérification de la 2.1.1
+
+En plus des 33 tests de logique, `node test-mobile-regressions.cjs URL chrome` et `node test-mobile-regressions.cjs URL webkit` rejouent les situations signalées. Les tests placent le joueur et les acteurs dans un profil jetable, puis utilisent le moteur et le modèle GLB de la distribution. Ils vérifient le sens tête–queue pendant 260 pas, l’absence de contact du modèle avec un mur, le ciblage de Borin avec un mouton derrière le joueur, les rectangles de l’interface à 390 × 695, 695 × 320 et 1024 × 768, ainsi que le retrait d’une fleur au minage et après rechargement. Les essais utilisent des navigateurs de bureau en émulation tactile. Le parcours existant du moulin est également rejoué.
+
 # Vérification de la 2.1.0
 
 **Adresse testée** : https://tnnmy4vbp6-creator.github.io/asteria/. GitHub Pages a publié la branche gh-pages. Tests réalisés sur le poste Windows le 5 novembre 2026. Les contextes tactiles de bureau ne sont pas des appareils physiques.

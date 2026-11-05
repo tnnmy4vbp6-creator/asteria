@@ -1438,3 +1438,98 @@ kbd {
     bottom: 5px;
   }
 }
+
+/* The action and its feedback share one lane above the inventory. */
+#feedbackRail {
+  position: absolute;
+  left: 50%;
+  bottom: 145px;
+  transform: translateX(-50%);
+  width: min(400px, 92vw);
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  pointer-events: none;
+}
+#feedbackRail #toasts,
+#feedbackRail #interactPrompt {
+  position: static;
+  transform: none;
+  width: auto;
+  margin: 0;
+}
+#feedbackRail #toasts:empty {
+  display: none;
+}
+#feedbackRail .toast {
+  max-width: 100%;
+  background: #17362d;
+  font-size: 15px;
+  line-height: 1.35;
+  padding: 9px 13px;
+  animation: none;
+}
+#feedbackRail #interactPrompt {
+  max-width: 100%;
+  text-align: center;
+  background: #17322d;
+}
+#worldName {
+  position: absolute;
+  padding: 3px 9px;
+  border: 1px solid #b7ccab;
+  border-radius: 5px;
+  color: white;
+  background: #17322d;
+  font:
+    700 17px/1.25 system-ui,
+    sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+}
+@media (pointer: coarse) {
+  #feedbackRail {
+    bottom: calc(224px + env(safe-area-inset-bottom));
+    width: min(380px, 94vw);
+  }
+  #interactPrompt kbd {
+    display: none;
+  }
+  #feedbackRail #interactPrompt {
+    padding: 7px 13px;
+    font-size: 15px;
+  }
+  #targetLabel {
+    display: none;
+  }
+}
+@media (pointer: coarse) and (max-width: 600px) and (orientation: portrait) {
+  #questTrack {
+    top: 82px;
+    width: auto;
+    max-width: calc(100% - 118px);
+    padding: 7px 10px;
+  }
+  #questTrack .tiny,
+  #questTrack p {
+    display: none;
+  }
+  #waypointText {
+    display: block;
+    font-size: 13px;
+  }
+  #minimap {
+    width: 70px;
+    height: 70px;
+    top: 82px;
+  }
+  #waypoint {
+    display: none;
+  }
+}
+@media (pointer: coarse) and (max-height: 520px) {
+  #feedbackRail {
+    bottom: 62px;
+    width: calc(100% - 280px);
+  }
+}

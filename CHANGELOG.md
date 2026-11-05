@@ -1,5 +1,13 @@
 # Versions
 
+## v2.1.1 — Correctifs téléphone et monde
+
+- Prénom lisible au-dessus du personnage regardé, y compris sur téléphone en portrait. La visée et les obstacles interviennent dans le choix de l’interaction.
+- Un seul message de retour et une zone distincte des commandes tactiles. Le suivi de quête est compact sur les petits écrans.
+- Orientation du renard alignée sur la direction de marche. Les animaux vérifient leur encombrement et changent de direction devant les blocs.
+- Les fleurs disparaissent quand leur support est miné. Abattre un tronc naturel récupère le bois détaché et retire les feuilles privées de support. Les fondations des objets de quête sont protégées.
+- Nouveau scénario de régression en Chrome et WebKit, fondé sur les quatre situations photographiées.
+
 ## v2.1.0 — Le moulin des deux rives
 
 - Nouvelle aventure accessible au point de départ. Zoé demande deux pales, la roue consomme quatre planches et les conduites contrôlent l’irrigation. Le moulin réparé ouvre des commandes de livraison à cinq paliers.

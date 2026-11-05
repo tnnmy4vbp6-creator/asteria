@@ -20,6 +20,8 @@ function buildMill() {
       pos: group.position,
       group,
       label: site.label,
+      name: site.id === 'zoe' ? 'Zoé' : null,
+      nameHeight: 2.06,
     });
     const brass = 0xd39b4e,
       timber = 0x73503e,
@@ -34,9 +36,6 @@ function buildMill() {
       meshBox(group, 0, 1.55, 0, 0.48, 0.49, 0.48, 0x9e704f);
       meshBox(group, 0, 1.82, 0, 0.62, 0.14, 0.57, 0x854d39);
       meshBox(group, 0.42, 0.69, 0.15, 0.18, 0.25, 0.15, brass);
-      const name = textSprite('Zoé · mécanicienne', '#ffe1a4', 2.6);
-      name.position.y = 2.25;
-      group.add(name);
     } else if (site.id === 'wheel') {
       for (const z of [-1.1, 1.1])
         meshBox(group, 0, 0.85, z, 0.35, 2.6, 0.35, timber);

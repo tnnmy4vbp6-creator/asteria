@@ -159,6 +159,21 @@ check('swimming jump can clear a three-block river bank', () => {
   );
   assert(run('maxSwimY') >= 5, 'cannot escape river');
 });
+check(
+  'a severed natural tree releases upper logs, keeps player blocks and survives reload',
+  () => {
+    run(`S=freshState();world=new VoxelWorld();var tree=world.trees.find(t=>t.x===28&&t.z===63);
+ var topLeaf=world.index(tree.x,tree.top+1,tree.z);
+ world.set(tree.x+1,tree.top+1,tree.z,5,true);
+ world.set(tree.x,tree.y,tree.z,0,true);var fallen=world.settleTrees()`);
+    assert(run('fallen') >= 4);
+    assert.equal(run('world.data[topLeaf]'), 0);
+    assert.equal(run('world.get(tree.x+1,tree.top+1,tree.z)'), 5);
+    run('world=new VoxelWorld()');
+    assert.equal(run('world.data[topLeaf]'), 0);
+    assert.equal(run('world.get(tree.x,tree.top,tree.z)'), 0);
+  },
+);
 console.log(
   JSON.stringify(
     { tests: count, walkableCells: paths.size, destinations: paths.npcs },

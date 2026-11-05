@@ -9,7 +9,7 @@ export async function dressFoxes(foxes) {
     const scale = 1.0 / (box.max.y - box.min.y);
     body.scale.setScalar(scale);
     body.position.y = -box.min.y * scale;
-    body.rotation.y = Math.PI;
+    // The GLB faces +Z, the same forward axis as animal movement.
     body.traverse((node) => {
       if (node.isMesh) {
         node.castShadow = true;
