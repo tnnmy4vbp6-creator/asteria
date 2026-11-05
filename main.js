@@ -22,13 +22,22 @@ function useAimedObject() {
 }
 function wireControls() {
   wireStick();
+  for (const surface of [$('world'), $('hud')]) {
+    // Safari can also start native gestures on labels nested inside a control.
+    for (const event of ['contextmenu', 'selectstart', 'dblclick', 'gesturestart', 'gesturechange']) {
+      surface.addEventListener(event, (e) => e.preventDefault(), { passive: false });
+    }
+  }
   let canvas = renderer.domElement;
-  canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+  function buildAtAim() {
+    target = getVoxelRay();
+    placeBlock();
+  }
   canvas.addEventListener('pointerdown', (e) => {
     if (!playing || paused) return;
     canvas.focus();
     if (e.button === 2) {
-      placeBlock();
+      buildAtAim();
       return;
     }
     if (dragging) return;
@@ -147,7 +156,7 @@ function wireControls() {
     if (key === 'j') quests();
     if (key === 'm') showMap();
     if (key === 'l') notebook();
-    if (key === 'b') placeBlock();
+    if (key === 'b') buildAtAim();
     if (key === 'f') eat(S.inv.bread ? 'bread' : 'apple');
     if (/^[1-8]$/.test(key)) selectSlot(Number(key) - 1);
   });
@@ -157,6 +166,7 @@ function wireControls() {
   addEventListener('blur', () => {
     keys = {};
     mouseDown = false;
+    miningFinger = null;
     dragging = null;
     saveGame(false);
   });
@@ -184,14 +194,18 @@ function wireControls() {
   $('touchJump').onpointerup = $('touchJump').onpointercancel = () =>
     (keys[' '] = false);
   $('touchMine').onpointerdown = (e) => {
+    if (miningFinger !== null) return;
     e.preventDefault();
-    mouseDown = true;
+    miningFinger = e.pointerId;
     e.target.setPointerCapture(e.pointerId);
   };
-  $('touchMine').onpointerup = $('touchMine').onpointercancel = () =>
-    (mouseDown = false);
+  const releaseMine = (e) => {
+    if (e.pointerId === miningFinger) miningFinger = null;
+  };
+  $('touchMine').onpointerup = $('touchMine').onpointercancel =
+    $('touchMine').onlostpointercapture = releaseMine;
   $('touchUse').onclick = $('interactPrompt').onclick = useAimedObject;
-  $('touchPlace').onclick = placeBlock;
+  $('touchPlace').onclick = buildAtAim;
   $('questButton').onclick = quests;
   $('bagButton').onclick = () => inventory();
   $('bookButton').onclick = notebook;

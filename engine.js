@@ -464,6 +464,7 @@ let player = {
   paused = true,
   keys = {},
   mouseDown = false,
+  miningFinger = null,
   dragging = null,
   lockPending = false,
   target = null,
@@ -853,6 +854,7 @@ function humanoid(n) {
   return obj;
 }
 function animalRadius(type) {
+  if (type === 'watcher') return 0.55;
   return type === 'fox'
     ? 1.24
     : type === 'chicken'
@@ -931,7 +933,9 @@ function animal(type, x, z) {
               ? 0xe8e5d7
               : 0x84ad69,
     limbs = [];
-  if (type === 'slime') {
+  if (type === 'watcher') {
+    g.visible = false;
+  } else if (type === 'slime') {
     let m = meshBox(g, 0, 0.45, 0, 0.9, 0.9, 0.9, color);
     m.material.transparent = true;
     m.material.opacity = 0.75;
@@ -1055,6 +1059,8 @@ function addDetails() {
     ['sheep', 39, 23],
     ['slime', 19, 37],
     ['slime', 57, 49],
+    ['watcher', 40, 65],
+    ['watcher', 21, 38],
   ].forEach((a) => animal(...a));
   addChest(60.5, 5, 24.5, 'ruin-west', { rune: 1, emerald: 2 });
   addChest(69.5, 5, 28.5, 'ruin-east', { rune: 1, iron: 2 });
@@ -1272,14 +1278,16 @@ function refreshCrops() {
     }
   }
 }
+let torchSpots = [];
 function refreshTorches() {
   for (let l of torchLights) scene.remove(l);
   torchLights = [];
   let spots = [];
   for (let x = 0; x < VW; x++)
     for (let z = 0; z < VD; z++)
-      for (let y = 2; y < 14; y++)
+      for (let y = 0; y < VH; y++)
         if (world.get(x, y, z) === 21) spots.push([x + 0.5, y + 0.8, z + 0.5]);
+  torchSpots = spots;
   spots.sort(
     (a, b) =>
       Math.hypot(a[0] - player.pos.x, a[2] - player.pos.z) -
@@ -1354,6 +1362,7 @@ function initEngine() {
   ForestFauna.dressFoxes(animals.filter((a) => a.type === 'fox')).catch(
     console.error,
   );
+  ForestFauna.dressWatchers(animals.filter((a) => a.type === 'watcher')).catch(console.error);
   raycaster = new THREE.Raycaster();
   outline = new THREE.LineSegments(
     new THREE.EdgesGeometry(new THREE.BoxGeometry(1.006, 1.006, 1.006)),
@@ -1520,7 +1529,7 @@ function updateTarget() {
   let name = null,
     nameScore = -Infinity;
   for (let o of interactive) {
-    if (o.kind === 'field' && !o.group.visible) continue;
+    if ((o.kind === 'field' || o.type === 'watcher') && !o.group.visible) continue;
     if (o.kind === 'treasure' && S.opened.includes(o.id)) continue;
     let d = Math.hypot(o.pos.x - player.pos.x, o.pos.z - player.pos.z);
     if (d > 14) continue;
@@ -1558,6 +1567,8 @@ function updateTarget() {
           : best.kind === 'animal'
             ? best.type === 'sheep'
               ? 'Nourrir le mouton'
+              : best.type === 'watcher'
+                ? 'Éloigner le veilleur'
               : best.type === 'slime'
                 ? 'Repousser le lutin mousse'
                 : 'Observer et nourrir'
@@ -1723,6 +1734,7 @@ function placeBlock() {
     intersectsPlayer(x, y, z) ||
     interactive.some(
       (o) =>
+        (o.type !== 'watcher' || o.group.visible) &&
         (o.kind === 'animal'
           ? Math.abs(o.pos.x - x - 0.5) < animalRadius(o.type) + 0.5 &&
             Math.abs(o.pos.z - z - 0.5) < animalRadius(o.type) + 0.5
@@ -1828,11 +1840,64 @@ function movePlayer(dt) {
   camera.rotation.order = 'YXZ';
   camera.rotation.set(player.pitch, player.yaw, 0);
   hand.visible = true;
-  hand.rotation.x = mouseDown ? Math.sin(elapsed * 15) * 0.45 : 0;
+  hand.rotation.x = mouseDown || miningFinger !== null ? Math.sin(elapsed * 15) * 0.45 : 0;
   hand.position.y = -0.35 + (f || r ? Math.sin(elapsed * 8) * 0.025 : 0);
   toolHead.material.color.set(
     S.tool >= 3 ? 0xc6d2ce : S.tool >= 2 ? 0x9ba8a0 : 0xa78960,
   );
+}
+function nearestTorch(pos) {
+  let closest = null, distance = 16;
+  for (const spot of torchSpots) {
+    const squared = (spot[0] - pos.x) ** 2 + (spot[1] - pos.y - 1) ** 2 + (spot[2] - pos.z) ** 2;
+    if (squared < distance) {
+      closest = spot;
+      distance = squared;
+    }
+  }
+  return closest;
+}
+function updateWatcher(a, dt, night) {
+  if (!a.motion || !night || S.settings.peaceful || S.creative) {
+    a.group.visible = false;
+    return;
+  }
+  if (!a.group.visible && !animalFits(a.type, a.pos.x, a.pos.y, a.pos.z)) {
+    const spot = findAnimalSpawn(a.type, a.pos.x, a.pos.z);
+    if (!spot) return;
+    a.pos.copy(spot);
+  }
+  a.group.visible = true;
+  const delta = player.pos.clone().sub(a.pos);
+  const distance = delta.length();
+  const light = nearestTorch(a.pos);
+  const seesPlayer = distance < 14 && clearSight(a.pos.clone().add(new THREE.Vector3(0, 1.2, 0)), delta);
+  let speed = 0;
+  if (light) {
+    a.angle = Math.atan2(a.pos.x - light[0], a.pos.z - light[2]);
+    speed = 1.35;
+  } else if (seesPlayer) {
+    a.angle = Math.atan2(delta.x, delta.z);
+    if (a.cooldown > 0) {
+      a.angle += Math.PI;
+      speed = 1.2;
+    } else if (!nearestTorch(player.pos)) {
+      speed = 0.95;
+      if (distance < 1.35) {
+        S.health -= 8;
+        a.cooldown = 5;
+        toast('Le veilleur te bouscule ! Pose une torche ou éloigne-le avec la main.');
+        if (S.health <= 0) spawn();
+      }
+    }
+  }
+  const next = walkAnimal(a, dt, speed) ? a.run : a.idle;
+  if (next !== a.motion) {
+    next.reset().play();
+    a.motion.crossFadeTo(next, 0.18, false);
+    a.motion = next;
+  }
+  a.mixer.update(dt);
 }
 function animateWorld(dt) {
   let phase = (S.time % 720) / 720,
@@ -1867,6 +1932,10 @@ function animateWorld(dt) {
   for (let a of animals) {
     a.timer -= dt;
     a.cooldown = Math.max(0, a.cooldown - dt);
+    if (a.type === 'watcher') {
+      updateWatcher(a, dt, night);
+      continue;
+    }
     let d = a.pos.distanceTo(player.pos);
     if (a.timer < 0) {
       a.angle += (Math.random() - 0.5) * 2;
@@ -1939,7 +2008,7 @@ function tick(ts) {
     const steps = Math.ceil(dt / 0.032) || 1;
     for (let step = 0; step < steps; step++) movePlayer(dt / steps);
     if (++frameCount % 5 === 0) updateTarget();
-    if (mouseDown) mine(dt);
+    if (mouseDown || miningFinger !== null) mine(dt);
     else {
       mineTime = 0;
       $('mineProgress').style.display = 'none';

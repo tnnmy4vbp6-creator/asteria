@@ -1,3 +1,7 @@
+# Vérification de la 2.2.0
+
+`node test-touch-night.cjs webkit URL` et `node test-touch-night.cjs chrome URL` démarrent une partie en portrait à 390 × 695. Six appuis successifs sur l’inventaire doivent laisser le zoom à 100 % et la sélection vide. Chrome exerce aussi l’appui prolongé. Après un passage par le menu, deux appuis sur Construire doivent poser deux blocs. Le scénario vérifie la poursuite du veilleur, la coupure de sa ligne de vue, sa réaction à une torche posée, sa hauteur sur le sol et son absence en journée, en créatif et en mode paisible. Les navigateurs utilisent une émulation tactile sur ordinateur.
+
 # Vérification de la 2.1.2
 
 Le scénario `test-atlas-upgrade.cjs` démarre un serveur avec la distribution publiée 2.1.0 (commit 5be2f2b de gh-pages), attend que son service worker contrôle la page, puis enregistre une partie devant Atlas au crépuscule avec la quête de Borin et des quantités connues de bois et de planches. Il remplace la distribution sur la même origine, suit le nouveau lien dans le même onglet et contrôle le prénom, sa taille effective, le cadrage et la progression conservée. Il recharge enfin la page hors connexion. Exécuter avec `node test-atlas-upgrade.cjs webkit CHEMIN_DISTRIBUTION_2.1.0` ou remplacer webkit par chrome. Passer l’URL en deuxième argument pour le contrôle de la version publique. [Capture du test en portrait](docs/Atlas-portrait.png).
@@ -47,4 +51,3 @@ Les essais WebKit montrent une limite de cadence malgré le regroupement des pi�
 5. **Sur les deux plateformes.** Relever modèle, OS et navigateur, orientation, lisibilité au soleil, marche et rotation simultanées, température après vingt minutes et cadence dans la mine et le village. Ajouter l’icône à l’accueil, rouvrir en mode avion, puis exporter et importer entre appareils.
 
 Restent aussi à vérifier sur la durée : mises à jour avec plusieurs onglets, manque d’espace disque, croissance de très grandes sauvegardes et imports à la limite de taille. Le sac utilise des piles sans capacité maximale de cases en jeu. Les scénarios de sac plein, météo et boss seront à écrire lors de l’introduction de ces systèmes.
-

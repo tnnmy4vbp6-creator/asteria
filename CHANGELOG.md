@@ -1,5 +1,10 @@
 # Versions
 
+## v2.2.0 — Les veilleurs de brume
+
+- Les commandes de jeu et l’inventaire bloquent la sélection de texte et le zoom par double appui. Chaque appui sur Construire vise à nouveau la surface.
+- En Petite aventure, deux veilleurs nocturnes suivent les joueurs à découvert. Une torche les repousse et un mur coupe leur vue. Le mode Paisible reste le réglage initial.
+
 ## v2.1.2 — Reprendre sa partie sur téléphone
 
 - L’entrée jouer.html charge les scripts et la feuille de style identifiés par leur contenu, même en présence de la version hors ligne précédente.

@@ -79,7 +79,7 @@ async function verify() {
     await p.goto(
       new URL('jouer.html?v=' + require('./package.json').version, base).href,
     );
-    assert.match(await p.locator('.edition').innerText(), /2\.1\.2/);
+    assert.equal(await p.locator('.edition').innerText(), 'ASTÉRIA · VERSION ' + require('./package.json').version);
     await p.locator('#playButton').tap();
     await p.waitForFunction(
       () =>
@@ -135,7 +135,7 @@ async function verify() {
     );
     console.log(
       engine,
-      live ? 'HTTPS' : '2.1.0 → 2.1.2',
+      live ? 'HTTPS' : 'mise à jour depuis 2.1.0',
       JSON.stringify(info),
       'offline OK',
     );

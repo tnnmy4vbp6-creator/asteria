@@ -1,4 +1,4 @@
-# Médias et licences de la 2.1
+# Médias et licences d’Astéria
 
 Toutes les ressources de jeu sont distribuées avec le site. Les liens ci-dessous servent aux crédits. Les noms des PNG et OGG de Minetest ont perdu le préfixe default_. Les images sont assemblées à l’exécution, parfois superposées dans un atlas. Les contributions dérivées de ces textures partagent la licence CC BY-SA 3.0. Les sons restent dans leur encodage original.
 
@@ -12,6 +12,7 @@ Toutes les ressources de jeu sont distribuées avec le site. Les liens ci-dessou
 | grass_footstep.1/.2, place_node.1 | Minetest Game | Mito551 | [Crédits](licenses/Minetest-credits.md) | CC BY-SA 3.0 | marche, construction |
 | dig_choppy.1 | Freesound via Minetest Game | Sheyvan | [Original](https://freesound.org/people/Sheyvan/sounds/476113/) | CC0 1.0 | coupe du bois |
 | dig_cracky.1 | Freesound via Minetest Game | Benboncan | [Original](https://freesound.org/people/Benboncan/sounds/71823/) | CC BY 3.0 | coup de pioche |
+| brume.glb, brume.png | Animated Characters 1 | Kenney | [Pack original](https://opengameart.org/content/animated-characters-1) · [Licence](licenses/Kenney-characters.txt) | CC0 | characterMedium, tenue zombieC et animations idle/run convertis en glTF |
 | Fox.glb | Khronos glTF Sample Assets | PixelMannen (modèle), tomkranis (rig et animations), AsoboStudio et scurest (conversion) | [Notice source](https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/Fox) | modèle CC0, animation et conversion CC BY 4.0 | deux renards, mise à l’échelle, orientation et cycle de marche à l’exécution |
 | Port Town Loop | OpenGameArt | beardalaxy | [Fiche de l’œuvre](https://opengameart.org/content/port-town-loop) | CC0 1.0 | musique optionnelle, volume réduit |
 | Three.js, GLTFLoader, SkeletonUtils | Three.js r160 | Three.js Authors | [Bibliothèque](https://github.com/mrdoob/three.js/tree/r160) | MIT | rendu et animation |
