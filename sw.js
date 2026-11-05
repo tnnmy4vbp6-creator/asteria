@@ -1,5 +1,5 @@
 const prefix = 'asteria:' + new URL(self.registration.scope).pathname + ':';
-const cacheName = prefix + "19988d85f554c3";
+const cacheName = prefix + "ccb74f3b9ef1f7";
 const files = ["assets/icons/icon-192.png","assets/icons/icon-512.png","assets/models/Fox.glb","assets/music/port-town.ogg","assets/sounds/dig_choppy.1.ogg","assets/sounds/dig_cracky.1.ogg","assets/sounds/grass_footstep.1.ogg","assets/sounds/grass_footstep.2.ogg","assets/sounds/place_node.1.ogg","assets/textures/brick.png","assets/textures/cactus_side.png","assets/textures/dirt.png","assets/textures/grass.png","assets/textures/grass_side.png","assets/textures/leaves.png","assets/textures/mineral_coal.png","assets/textures/mineral_iron.png","assets/textures/sand.png","assets/textures/snow.png","assets/textures/stone.png","assets/textures/stone_brick.png","assets/textures/tree.png","assets/textures/tree_top.png","assets/textures/wood.png","batching.js","content.js","data.js","engine.js","fauna.js","field.js","index.html","learning.js","licenses/Fox.md","licenses/Minetest-credits.md","licenses/Minetest-media.txt","licenses/Three.js-LICENSE.txt","main.js","manifest.webmanifest","media.js","mill.js","profiles.js","style.css","tablet.js","three.min.js","ui.js"];
 self.addEventListener('install', (event) => {
   event.waitUntil(

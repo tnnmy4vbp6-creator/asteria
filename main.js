@@ -14,6 +14,11 @@ function beginPlay() {
     'Bienvenue au village ! Avance vers Zoé, près du chemin. Elle a besoin de toi au moulin.',
   );
 }
+function useAimedObject() {
+  if (!playing || paused) return;
+  updateTarget();
+  interact();
+}
 function wireControls() {
   wireStick();
   let canvas = renderer.domElement;
@@ -136,7 +141,7 @@ function wireControls() {
     if (paused || !playing) return;
     keys[key] = true;
     if (e.repeat) return;
-    if (key === 'e') interact();
+    if (key === 'e') useAimedObject();
     if (key === 'i') inventory();
     if (key === 'j') quests();
     if (key === 'm') showMap();
@@ -184,7 +189,7 @@ function wireControls() {
   };
   $('touchMine').onpointerup = $('touchMine').onpointercancel = () =>
     (mouseDown = false);
-  $('touchUse').onclick = $('interactPrompt').onclick = interact;
+  $('touchUse').onclick = $('interactPrompt').onclick = useAimedObject;
   $('touchPlace').onclick = placeBlock;
   $('questButton').onclick = quests;
   $('bagButton').onclick = () => inventory();

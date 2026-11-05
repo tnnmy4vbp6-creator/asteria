@@ -78,6 +78,8 @@ class VoxelWorld {
   constructor() {
     this.data = new Uint8Array(VW * VH * VD);
     this.heights = new Int8Array(VW * VD);
+    this.trees = [];
+    this.floraColumns = new Map();
     this.dirty = new Set();
     this.protected = new Set();
     this.generate();
@@ -96,6 +98,7 @@ class VoxelWorld {
     this.data[this.index(x, y, z)] = id;
     if (edit) {
       S.edits[this.index(x, y, z)] = id;
+      this.refreshFloraAt(x, z);
       for (let [dx, dz] of [
         [0, 0],
         [1, 0],
@@ -109,6 +112,54 @@ class VoxelWorld {
           this.dirty.add(cx + ',' + cz);
       }
     }
+  }
+  refreshFloraAt(x, z) {
+    const parts = this.floraColumns.get(x + VW * z);
+    if (!parts) return;
+    for (const { mesh, index, matrix, base } of parts) {
+      const grows =
+        this.get(x, base - 1, z) === 1 && this.get(x, base, z) === 0;
+      mesh.setMatrixAt(
+        index,
+        grows ? matrix : new THREE.Matrix4().makeScale(0, 0, 0),
+      );
+      mesh.instanceMatrix.needsUpdate = true;
+    }
+  }
+  // Keep overlapping crowns if a neighbouring intact tree still carries them.
+  settleTrees() {
+    const supported = new Set(),
+      detached = new Set();
+    let fallenLogs = 0;
+    for (const tree of this.trees) {
+      let rooted = this.solid(tree.x, tree.y - 1, tree.z);
+      for (let y = tree.y; y <= tree.top; y++) {
+        const key = this.index(tree.x, y, tree.z);
+        const log = this.get(tree.x, y, tree.z) === 4;
+        if (!rooted && log && !Object.hasOwn(S.edits, key)) {
+          this.set(tree.x, y, tree.z, 0, true);
+          fallenLogs++;
+        }
+        rooted = rooted && log;
+      }
+      for (const key of tree.crown) (rooted ? supported : detached).add(key);
+    }
+    for (const key of detached) {
+      if (
+        !supported.has(key) &&
+        this.data[key] === 5 &&
+        !Object.hasOwn(S.edits, key)
+      ) {
+        this.set(
+          key % VW,
+          Math.floor(key / (VW * VD)),
+          Math.floor(key / VW) % VD,
+          0,
+          true,
+        );
+      }
+    }
+    return fallenLogs;
   }
   solid(x, y, z) {
     let t = this.get(x, y, z);
@@ -307,6 +358,7 @@ class VoxelWorld {
       )
         this.data[n] = v;
     }
+    if (Object.keys(S.edits).length) this.settleTrees();
   }
   house(x, z, w, d, roof) {
     let y = 5;
@@ -337,13 +389,21 @@ class VoxelWorld {
   }
   tree(x, y, z, pine) {
     let h = pine ? 6 : 4;
+    const tree = { x, y, z, top: y + h, crown: [] };
+    this.trees.push(tree);
+    const leaf = (a, b, c) => {
+      if (this.inBounds(a, b, c)) {
+        tree.crown.push(this.index(a, b, c));
+        this.set(a, b, c, 5);
+      }
+    };
     this.fill(x, y, z, x, y + h, z, 4);
     if (pine) {
       for (let dy = 2; dy <= 7; dy++) {
         let r = dy < 4 ? 2 : dy < 6 ? 1 : 0;
         for (let a = -r; a <= r; a++)
           for (let b = -r; b <= r; b++)
-            if (a || b || dy > h) this.set(x + a, y + dy, z + b, 5);
+            if (a || b || dy > h) leaf(x + a, y + dy, z + b);
       }
     } else {
       for (let dy = 2; dy <= 5; dy++) {
@@ -354,7 +414,7 @@ class VoxelWorld {
               (Math.abs(a) + Math.abs(b) < 4 || rand(x + a, z + b) > 0.45) &&
               (a || b || dy > h)
             )
-              this.set(x + a, y + dy, z + b, 5);
+              leaf(x + a, y + dy, z + b);
       }
     }
   }
@@ -712,31 +772,6 @@ function meshBox(parent, x, y, z, w, h, d, color) {
   parent.add(m);
   return m;
 }
-function textSprite(text, color = '#fff4cf', scale = 2.5) {
-  let c = document.createElement('canvas');
-  c.width = 512;
-  c.height = 100;
-  let g = c.getContext('2d');
-  g.fillStyle = '#16362cd9';
-  g.roundRect(12, 12, 488, 76, 12);
-  g.fill();
-  g.fillStyle = color;
-  g.font = 'bold 30px Arial';
-  g.textAlign = 'center';
-  g.fillText(text, 256, 62);
-  let tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  let m = new THREE.Sprite(
-    new THREE.SpriteMaterial({
-      map: tex,
-      depthTest: true,
-      transparent: true,
-      sizeAttenuation: false,
-    }),
-  );
-  m.scale.set(scale / 18, (scale * 0.195) / 18, 1);
-  return m;
-}
 function humanoid(n) {
   let g = new THREE.Group(),
     giant = n.id === 'atlas',
@@ -770,12 +805,6 @@ function humanoid(n) {
   let yy = world.heights[Math.floor(n.x) + Math.floor(n.z) * VW] + 1;
   g.position.set(n.x + 0.5, yy, n.z + 0.5);
   scene.add(g);
-  let label = textSprite(n.name, giant ? '#a8dfce' : '#fff0bf', 2.1);
-  label.position.set(0, 2.35, 0);
-  g.add(label);
-  let marker = textSprite('◆', '#f3d082', 0.65);
-  marker.position.set(0, 2.85, 0);
-  g.add(marker);
   let obj = {
     kind: 'npc',
     npc: n,
@@ -784,12 +813,78 @@ function humanoid(n) {
     head,
     arms: [arm1, arm2],
     legs: [leg1, leg2],
-    label,
-    marker,
+    name: n.name,
+    nameHeight: 2.12 * s,
   };
   characters.push(obj);
   interactive.push(obj);
   return obj;
+}
+function animalRadius(type) {
+  return type === 'fox'
+    ? 1.24
+    : type === 'chicken'
+      ? 0.46
+      : type === 'slime'
+        ? 0.65
+        : 0.92;
+}
+function animalFits(type, x, y, z) {
+  const r = animalRadius(type);
+  if (x - r < 1 || x + r >= VW - 1 || z - r < 1 || z + r >= VD - 1)
+    return false;
+  for (let a = Math.floor(x - r); a <= Math.floor(x + r); a++) {
+    for (let b = Math.floor(z - r); b <= Math.floor(z + r); b++) {
+      for (let h = y; h < y + (type === 'chicken' ? 1 : 2); h++) {
+        if (world.solid(a, h, b)) return false;
+      }
+    }
+  }
+  return true;
+}
+function findAnimalSpawn(type, x, z) {
+  for (let ring = 0; ring < Math.max(VW, VD); ring++) {
+    for (let dx = -ring; dx <= ring; dx++)
+      for (let dz = -ring; dz <= ring; dz++) {
+        if (Math.max(Math.abs(dx), Math.abs(dz)) !== ring) continue;
+        const a = Math.floor(x) + dx,
+          b = Math.floor(z) + dz;
+        if (!world.inBounds(a, 0, b) || (a >= 47 && a <= 54)) continue;
+        let y = world.heights[a + b * VW] + 1;
+        while (y > 1 && !world.solid(a, y - 1, b)) y--;
+        if (y <= 2 || !animalFits(type, a + 0.5, y, b + 0.5)) continue;
+        return new THREE.Vector3(a + 0.5, y, b + 0.5);
+      }
+  }
+  return null;
+}
+function walkAnimal(a, dt, speed) {
+  const { x, y, z } = a.pos;
+  if (
+    !world.solid(Math.floor(x), y - 1, Math.floor(z)) &&
+    animalFits(a.type, x, y - 1, z)
+  ) {
+    a.pos.y -= 1;
+    return false;
+  }
+  if (speed <= 0) return false;
+  for (const turn of [0, 0.65, -0.65, 1.35, -1.35, Math.PI]) {
+    const angle = a.angle + turn,
+      nx = x + Math.sin(angle) * dt * speed,
+      nz = z + Math.cos(angle) * dt * speed;
+    const xx = Math.floor(nx),
+      zz = Math.floor(nz);
+    if (world.heights[xx + zz * VW] === 1) continue;
+    let floor = y;
+    if (!world.solid(xx, y - 1, zz)) floor--;
+    if (!world.solid(xx, floor - 1, zz) || !animalFits(a.type, nx, floor, nz))
+      continue;
+    a.angle = angle;
+    a.group.rotation.y = angle;
+    a.pos.set(nx, floor, nz);
+    return true;
+  }
+  return false;
 }
 function animal(type, x, z) {
   let g = new THREE.Group(),
@@ -879,7 +974,11 @@ function animal(type, x, z) {
       meshBox(g, 0.15, 1.19, 0.6, 0.12, 0.23, 0.14, 0x7e5636);
     }
   }
-  let y = world.top(x, z);
+  const spawn = findAnimalSpawn(type, x, z);
+  if (!spawn) return;
+  x = spawn.x;
+  z = spawn.z;
+  let y = spawn.y;
   g.position.set(x, y, z);
   scene.add(g);
   let a = {
@@ -946,7 +1045,7 @@ function addDetails() {
       )
         continue;
       let y = world.heights[x + z * VW] + 1;
-      if (world.get(x, y, z)) continue;
+      if (world.get(x, y - 1, z) !== 1 || world.get(x, y, z)) continue;
       stems.push([x + 0.5, y + 0.22, z + 0.5, 0.07, 0.45, 0.07]);
       if (rand(z, x) > 0.65)
         petals.push([x + 0.5, y + 0.46, z + 0.5, 0.26, 0.16, 0.24]);
@@ -965,6 +1064,18 @@ function addDetails() {
         new THREE.Vector3(...v.slice(3)),
       );
       m.setMatrixAt(i, tmpMatrix);
+      const x = Math.floor(v[0]),
+        z = Math.floor(v[2]),
+        key = x + VW * z;
+      if (!world.floraColumns.has(key)) world.floraColumns.set(key, []);
+      world.floraColumns
+        .get(key)
+        .push({
+          mesh: m,
+          index: i,
+          matrix: tmpMatrix.clone(),
+          base: Math.floor(v[1]),
+        });
     });
     m.receiveShadow = true;
     scene.add(m);
@@ -1208,6 +1319,7 @@ function initEngine() {
   addDetails();
   buildMill();
   buildField();
+  anchorVillageProps();
   batchVillage();
   ForestFauna.dressFoxes(animals.filter((a) => a.type === 'fox')).catch(
     console.error,
@@ -1310,22 +1422,97 @@ function getVoxelRay() {
   }
   return null;
 }
+function clearSight(origin, delta) {
+  const steps = Math.ceil(delta.length() * 5);
+  for (let i = 1; i < steps; i++) {
+    const t = i / steps;
+    if (
+      world.solid(
+        Math.floor(origin.x + delta.x * t),
+        Math.floor(origin.y + delta.y * t),
+        Math.floor(origin.z + delta.z * t),
+      )
+    )
+      return false;
+  }
+  return true;
+}
+function showWorldName(actor) {
+  const label = $('worldName');
+  label.hidden = true;
+  if (!actor) return;
+  const v = actor.pos.clone();
+  v.y += actor.nameHeight;
+  camera.updateMatrixWorld();
+  v.project(camera);
+  if (v.z < 0 || v.z >= 1 || Math.abs(v.x) > 0.98 || Math.abs(v.y) > 1) return;
+  label.textContent = actor.name;
+  label.hidden = false;
+  const w = label.offsetWidth,
+    h = label.offsetHeight;
+  const x = Math.max(
+    4,
+    Math.min(innerWidth - w - 4, ((v.x + 1) * innerWidth) / 2 - w / 2),
+  );
+  let y = Math.max(4, ((1 - v.y) * innerHeight) / 2 - h - 3);
+  for (const selector of ['.hud-top', '#questTrack', '#minimap', '#compass']) {
+    const rect = document.querySelector(selector).getBoundingClientRect();
+    if (
+      rect.width &&
+      x < rect.right &&
+      x + w > rect.left &&
+      y < rect.bottom &&
+      y + h > rect.top
+    )
+      y = rect.bottom + 4;
+  }
+  const rail = $('feedbackRail').getBoundingClientRect();
+  if (rail.height && y + h >= rail.top && x < rail.right && x + w > rail.left) {
+    label.hidden = true;
+    return;
+  }
+  label.style.left = x + 'px';
+  label.style.top = y + 'px';
+}
 function updateTarget() {
   target = getVoxelRay();
   outline.visible = !!target;
   if (target)
     outline.position.set(target.x + 0.5, target.y + 0.5, target.z + 0.5);
   let best = null,
-    bd = 3.3;
+    score = -Infinity;
+  const view = camera.getWorldDirection(new THREE.Vector3());
+  let name = null,
+    nameScore = -Infinity;
   for (let o of interactive) {
     if (o.kind === 'field' && !o.group.visible) continue;
     if (o.kind === 'treasure' && S.opened.includes(o.id)) continue;
     let d = Math.hypot(o.pos.x - player.pos.x, o.pos.z - player.pos.z);
-    if (d < bd && Math.abs(o.pos.y - player.pos.y) < 3.2) {
-      bd = d;
+    if (d > 14) continue;
+    const visibleHeight =
+      o.kind === 'animal'
+        ? 0.65
+        : o.kind === 'crop'
+          ? 0.35
+          : o.name
+            ? o.nameHeight * 0.72
+            : 1;
+    const look = o.pos.clone();
+    look.y += visibleHeight;
+    look.sub(camera.position);
+    const dot = look.clone().normalize().dot(view);
+    if (dot < 0 || !clearSight(camera.position, look)) continue;
+    const rank = dot * 3 - d * 0.07;
+    if (o.name && rank > nameScore && dot > 0.65) {
+      name = o;
+      nameScore = rank;
+    }
+    if (d < 3.3 && Math.abs(o.pos.y - player.pos.y) < 3.2 && rank > score) {
       best = o;
+      score = rank;
     }
   }
+  showWorldName(name);
   nearObject = best;
   let text = '';
   if (best) {
@@ -1361,7 +1548,20 @@ function updateTarget() {
           : 'Utiliser l’atelier';
   $('interactPrompt').style.display = text ? 'flex' : 'none';
   $('interactPrompt').querySelector('span').textContent = text;
-  $('targetLabel').textContent = target ? BLOCKS[target.id].name : '';
+  $('targetLabel').textContent = !best && target ? BLOCKS[target.id].name : '';
+}
+function anchorVillageProps() {
+  // Restore the footing even when loading an older, excavated village.
+  for (const o of interactive) {
+    if (!['crop', 'treasure', 'mill', 'npc', 'field'].includes(o.kind))
+      continue;
+    const x = Math.floor(o.pos.x),
+      z = Math.floor(o.pos.z);
+    let y = Math.floor(o.pos.y);
+    while (y > 1 && !world.solid(x, y - 1, z)) y--;
+    o.pos.y = y;
+    world.protected.add(world.index(x, y - 1, z));
+  }
 }
 function protectedVoxel(t) {
   return (
@@ -1411,6 +1611,18 @@ function mine(dt) {
   if (mineTime >= b.hard) {
     let t = { ...target };
     world.set(t.x, t.y, t.z, 0, true);
+    if (
+      world.trees.some(
+        (tree) =>
+          tree.x === t.x &&
+          tree.z === t.z &&
+          t.y >= tree.y - 1 &&
+          t.y <= tree.top,
+      )
+    ) {
+      const logs = world.settleTrees();
+      if (logs) give({ wood: logs });
+    }
     give({ [b.drop]: 1 });
     if (t.id === 5 && Math.random() < 0.12) give({ apple: 1 });
     if (t.id === 5 && Math.random() < 0.15) give({ seed: 1 });
@@ -1476,7 +1688,10 @@ function placeBlock() {
     intersectsPlayer(x, y, z) ||
     interactive.some(
       (o) =>
-        Math.hypot(o.pos.x - x - 0.5, o.pos.z - z - 0.5) < 0.8 &&
+        (o.kind === 'animal'
+          ? Math.abs(o.pos.x - x - 0.5) < animalRadius(o.type) + 0.5 &&
+            Math.abs(o.pos.z - z - 0.5) < animalRadius(o.type) + 0.5
+          : Math.hypot(o.pos.x - x - 0.5, o.pos.z - z - 0.5) < 0.8) &&
         Math.abs(o.pos.y - y) < 2,
     )
   ) {
@@ -1613,13 +1828,8 @@ function animateWorld(dt) {
     );
     n.arms[0].rotation.x = Math.sin(elapsed * 1.3 + n.pos.x) * 0.04;
     n.arms[1].rotation.x = -Math.sin(elapsed * 1.3 + n.pos.x) * 0.04;
-    n.marker.visible =
-      n.npc.id === 'atlas' ? !S.won : !questProgress(n.npc).done;
-    n.marker.position.y = 2.85 + Math.sin(elapsed * 2) * 0.06;
-    n.label.visible = n.pos.distanceTo(player.pos) < 18;
   }
   for (let a of animals) {
-    if (a.mixer) a.mixer.update(dt * 0.8);
     a.timer -= dt;
     a.cooldown = Math.max(0, a.cooldown - dt);
     let d = a.pos.distanceTo(player.pos);
@@ -1633,24 +1843,12 @@ function animateWorld(dt) {
       a.angle = Math.atan2(player.pos.x - a.pos.x, player.pos.z - a.pos.z);
     let speed = a.type === 'slime' ? 0.55 : 0.3;
     if (a.friendly && d < 2) speed = 0;
-    let nx = a.pos.x + Math.sin(a.angle) * dt * speed,
-      nz = a.pos.z + Math.cos(a.angle) * dt * speed,
-      ground = world.top(nx, nz);
-    if (
-      Math.abs(ground - a.pos.y) < 1.2 &&
-      nx > 2 &&
-      nx < 78 &&
-      nz > 2 &&
-      nz < 78 &&
-      !(nx > 46 && nx < 55)
-    ) {
-      a.pos.x = nx;
-      a.pos.z = nz;
-      a.pos.y = ground;
-    } else a.angle += Math.PI * 0.7;
-    a.group.rotation.y = a.angle;
-    for (let [i, l] of a.limbs.entries())
-      l.rotation.x = Math.sin(elapsed * 5 + (i % 2) * Math.PI) * 0.22;
+    const moved = walkAnimal(a, dt, speed);
+    if (a.mixer && moved) a.mixer.update(dt * speed * 1.6);
+    for (const [i, l] of a.limbs.entries())
+      l.rotation.x = moved
+        ? Math.sin(elapsed * 5 + (i % 2) * Math.PI) * 0.22
+        : 0;
     if (a.type === 'slime') {
       a.group.scale.y = 1 + Math.sin(elapsed * 4) * 0.1;
       if (night && !S.settings.peaceful && d < 1.4 && a.cooldown === 0) {
