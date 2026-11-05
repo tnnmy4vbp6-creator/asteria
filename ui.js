@@ -288,6 +288,26 @@ function drawMap(canvas, large = false) {
     g.fillStyle = '#c3a274';
     g.fillRect((46 / 80) * w, (40 / 80) * h, (10 / 80) * w, (3 / 80) * h);
   }
+  // Mark the southern entrance rather than the roof above the underground veins.
+  const mineX = (15.5 / 80) * w, mineZ = (32 / 80) * h;
+  g.fillStyle = '#d1eeff';
+  g.strokeStyle = '#15373f';
+  g.lineWidth = 2;
+  g.beginPath();
+  g.arc(mineX, mineZ, large ? 5 : 3, 0, Math.PI * 2);
+  g.fill();
+  g.stroke();
+  if (large) {
+    const fontSize = Math.ceil(16 * w / (canvas.getBoundingClientRect().width || w));
+    g.font = 'bold ' + fontSize + 'px Arial';
+    const label = 'Mine · cristaux';
+    const width = g.measureText(label).width;
+    const labelX = Math.max(5, mineX - width / 2);
+    g.fillStyle = '#193a36';
+    g.fillRect(labelX - 4, mineZ + 10, width + 8, fontSize + 12);
+    g.fillStyle = '#ffffff';
+    g.fillText(label, labelX, mineZ + fontSize + 12);
+  }
   let colors = [
     '#a2d379',
     '#e0ad7b',
@@ -492,7 +512,7 @@ function showMap() {
   modal(
     'L’atlas d’Astéria',
     'EXPLORER & S’ORIENTER',
-    `<canvas id="largeMap" class="map-large" width="640" height="640"></canvas><div class="map-legend"><span>◆ Gardiens</span><span>▲ Ta position</span><span>Nord : montagnes</span><span>Est : désert</span><span>Ouest : forêt et mine</span></div><p class="muted">Le chemin du village mène au nord à l’observatoire. La mine se trouve à l’ouest du portail. Le pont de Nora traverse la rivière à l’est.</p>`,
+    `<canvas id="largeMap" class="map-large" width="640" height="640" aria-label="Carte du monde. La mine aux cristaux se trouve au nord-ouest, en haut à gauche."></canvas><div class="map-legend"><span>◆ Gardiens</span><span>▲ Ta position</span><span>● Entrée de la mine</span><span>Nord : montagnes</span><span>Est : désert</span></div><p><b>Mine · cristaux bruts</b> — Depuis le village, monte vers le nord puis rejoins la colline à gauche du portail. Entre par l’ouverture au sud de la colline. Les blocs bleutés se trouvent à droite dans la galerie. Une pioche en fer permet de les récolter.</p><p class="muted">Le pont de Nora traverse la rivière à l’est.</p>`,
   );
   drawMap($('largeMap'), true);
 }
@@ -1377,6 +1397,6 @@ function credits() {
   modal(
     'Un monde pour apprendre',
     'À PROPOS D’ASTÉRIA',
-    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.4.0 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
+    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.4.1 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
   );
 }

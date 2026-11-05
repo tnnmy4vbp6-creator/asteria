@@ -1,6 +1,6 @@
 # Astéria — Les gardiens du savoir
 
-**Version 2.4.0 · Les commandes du village.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
+**Version 2.4.1 · Les commandes du village.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
 
 **[Jouer dans le navigateur](https://tnnmy4vbp6-creator.github.io/asteria/)** · [Code source](https://github.com/tnnmy4vbp6-creator/asteria) · [Nouveautés](CHANGELOG.md)
 

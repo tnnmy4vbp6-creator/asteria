@@ -1,5 +1,9 @@
 # Versions
 
+## v2.4.1 — Trouver la mine
+
+- L’entrée de la mine possède un repère sur les cartes et un nom lisible sur la grande carte. Les indications expliquent l’accès aux cristaux bruts et l’outil nécessaire.
+
 ## v2.4.0 — Les commandes du village
 
 - Six expéditions relient 36 situations d’anglais, grammaire, mathématiques, problèmes, logique et culture générale à six habitants. Les consignes anglaises peuvent être prononcées en anglais. Les missions alternent choix, saisie de mots, quantités à préparer, problèmes et mises en ordre.
