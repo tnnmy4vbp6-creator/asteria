@@ -23,5 +23,7 @@ Toutes les ressources de jeu sont distribuées avec le site. Les liens ci-dessou
 
 ## Sélection pour les itérations suivantes
 
+Le dragon des Îles de braise, ses ailes animées, les balises et les mécanismes de forge sont des géométries originales du projet, construites dans `ember.js`. Le sol et les fortifications réutilisent l’atlas de textures déjà crédité ci-dessus. Ce chapitre n’utilise pas de modèle, de texture ou de personnage extrait de Minecraft.
+
 Le [Nature Kit](https://kenney.nl/assets/nature-kit), le [Castle Kit](https://kenney.nl/assets/castle-kit) et les [Mini Characters](https://kenney.nl/assets/mini-characters) sont annoncés CC0 par Kenney. Premiers usages à essayer : végétation hors des blocs minables, deuxième village, personnages secondaires. Pour les commandes, les silhouettes simples du [Game Icons Pack](https://kenney.nl/assets/game-icons) sont candidates à un test de compréhension avec un enfant. Garder les blocs de construction destructibles dans le moteur voxel. Évaluer le poids, les collisions, les couleurs par éclairage et la lisibilité sur une vraie tablette avant d’importer un pack entier.
 

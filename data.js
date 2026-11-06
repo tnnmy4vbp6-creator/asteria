@@ -19,6 +19,7 @@ let replacingSave = false;
 function freshState() {
   return {
     version: 2,
+    ember: { active: false, bridge: 0, cooled: false, route: 0, hits: 0, charged: false, assisted: true, edits: {} },
     temple: { site: -1, mask: 6, open: false, moon: 0 },
     mill: { stage: 0, mask: 0, errors: 0 },
     practice: {},
@@ -79,6 +80,13 @@ function validSave(s) {
     return !!(
       s &&
       s.version === 2 &&
+      (s.ember === undefined || (obj(s.ember) &&
+        ['active','cooled','charged','assisted'].every(k => typeof s.ember[k] === 'boolean') &&
+        int(s.ember.bridge, 7) && int(s.ember.route, 4) && int(s.ember.hits, 4) &&
+        (!s.ember.cooled || s.ember.bridge === 6) && (!s.ember.route || s.ember.cooled) &&
+        (!s.ember.hits || s.ember.route === 3) && (!s.ember.charged || (s.ember.route === 3 && s.ember.hits < 3)) &&
+        obj(s.ember.edits) && Object.keys(s.ember.edits).length < 15000 &&
+        Object.entries(s.ember.edits).every(([k,v]) => int(+k,192000) && [0,3,7,8,16].includes(v)))) &&
       (s.voyageGuide === undefined || typeof s.voyageGuide === 'boolean') &&
       obj(s.player) &&
       ['x', 'y', 'z', 'yaw', 'pitch'].every((k) =>
@@ -96,7 +104,7 @@ function validSave(s) {
         (obj(s.practice) &&
           Object.entries(s.practice).every(
             ([id, p]) =>
-              (['mill-flow', 'cargo','batch'].includes(id) ||
+              (['mill-flow', 'cargo','batch','ember:bridge','ember:forge','ember:route','ember:grammar','ember:science','ember:problem'].includes(id) ||
                 VOYAGES.some(v => v.steps.some(step => id === 'v:' + v.id + ':' + step.subject)) ||
                 /^k:\d+$/.test(id) ||
                 (id.startsWith('p:') &&
@@ -194,7 +202,7 @@ try {
 let saveTimer;
 function saveGame(show = true) {
   if (replacingSave) return;
-  if (typeof player !== 'undefined' && player) {
+  if (typeof player !== 'undefined' && player && !(typeof ember !== 'undefined' && ember)) {
     S.player = {
       x: player.pos.x,
       y: player.pos.y,

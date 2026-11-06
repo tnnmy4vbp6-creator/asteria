@@ -189,6 +189,7 @@ function updateHUD() {
       $('waypointText').textContent = n.name + ' · ' + distance + ' m';
     }
   }
+  if (typeof ember !== 'undefined' && ember) { n = emberHUD(); distance = Math.round(Math.hypot(n.x-player.pos.x,n.z-player.pos.z)); }
   let angle = ((((player.yaw * 180) / Math.PI) % 360) + 360) % 360;
   $('compassDir').textContent =
     angle < 45 || angle > 315
@@ -246,6 +247,7 @@ function selectSlot(i) {
 }
 let mapImage = null;
 function drawMap(canvas, large = false) {
+  if (typeof ember !== 'undefined' && ember) { drawEmberMap(canvas,large); return; }
   let g = canvas.getContext('2d'),
     w = canvas.width,
     h = canvas.height;
@@ -469,6 +471,7 @@ function inventory(tab = 'craft') {
   );
 }
 function quests() {
+  if (typeof ember !== 'undefined' && ember) { emberJournal(); return; }
   modal(
     'Les cinq gardiens',
     'JOURNAL DE QUÊTES',
@@ -493,6 +496,11 @@ function quests() {
     ).join('')}`,
   );
   $('voyageBook').onclick = voyageBoard;
+  const portalCard = document.createElement('article');
+  portalCard.className = 'quest-card';
+  portalCard.innerHTML = '<h3>Au-delà du portail</h3><p>Les Îles de braise : construis un pont, réveille la forge et libère le dragon.</p><button class="primary" id="questEmber">Explorer les Îles de braise</button>';
+  $('modalBody').querySelector('.modal-content').prepend(portalCard);
+  $('questEmber').onclick = emberIntro;
   if ($('visitTemple')) $('visitTemple').onclick = visitTemple;
   document.querySelectorAll('[data-track]').forEach(
     (b) =>
@@ -509,6 +517,10 @@ function quests() {
   );
 }
 function showMap() {
+  if (typeof ember !== 'undefined' && ember) {
+    modal('Les Îles de braise', 'CARTE DE L’EXPÉDITION', '<canvas id="largeMap" class="map-large" width="640" height="640" aria-label="Carte des Îles de braise"></canvas><p>Le portail de retour est au sud. Traverse le pont vers la forge, puis rejoins les balises à l’est et la forteresse au nord. Le cercle turquoise indique ton prochain objectif.</p>');
+    drawEmberMap($('largeMap'),true); return;
+  }
   modal(
     'L’atlas d’Astéria',
     'EXPLORER & S’ORIENTER',
@@ -1011,6 +1023,11 @@ function notebook() {
     .map((key) => {
       if (typeof key !== 'string') return null;
       let [type, id] = key.split(':');
+      if (type === 'ember') {
+        const facts={plan:['Le rectangle du pont','6 rangées de 3 blocs forment un sol de 18 blocs. La longueur multipliée par la largeur donne le nombre de cases.'],forge:['Additionner des débits','2 litres par minute et 4 litres par minute donnent ensemble 6 litres par minute.'],route:['Les points cardinaux en anglais','North : nord. East : est. West : ouest. South : sud. Sur la carte, le nord est en haut.']};
+        const c=emberLessons.find(c=>c.practiceId===key);
+        return c ? {title:c.title,text:S.notes[key]||c.explain} : facts[id] ? {title:facts[id][0],text:facts[id][1]} : null;
+      }
       if (type === 'terrain' && Object.hasOwn(fieldLessons,id)) return {title:fieldLessons[id][0],text:fieldLessons[id][1]};
       if (type === 'v') {
         const v = VOYAGES.find(v => v.id === id);
@@ -1092,6 +1109,11 @@ function chestUI(t) {
 function interact() {
   if (paused || !playing) return;
   let o = nearObject;
+  if (typeof ember !== 'undefined' && ember) {
+    if (o?.kind === 'ember') useEmber(o.id);
+    else emberShoot();
+    return;
+  }
   if (!o) {
     if (target?.id === 23) {
       S.time = Math.floor(S.time / 720) * 720 + 780;
@@ -1236,18 +1258,7 @@ function interact() {
     return;
   }
   if (o.kind === 'portal') {
-    if (S.won)
-      modal(
-        'Un monde ouvert',
-        'LE PORTAIL EST RÉVEILLÉ',
-        `<p>Les cinq savoirs sont réunis. Tu peux continuer les défis, construire librement et enrichir ton village.</p><div class="row"><button class="primary" id="portalBuild">Ouvrir le mode construction</button><button class="secondary" id="portalLearn">Un défi de plus</button></div>`,
-      );
-    else {
-      talk(NPCS[5]);
-      return;
-    }
-    if ($('portalBuild')) $('portalBuild').onclick = creativeMode;
-    if ($('portalLearn')) $('portalLearn').onclick = () => knowledgeQuestion();
+    emberIntro();
   }
 }
 function win() {
@@ -1261,9 +1272,10 @@ function win() {
   modal(
     'Tu as réveillé Astéria.',
     'LES GARDIENS TE REMERCIENT',
-    `<div style="text-align:center"><div style="font-size:65px;color:#9b8eb4">✦</div><h3>La curiosité est ta plus grande force.</h3><p>Tu as cultivé, fabriqué, exploré et résolu les épreuves des cinq gardiens. Le portail brille à nouveau.</p><div class="two-col"><div class="banner">${S.stats.mined} blocs récoltés<br>${S.stats.crafted} fabrications<br>${S.stats.placed} blocs posés</div><div class="banner">5 sceaux retrouvés<br>${S.journal.length} découvertes<br>+250 expérience</div></div><p>L’histoire principale est terminée. Le monde reste ouvert pour tes constructions et les ${KNOWLEDGE.length} défis de l’encyclopédie.</p><div class="row" style="justify-content:center"><button class="primary" id="winExplore">Continuer à explorer</button><button class="secondary" id="winBuild">Construire sans limite de matériaux</button></div></div>`,
+    `<div style="text-align:center"><div style="font-size:65px;color:#9b8eb4">✦</div><h3>La curiosité est ta plus grande force.</h3><p>Tu as cultivé, fabriqué, exploré et résolu les épreuves des cinq gardiens. Le portail brille à nouveau.</p><div class="two-col"><div class="banner">${S.stats.mined} blocs récoltés<br>${S.stats.crafted} fabrications<br>${S.stats.placed} blocs posés</div><div class="banner">5 sceaux retrouvés<br>${S.journal.length} découvertes<br>+250 expérience</div></div><p>Le portail ouvre maintenant les Îles de braise. Construis un passage, réveille les balises et libère le dragon de ses trois entraves.</p><div class="row" style="justify-content:center"><button class="primary" id="winExplore">Continuer à explorer</button><button class="secondary" id="winBuild">Construire sans limite de matériaux</button></div></div>`,
   );
-  $('winExplore').onclick = closeModal;
+  $('winExplore').textContent = 'Franchir le portail';
+  $('winExplore').onclick = emberIntro;
   $('winBuild').onclick = creativeMode;
 }
 function creativeMode() {
@@ -1397,6 +1409,6 @@ function credits() {
   modal(
     'Un monde pour apprendre',
     'À PROPOS D’ASTÉRIA',
-    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.4.1 — Solo, monde fini de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
+    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.5.0 — Solo, deux mondes finis de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
   );
 }

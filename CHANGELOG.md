@@ -1,5 +1,15 @@
 # Versions
 
+## 2.5.0 — Les Îles de braise
+
+- Le portail ouvre un second monde avec lave, îles, forge, forteresse et dragon animé.
+- Un pont de 6 × 3 blocs se construit après un calcul ; les rangées deviennent traversables. Les vannes de la forge et les balises anglaises ouvrent la forteresse.
+- Trois sceaux de grammaire, sciences et problèmes chargent les rayons du duel. Souffle annoncé au sol, esquive, fenêtre de tir et mode accompagné sans dégâts.
+- Accès depuis l’accueil, le journal ou le portail. Retour au village, passages sûrs et reprise des étapes après rechargement. Les constructions sont enregistrées séparément pour chaque monde.
+- Explications dans le carnet, essais dans l’espace parent, récompense finale unique.
+- Nouveau scénario de navigateur test-ember.cjs couvrant progression, erreurs, collisions des passages, combat, reprise et intégrité du village.
+
+
 ## v2.4.1 — Trouver la mine
 
 - L’entrée de la mine possède un repère sur les cartes et un nom lisible sur la grande carte. Les indications expliquent l’accès aux cristaux bruts et l’outil nécessaire.

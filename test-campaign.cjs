@@ -47,6 +47,7 @@ for (let file of [
   'mill.js',
   'tablet.js',
   'ui.js',
+  'ember.js',
 ])
   vm.runInContext(fs.readFileSync(path.join(__dirname, file), 'utf8'), ctx, {
     filename: file,

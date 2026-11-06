@@ -7,6 +7,7 @@ function beginPlay() {
   renderer.domElement.tabIndex = 0;
   renderer.domElement.focus();
   safePlayer();
+  if (S.ember.active && !ember) enterEmber();
   updateHUD();
   sfx('success');
   if (loadNotice) toast(loadNotice);
@@ -220,6 +221,7 @@ function wireControls() {
   $('creditsButton').onclick = credits;
   $('playButton').onclick = beginPlay;
   $('titleVoyage').onclick = () => { beginPlay(); voyageBoard(); };
+  $('titleEmber').onclick = () => { beginPlay(); ember ? emberJournal() : emberIntro(); };
   $('titleTemple').onclick = () => {
     if (!temple) {
       modal('Les trois sites sont déjà bâtis', 'LE TEMPLE DES ÉCLIPSES',

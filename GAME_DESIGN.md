@@ -10,6 +10,8 @@
 
 ## Roadmap de production
 
+La version 2.5.0 ajoute le chapitre jouable des [Îles de braise](docs/ILES-DE-BRAISE.md) : portail vers une dimension séparée, pont à construire, forge à régler, indications anglaises et duel contre un dragon à trois entraves. L’archipel est fini et les acquis pédagogiques ne sont pas évalués hors du jeu. Le tableau ci-dessous conserve la trajectoire de production du village initial.
+
 | Phase | Priorité | Livré ou décision prise | Prochaine validation |
 |---|---|---|---|
 | 1 Audit / architecture | P0 | audit V2, dépôt, contenu JSON, modules de la nouvelle aventure | découper moteur et UI historiques aux prochaines modifications |

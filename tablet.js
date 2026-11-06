@@ -76,7 +76,7 @@ function wireStick() {
 function streamTerrain(force = false) {
   const cx = Math.floor(player.pos.x / 16),
     cz = Math.floor(player.pos.z / 16);
-  const radius = graphicsTier() === 'low' ? 1 : 2;
+  const radius = world.isEmber ? 6 : graphicsTier() === 'low' ? 1 : 2;
   const stamp = [cx, cz, radius].join('/');
   if (!force && streamTerrain.last === stamp) return;
   streamTerrain.last = stamp;

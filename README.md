@@ -1,10 +1,14 @@
 # Astéria — Les gardiens du savoir
 
-**Version 2.4.1 · Les commandes du village.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
+**Version 2.5.0 · Les Îles de braise.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
 
 **[Jouer dans le navigateur](https://tnnmy4vbp6-creator.github.io/asteria/)** · [Code source](https://github.com/tnnmy4vbp6-creator/asteria) · [Nouveautés](CHANGELOG.md)
 
 ## Pour la famille
+
+**Portail & dragon** ouvre les **Îles de braise**, un second monde de 80 × 80 blocs. Le pont demande de calculer puis poser six rangées, la forge demande de combiner des débits, les balises se suivent en anglais. Dans la forteresse, trois épreuves de grammaire, sciences et problèmes chargent les rayons du duel. Sortir du cercle orange, viser le dragon lorsque son bouclier devient turquoise, puis toucher la main. Le mode accompagné, activé au départ, supprime les dégâts du souffle et élargit la visée. La difficulté du problème final suit le réglage du menu.
+
+Le chapitre est accessible dès maintenant avec le passage prêté par Atlas, ainsi que depuis le portail du village ou le journal des quêtes. Le journal permet de rentrer ou de rejoindre le dernier passage sûr. Les constructions des deux mondes et les étapes du chapitre sont enregistrées séparément. Après un rechargement dans les îles, le personnage reprend au dernier passage sûr. La récompense finale est versée une seule fois.
 
 **Jouer et apprendre** ouvre six commandes de village. Touchez **Rejoindre** puis la main face au personnage. Chaque commande mêle six matières. Les réponses et les explications restent dans le carnet et les essais apparaissent dans l’espace parent. Dans l’atelier, **Préparer 2 lots** permet de doubler une vraie recette avec ses matériaux.
 
@@ -35,6 +39,8 @@ Pour tester le navigateur, installer Chrome. Pour le second moteur, exécuter `n
 node test-browser.cjs http://localhost:8767/ chrome
 node test-browser.cjs http://localhost:8767/ webkit
 node test-journey.cjs http://localhost:8767/
+node test-ember.cjs chrome http://localhost:8767/
+node test-ember.cjs webkit http://localhost:8767/
 ```
 
 ## Organisation
