@@ -29,3 +29,7 @@ La version 2.5.0 ajoute le chapitre jouable des [Îles de braise](docs/ILES-DE-B
 
 La météo régionale, les grands donjons, le boss à mécanismes, la génération de vastes régions et les 300 à 500 situations sont des jalons ultérieurs. L’extension du contenu suit les observations en famille.
 
+
+## Construction et monde — 2.6.0
+
+La palette compte 16 matériaux et 7 formes, avec aperçu, rotation, pose groupée et annulation. Quatre lieux enrichissent le village existant sans augmenter sa superficie de 80 × 80. Six chantiers font manipuler les solides puis expliquer un résultat. Les sites alternatifs préservent les blocs des anciennes parties. Le détail livré et les limites sont dans [BATISSEURS.md](docs/BATISSEURS.md).

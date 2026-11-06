@@ -1,3 +1,13 @@
+# Vérification de la 2.6.0
+
+Les 33 tests de logique existants et la suite de solides passent. La suite supplémentaire vérifie 224 identifiants matériau/forme/orientation, géométries finies, normale du toit, rayons traversant le vide d’un demi-bloc, collisions, quantités des six projets et anciennes sauvegardes.
+
+Le scénario test-builder.cjs utilise Chrome et WebKit en émulation tactile à 390 × 720 puis 844 × 390. Il contrôle l’accueil sans recouvrement, refuse une dimension invalide et un sol trop petit, annule avec remboursement, construit les six modèles via la palette et le bouton ＋, refuse une réponse fausse et vérifie une récompense unique. Il recharge les constructions, teste la hauteur réelle d’un demi-bloc avec le déplacement du joueur, la réunion de deux moitiés et son annulation, les rotations, les variantes dans la sauvegarde du second monde et la migration préservant un bloc ancien. Chrome reprend aussi une forme hors connexion. Les captures ont été inspectées : palette, parc construit, toit de l’atelier et verger.
+
+Le port WebKit de Windows a parfois bloqué dans la commande de défilement automatique de Playwright. Le scénario fait donc défiler le vrai bouton dans le DOM puis envoie un toucher natif à son centre visible. Il n’appelle pas directement le gestionnaire de clic. Les manipulations de géométrie/collision et la mise en place de la sauvegarde ancienne sont explicites dans le scénario.
+
+Régressions Chrome passées : temple, 36 étapes des commandes, îles/dragon, double appui nocturne, prénoms/renard/collisions/messages/fleur. Aucun essai sur tablette physique n’a été effectué dans cette session. Le contrôle de la version publique utilise le même scénario de construction.
+
 # Vérification de la 2.2.0
 
 `node test-touch-night.cjs webkit URL` et `node test-touch-night.cjs chrome URL` démarrent une partie en portrait à 390 × 695. Six appuis successifs sur l’inventaire doivent laisser le zoom à 100 % et la sélection vide. Chrome exerce aussi l’appui prolongé. Après un passage par le menu, deux appuis sur Construire doivent poser deux blocs. Le scénario vérifie la poursuite du veilleur, la coupure de sa ligne de vue, sa réaction à une torche posée, sa hauteur sur le sol et son absence en journée, en créatif et en mode paisible. Les navigateurs utilisent une émulation tactile sur ordinateur.

@@ -137,5 +137,65 @@
   "pickaxe": {
     "name": "Outil de minage",
     "icon": "⛏"
+  },
+  "lightwood": {
+    "name": "Bois clair",
+    "icon": "▦",
+    "color": "#e0c99e"
+  },
+  "darkwood": {
+    "name": "Bois sombre",
+    "icon": "▦",
+    "color": "#654a40"
+  },
+  "slate": {
+    "name": "Ardoise",
+    "icon": "▦",
+    "color": "#4f6278"
+  },
+  "limestone": {
+    "name": "Calcaire",
+    "icon": "▦",
+    "color": "#ded5b5"
+  },
+  "terracotta": {
+    "name": "Terre cuite",
+    "icon": "▦",
+    "color": "#bd694f"
+  },
+  "mosaic": {
+    "name": "Mosaïque",
+    "icon": "▦",
+    "color": "#5bb4b1"
+  },
+  "copperblock": {
+    "name": "Cuivre décoratif",
+    "icon": "▦",
+    "color": "#bb885e"
+  },
+  "blueblock": {
+    "name": "Céramique bleue",
+    "icon": "▦",
+    "color": "#438dbc"
+  },
+  "redblock": {
+    "name": "Céramique rouge",
+    "icon": "▦",
+    "color": "#c05a64"
+  },
+  "yellowblock": {
+    "name": "Céramique jaune",
+    "icon": "▦",
+    "color": "#e7bf58"
+  },
+  "whiteblock": {
+    "name": "Céramique blanche",
+    "icon": "▦",
+    "color": "#e8e5df"
+  },
+  "greenblock": {
+    "name": "Céramique verte",
+    "icon": "▦",
+    "color": "#71a785"
   }
 }

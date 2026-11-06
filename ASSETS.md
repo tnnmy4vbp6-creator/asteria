@@ -27,3 +27,7 @@ Le dragon des Îles de braise, ses ailes animées, les balises et les mécanisme
 
 Le [Nature Kit](https://kenney.nl/assets/nature-kit), le [Castle Kit](https://kenney.nl/assets/castle-kit) et les [Mini Characters](https://kenney.nl/assets/mini-characters) sont annoncés CC0 par Kenney. Premiers usages à essayer : végétation hors des blocs minables, deuxième village, personnages secondaires. Pour les commandes, les silhouettes simples du [Game Icons Pack](https://kenney.nl/assets/game-icons) sont candidates à un test de compréhension avec un enfant. Garder les blocs de construction destructibles dans le moteur voxel. Évaluer le poids, les collisions, les couleurs par éclairage et la lisibilité sur une vraie tablette avant d’importer un pack entier.
 
+
+## Construction 2.6.0
+
+Les sept solides, leurs pictogrammes SVG, les douze nouvelles textures de matériaux (bois, roches, mosaïque, cuivre et couleurs), les quatre lieux et les quatre personnages sont générés dans le code du projet. Les textures existantes utilisées par les nouveaux solides conservent leurs attributions ci-dessus. Aucun média propriétaire de Minecraft ni nouveau téléchargement externe n’a été ajouté pour cette extension.

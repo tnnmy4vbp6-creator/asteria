@@ -23,8 +23,10 @@ const ctx = {
 vm.createContext(ctx);
 vm.runInContext(require('./content.cjs')(), ctx);
 for (let file of [
+  'shapes.js',
   'data.js',
   'engine.js',
+  'builder.js',
   'learning.js',
   'media.js',
   'mill.js',

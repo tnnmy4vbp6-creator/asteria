@@ -1582,4 +1582,35 @@ body:has(#hud:not(.hidden)):has(#modal.hidden) {
 .ember-world #questTrack p { display: block; font-size: 12px; line-height: 1.4; margin: 6px 0; }
 [data-valve][aria-pressed=true] { background: #b3dace; box-shadow: inset 0 0 0 2px #3d8275; }
 .title-actions { flex-wrap: wrap; }
+@media (max-width: 550px) and (min-height: 501px) {
+  .title-content { top: 8%; }
+  .title-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .title-actions button { min-height: 58px; padding: 10px; font-size: 14px; }
+  .title-actions button:first-child { grid-column: 1 / -1; }
+  .title-actions .glass span { margin-left: 4px; }
+  .title-meta { margin-top: 22px; }
+}
 @media (max-height: 500px) { .title-actions { max-width: 690px; gap: 8px; } .title-copy { margin: 10px 0; } .title-meta { margin-top: 12px; } }
+.build-palette { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.build-palette button { display:grid; grid-template-columns:28px 1fr; align-items:center; gap:6px; padding:9px; text-align:left; min-height:68px; }
+.build-palette i { width:26px; height:26px; border:1px solid #0003; box-shadow:inset -6px -6px #0002; }
+.build-palette span { font-size:13px; }
+.build-palette small { grid-column:2; }
+.build-palette [aria-pressed=true], .build-shapes [aria-pressed=true] { outline:3px solid #387e74; background:#d5e6d5; }
+.build-shapes { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.build-shapes svg { display:block; width:52px; height:52px; margin:auto; }
+.build-shapes button { font-size:13px; padding:10px 4px; }
+.build-measures { display:flex; gap:16px; margin:18px 0; flex-wrap:wrap; }
+.build-measures label { flex:1; min-width:80px; }
+.build-measures input { display:block; width:100%; font:inherit; padding:10px; margin-top:8px; }
+.build-tabs { display:flex; gap:10px; flex-wrap:wrap; }
+#buildTools { pointer-events:auto; padding:6px 10px; background:#17362df2; color:white; border:1px solid #b6d4ac; border-radius:8px; text-align:center; }
+#buildTools[hidden] { display:none; }
+#buildStatus { display:block; font-size:13px; margin-bottom:5px; }
+#buildTools button { min-width:44px; min-height:38px; padding:6px 12px; color:white; background:#34574f; border:1px solid #b6d4ac66; border-radius:5px; }
+.building #questTrack p { display:block; font-size:12px; }
+@media(max-width:600px) { .build-palette { grid-template-columns:repeat(2,minmax(0,1fr)); } .build-shapes { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(pointer:coarse) and (max-height:520px) { .building #feedbackRail { bottom:62px; width:calc(100% - 280px); } #buildTools { display:flex; align-items:center; gap:8px; } #buildStatus { max-width:105px; margin:0; } #buildTools > div { white-space:nowrap; } #buildTools button { padding:6px 9px; } }
+.building #interactPrompt, .building #worldName { display:none !important; }
+
+.build-measures input:disabled { opacity:1; color:#596963; background:#dce1d7; border:1px dashed #85938b; }

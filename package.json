@@ -3,10 +3,10 @@
     "linkedom": "^0.18.12"
   },
   "name": "asteria",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "private": true,
   "scripts": {
-    "test": "node test-core.cjs && node test-campaign.cjs && node test-mill.cjs",
+    "test": "node test-core.cjs && node test-campaign.cjs && node test-mill.cjs && node test-shapes.cjs",
     "build": "node build.cjs",
     "start": "node serve.cjs",
     "publish:pages": "node publish.cjs"

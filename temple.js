@@ -295,6 +295,9 @@ function useTemple(id) {
 }
 
 function visitTemple() {
+  S.builder.active = false;
+  S.builder.project = -1;
+  clearBuildPreview();
   if (typeof ember !== 'undefined' && ember) leaveEmber();
   S.voyageGuide = false;
   closeModal();

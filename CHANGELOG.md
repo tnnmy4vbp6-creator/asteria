@@ -1,5 +1,14 @@
 # Versions
 
+## 2.6.0 — Le monde des bâtisseurs
+
+- Une palette de 16 matériaux et 7 formes réelles : cube, demi-bloc, escalier, prisme triangulaire, cylindre, sphère et pyramide. Rotation, aperçu, pose jumelle et annulation des 10 dernières poses de la session.
+- Neuf motifs paramétrables : pièce, ligne, rectangle, mur, pavé, portique, pyramide, tour et toit. Deux demi-blocs complémentaires se réunissent en cube.
+- Six chantiers vérifient les blocs dans le monde puis font travailler aire, volume, symétrie, suites, groupements et diamètre. Explications et essais conservés dans le carnet et l’espace parent.
+- Parc des géomètres, atelier avec toit incliné et exposition de solides, carrière exploitable, verger symétrique, quatre nouveaux personnages et accès depuis la carte.
+- Kit initial unique, nouvelles recettes, sauvegarde des formes dans les deux mondes et emplacements alternatifs pour conserver les anciennes constructions.
+- Collisions et visée adaptées aux formes partielles, horizon élargi, accueil et outils ajustés aux écrans tactiles.
+
 ## 2.5.0 — Les Îles de braise
 
 - Le portail ouvre un second monde avec lave, îles, forge, forteresse et dragon animé.

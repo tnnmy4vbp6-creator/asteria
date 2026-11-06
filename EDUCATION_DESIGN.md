@@ -20,3 +20,9 @@ Chaque notion enregistrée porte un identifiant stable, des nombres d’essais, 
 
 Le tableau parent compte le temps actif et les actions observables. Un rappel discret revient toutes les 35 minutes de jeu. Les données sont propres au profil du navigateur. Leur lecture sert à choisir la prochaine activité avec l’enfant ; son autonomie de lecture et sa compréhension se vérifient en l’observant.
 
+
+## Géométrie construite — 2.6.0
+
+Les six projets contrôlent la construction physique avant de proposer une réponse numérique : aire du tapis 4 × 3, largeur symétrique 1 + 3 + 1, volume 3 × 3 × 3, somme des étages 25 + 9 + 1, groupements du toit 4 × 5, diamètre égal à deux rayons. Un motif automatique facilite le geste ; il ne valide pas le raisonnement à lui seul. Le jeu signale les pièces manquantes et les pièces en trop, puis fournit indice et explication. Le carnet garde la solution et l’espace parent compte les essais. Les questions de ces six projets sont fixes, sans prétendre mesurer durablement un acquis.
+
+La palette explique faces, arêtes, sommets, surfaces courbes, prisme et demi-volume. Les collisions et la visée suivent les solides. La tour faite de cubes approche un cercle ; le texte distingue cette approximation d’un vrai cercle. Les recettes restent des règles fictives de jeu.

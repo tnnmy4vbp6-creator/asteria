@@ -36,6 +36,7 @@ function recordPractice(id, correct, now = Date.now()) {
   saveGame(false);
 }
 function skillTitle(id) {
+  if(id.startsWith('build:'))return 'Géométrie · '+BUILD_PROJECTS[Number(id.slice(6))].name;
   if (id.startsWith('v:')) {
     const [, route, subject] = id.split(':');
     const step = VOYAGES.find(v => v.id === route)?.steps.find(s => s.subject === subject);

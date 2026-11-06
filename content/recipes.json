@@ -129,5 +129,102 @@
       "wheat": 3
     },
     "desc": "Redonne de l’énergie : sélectionne une nourriture dans le sac."
+  },
+  {
+    "out": "lightwood",
+    "n": 4,
+    "cost": {
+      "plank": 4,
+      "sand": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "darkwood",
+    "n": 4,
+    "cost": {
+      "plank": 4,
+      "sand": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "terracotta",
+    "n": 4,
+    "cost": {
+      "sand": 2,
+      "dirt": 2,
+      "coal": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "mosaic",
+    "n": 4,
+    "cost": {
+      "sand": 2,
+      "dirt": 2,
+      "coal": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "copperblock",
+    "n": 4,
+    "cost": {
+      "iron": 1,
+      "stone": 3
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "blueblock",
+    "n": 4,
+    "cost": {
+      "sand": 2,
+      "dirt": 2,
+      "coal": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "redblock",
+    "n": 4,
+    "cost": {
+      "sand": 2,
+      "dirt": 2,
+      "coal": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "yellowblock",
+    "n": 4,
+    "cost": {
+      "sand": 2,
+      "dirt": 2,
+      "coal": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "whiteblock",
+    "n": 4,
+    "cost": {
+      "sand": 2,
+      "dirt": 2,
+      "coal": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
+  },
+  {
+    "out": "greenblock",
+    "n": 4,
+    "cost": {
+      "sand": 2,
+      "dirt": 2,
+      "coal": 1
+    },
+    "desc": "Prépare quatre blocs décoratifs pour tes constructions. Recette simplifiée du jeu."
   }
 ]

@@ -142,7 +142,7 @@ async function verify() {
     }
     const flower = await page.evaluate(() => {
       const [key, parts] = [...world.floraColumns].find(
-        ([, parts]) => parts.length === 2,
+        ([key, parts]) => parts.length === 2 && !protectedVoxel({x:key%VW,z:Math.floor(key/VW),y:parts[0].base-1,id:1}),
       );
       const x = key % VW,
         z = Math.floor(key / VW),

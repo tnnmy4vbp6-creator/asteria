@@ -69,6 +69,7 @@ function emberIntro() {
 }
 
 function enterEmber() {
+  if(typeof clearBuildPreview==='function'){clearBuildPreview();S.builder.active=false;S.builder.project=-1;}
   if (ember) {
     closeModal();
     return;
@@ -137,6 +138,7 @@ function enterEmber() {
 }
 
 function leaveEmber() {
+  if(typeof clearBuildPreview==='function'){clearBuildPreview();S.builder.active=false;S.builder.project=-1;}
   if (!ember || !emberVillage) return;
   const old = scene;
   ({ world, scene, chunkGroup, chunkMeshes, interactive, particles, mapImage } =

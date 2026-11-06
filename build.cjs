@@ -8,12 +8,14 @@ const read = (p) => fs.readFileSync(p, 'utf8');
 const scripts = {
   THREE: 'three.min.js',
   DATA: 'data.js',
+  SHAPES: 'shapes.js',
   PROFILES: 'profiles.js',
   ENGINE: 'engine.js',
   UI: 'ui.js',
   LEARNING: 'learning.js',
   VOYAGE: 'voyage.js',
   EMBER: 'ember.js',
+  BUILDER: 'builder.js',
   MEDIA: 'media.js',
   TEMPLE: 'temple.js',
   WEATHER: 'weather.js',
@@ -64,7 +66,7 @@ async function build() {
   for (const [key, file] of Object.entries(scripts)) {
     html = html.replace(
       '<script>/*' + key + '*/</script>',
-      (key === 'DATA' ? '<script src="./content.js"></script>' : '') +
+      (key === 'SHAPES' ? '<script src="./content.js"></script>' : '') +
         (key === 'MAIN' ? '<script src="./fauna.js"></script>' : '') +
         '<script src="./' +
         file +

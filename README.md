@@ -1,10 +1,14 @@
 # Astéria — Les gardiens du savoir
 
-**Version 2.5.0 · Les Îles de braise.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
+**Version 2.6.0 · Le monde des bâtisseurs.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
 
 **[Jouer dans le navigateur](https://tnnmy4vbp6-creator.github.io/asteria/)** · [Code source](https://github.com/tnnmy4vbp6-creator/asteria) · [Nouveautés](CHANGELOG.md)
 
 ## Pour la famille
+
+**Construire & géométrie** ouvre six chantiers : rectangle, portique symétrique, cube, pyramide, toit et tour. Rejoindre un chantier, ouvrir les outils, choisir les dimensions puis poser avec **＋**. Le journal vérifie les blocs réellement construits avant le problème de géométrie. Dans l’atelier libre : **16 matériaux, 7 formes et 9 motifs**, aperçu, rotation et annulation. Un kit de 64 pièces par matériau est offert une seule fois par partie ; le créatif reste illimité.
+
+La carte indique quatre nouveaux lieux : parc des géomètres, atelier du charpentier, carrière exploitable et verger symétrique. Les boutons de la carte permettent de les rejoindre. Les emplacements alternatifs évitent de remplacer les constructions d’anciennes parties. [Détails et limites de la construction](docs/BATISSEURS.md).
 
 **Portail & dragon** ouvre les **Îles de braise**, un second monde de 80 × 80 blocs. Le pont demande de calculer puis poser six rangées, la forge demande de combiner des débits, les balises se suivent en anglais. Dans la forteresse, trois épreuves de grammaire, sciences et problèmes chargent les rayons du duel. Sortir du cercle orange, viser le dragon lorsque son bouclier devient turquoise, puis toucher la main. Le mode accompagné, activé au départ, supprime les dégâts du souffle et élargit la visée. La difficulté du problème final suit le réglage du menu.
 
@@ -41,6 +45,8 @@ node test-browser.cjs http://localhost:8767/ webkit
 node test-journey.cjs http://localhost:8767/
 node test-ember.cjs chrome http://localhost:8767/
 node test-ember.cjs webkit http://localhost:8767/
+node test-builder.cjs chrome http://localhost:8767/
+node test-builder.cjs webkit http://localhost:8767/
 ```
 
 ## Organisation
@@ -48,6 +54,7 @@ node test-ember.cjs webkit http://localhost:8767/
 | Module | Responsabilité |
 |---|---|
 | content/*.json, content.cjs | données éditables et génération du script de contenu. Les positions de l’encyclopédie sont des identifiants de sauvegarde ; ajouter les nouvelles questions en fin de liste |
+| shapes.js, builder.js | formes solides, collisions, palette, motifs, chantiers et nouveaux lieux |
 | data.js, profiles.js | état, recettes, validation des imports, sauvegarde et profils |
 | engine.js, tablet.js, batching.js | terrain et collisions, mouvement, joystick, distance de rendu, regroupement de géométries |
 | mill.js, learning.js, field.js | moulin et vanne, livraisons et révisions, espace parent, observations de terrain |
