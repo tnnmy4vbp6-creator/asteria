@@ -19,6 +19,7 @@ let replacingSave = false;
 function freshState() {
   return {
     version: 2,
+    builder: { active:false, material:'plank', shape:'cube', rotation:0, pattern:'single', width:3, depth:3, height:3, mirror:false, supplied:false, completed:[], sites:null, project:-1 },
     ember: { active: false, bridge: 0, cooled: false, route: 0, hits: 0, charged: false, assisted: true, edits: {} },
     temple: { site: -1, mask: 6, open: false, moon: 0 },
     mill: { stage: 0, mask: 0, errors: 0 },
@@ -80,13 +81,14 @@ function validSave(s) {
     return !!(
       s &&
       s.version === 2 &&
+      (s.builder===undefined || (obj(s.builder) && ['active','mirror','supplied'].every(k=>typeof s.builder[k]==='boolean') && BUILD_MATERIALS.some(m=>m.key===s.builder.material) && BUILD_SHAPES.some(v=>v.key===s.builder.shape) && int(s.builder.rotation,4) && ['single','line','floor','wall','solid','arch','pyramid','tower','roof'].includes(s.builder.pattern) && ['width','depth','height'].every(k=>Number.isInteger(s.builder[k])&&s.builder[k]>=1&&s.builder[k]<=7) && Array.isArray(s.builder.completed) && s.builder.completed.every(i=>int(i,6)) && Number.isInteger(s.builder.project)&&s.builder.project>=-1&&s.builder.project<6 && (s.builder.sites===null || (Array.isArray(s.builder.sites)&&s.builder.sites.length===4&&s.builder.sites.every(i=>Number.isInteger(i)&&i>=-1&&i<2))))) &&
       (s.ember === undefined || (obj(s.ember) &&
         ['active','cooled','charged','assisted'].every(k => typeof s.ember[k] === 'boolean') &&
         int(s.ember.bridge, 7) && int(s.ember.route, 4) && int(s.ember.hits, 4) &&
         (!s.ember.cooled || s.ember.bridge === 6) && (!s.ember.route || s.ember.cooled) &&
         (!s.ember.hits || s.ember.route === 3) && (!s.ember.charged || (s.ember.route === 3 && s.ember.hits < 3)) &&
         obj(s.ember.edits) && Object.keys(s.ember.edits).length < 15000 &&
-        Object.entries(s.ember.edits).every(([k,v]) => int(+k,192000) && [0,3,7,8,16].includes(v)))) &&
+        Object.entries(s.ember.edits).every(([k,v]) => int(+k,192000) && (v===0 || BUILD_MATERIALS.some(m=>m.id===v) || (Number.isInteger(v)&&v>=39&&v<BUILD_LIMIT))))) &&
       (s.voyageGuide === undefined || typeof s.voyageGuide === 'boolean') &&
       obj(s.player) &&
       ['x', 'y', 'z', 'yaw', 'pitch'].every((k) =>
@@ -104,7 +106,7 @@ function validSave(s) {
         (obj(s.practice) &&
           Object.entries(s.practice).every(
             ([id, p]) =>
-              (['mill-flow', 'cargo','batch','ember:bridge','ember:forge','ember:route','ember:grammar','ember:science','ember:problem'].includes(id) ||
+              (['mill-flow', 'cargo','batch','ember:bridge','ember:forge','ember:route','ember:grammar','ember:science','ember:problem'].includes(id) || /^build:[0-5]$/.test(id) ||
                 VOYAGES.some(v => v.steps.some(step => id === 'v:' + v.id + ':' + step.subject)) ||
                 /^k:\d+$/.test(id) ||
                 (id.startsWith('p:') &&
@@ -132,7 +134,7 @@ function validSave(s) {
       obj(s.edits) &&
       Object.keys(s.edits).length < 50000 &&
       Object.entries(s.edits).every(
-        ([k, v]) => int(+k, 192000) && int(v, 24),
+        ([k, v]) => int(+k, 192000) && validBuildVoxel(v),
       ) &&
       obj(s.crops) &&
       Object.entries(s.crops).every(

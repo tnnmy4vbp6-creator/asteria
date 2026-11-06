@@ -159,6 +159,8 @@ function wireControls() {
     if (key === 'm') showMap();
     if (key === 'l') notebook();
     if (key === 'b') buildAtAim();
+    if (key === 'r' && S.builder.active) rotateBuild();
+    if (key === 'u' && S.builder.active) undoBuild();
     if (key === 'f') eat(S.inv.bread ? 'bread' : 'apple');
     if (/^[1-8]$/.test(key)) selectSlot(Number(key) - 1);
   });
@@ -222,6 +224,9 @@ function wireControls() {
   $('playButton').onclick = beginPlay;
   $('titleVoyage').onclick = () => { beginPlay(); voyageBoard(); };
   $('titleEmber').onclick = () => { beginPlay(); ember ? emberJournal() : emberIntro(); };
+  $('titleBuilder').onclick=()=>{beginPlay();if(ember)leaveEmber();builderJournal();};
+  $('buildExit').onclick=()=>{S.builder.active=false;clearBuildPreview();updateHUD();saveGame(false);};
+  $('buildRotate').onclick=rotateBuild;$('buildUndo').onclick=undoBuild;$('buildPalette').onclick=builderPanel;
   $('titleTemple').onclick = () => {
     if (!temple) {
       modal('Les trois sites sont déjà bâtis', 'LE TEMPLE DES ÉCLIPSES',

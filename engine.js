@@ -73,6 +73,8 @@ const PLACE = {
   torch: 21,
   bed: 23,
 };
+Object.assign(BLOCKS, BUILD_BLOCKS);
+for (const m of BUILD_MATERIALS) PLACE[m.key]=m.id;
 function rand(x, z, k = 0) {
   let n = Math.sin(x * 127.1 + z * 311.7 + k * 71.7) * 43758.5453;
   return n - Math.floor(n);
@@ -355,7 +357,7 @@ class VoxelWorld {
         n < this.data.length &&
         Number.isInteger(v) &&
         v >= 0 &&
-        v <= 23 &&
+        validBuildVoxel(v) &&
         !this.protected.has(n) &&
         Math.floor(n / (VW * VD)) > 0
       )
@@ -488,7 +490,7 @@ function textureAtlas() {
   c.width = 256;
   c.height = 256;
   let g = c.getContext('2d');
-  for (let id = 1; id <= 26; id++)
+  for (let id = 1; id <= 38; id++)
     for (let face = 0; face < 3; face++) {
       let tile = (id - 1) * 3 + face,
         tx = (tile % 16) * 16,
@@ -597,6 +599,10 @@ function textureAtlas() {
         g.fillStyle = '#ffdc73';
         g.fillRect(tx, ty, 16, 6);
       }
+      if(id===27||id===28){g.strokeStyle=id===27?'#b69a73':'#3d3032';for(let a=0;a<16;a+=4){g.strokeRect(tx,ty+a,16,4);g.fillStyle='rgba(255,240,200,.1)';g.fillRect(tx+2,ty+a+1,9,1);}}
+      if(id>=29&&id<=31){g.strokeStyle='rgba(30,35,45,.3)';for(let a=0;a<16;a+=8)for(let b=0;b<16;b+=8)g.strokeRect(tx+b+(a?4:0),ty+a,8,8);}
+      if(id===32){for(let a=0;a<4;a++)for(let b=0;b<4;b++){g.fillStyle=(a+b)%2?'#e6d1a1':'#397f8e';g.fillRect(tx+a*4,ty+b*4,3,3);}}
+      if(id>=33){g.strokeStyle='rgba(255,250,220,.25)';g.strokeRect(tx+1.5,ty+1.5,13,13);g.fillStyle='rgba(20,35,45,.25)';g.fillRect(tx,ty+15,16,1);}
     }
   let tex = new THREE.CanvasTexture(c);
   tex.magFilter = THREE.NearestFilter;
@@ -685,10 +691,11 @@ function rebuildChunk(cx, cz) {
       for (let y = 0; y < VH; y++) {
         let id = world.get(x, y, z);
         if (!id) continue;
+        if(BLOCKS[id].shape){count=appendShape(BLOCKS[id],x,y,z,pos,norm,uv,colors,indices,count);continue;}
         for (let face of FACES) {
           let [nx, ny, nz] = face.n,
             adj = world.get(x + nx, y + ny, z + nz);
-          if (adj && adj !== 21 && !(adj === 16 && id !== 16)) continue;
+          if (adj && adj !== 21 && !BLOCKS[adj].shape && !(adj === 16 && id !== 16)) continue;
           let tile = (id - 1) * 3 + face.f,
             u = (tile % 16) / 16,
             v = 1 - Math.floor(tile / 16) / 16,
@@ -1353,6 +1360,7 @@ function initEngine() {
   chunkGroup = new THREE.Group();
   scene.add(chunkGroup);
   buildTemple();
+  if(typeof enrichBuildersWorld==='function')enrichBuildersWorld();
   streamTerrain(true);
   for (const key of world.dirty) {
     rebuildChunk(...key.split(',').map(Number));
@@ -1408,8 +1416,8 @@ function applyQuality() {
     Math.min(devicePixelRatio, low ? 0.9 : tier === 'medium' ? 1.25 : 1.6),
   );
   renderer.shadowMap.enabled = tier === 'high';
-  scene.fog.far = low ? 24 : 42;
-  scene.fog.near = low ? 12 : 22;
+  scene.fog.far = world.isEmber ? 75 : low ? 38 : 42;
+  scene.fog.near = world.isEmber ? 30 : low ? 18 : 22;
   streamTerrain(true);
 }
 function intersectsPlayer(x, y, z) {
@@ -1427,7 +1435,7 @@ function collision(x, y, z) {
   for (let a = Math.floor(x - 0.26); a <= Math.floor(x + 0.26); a++)
     for (let b = Math.floor(z - 0.26); b <= Math.floor(z + 0.26); b++)
       for (let h = Math.floor(y + 0.03); h <= Math.floor(y + 1.72); h++)
-        if (world.solid(a, h, b)) return true;
+        if (world.solid(a, h, b) && shapeIntersects(BLOCKS[world.get(a,h,b)],[x-.26-a,y+.03-h,z-.26-b],[x+.26-a,y+1.72-h,z+.26-b])) return true;
   return false;
 }
 function safePlayer() {
@@ -1459,13 +1467,21 @@ function getVoxelRay() {
   camera.getWorldDirection(dir);
   let origin = camera.position;
   let prev = null;
+  const checked=new Set();
   for (let t = 0.1; t < 5.6; t += 0.045) {
     let p = origin.clone().addScaledVector(dir, t),
       x = Math.floor(p.x),
       y = Math.floor(p.y),
       z = Math.floor(p.z),
       id = world.get(x, y, z);
-    if (id) return { x, y, z, id, prev, d: t };
+    if(id&&BLOCKS[id].shape){
+      const key=world.index(x,y,z);
+      if(!checked.has(key)){
+        checked.add(key);
+        const hit=pickShape(BLOCKS[id],origin.clone().sub(new THREE.Vector3(x,y,z)),dir);
+        if(hit&&hit.d<5.6){const n=hit.normal.toArray(),axis=n.map(Math.abs).indexOf(Math.max(...n.map(Math.abs))),cell=[x,y,z];cell[axis]+=n[axis]>=0?1:-1;return {x,y,z,id,d:hit.d,prev:{x:cell[0],y:cell[1],z:cell[2]}};}
+      }
+    } else if (id) return { x, y, z, id, prev, d: t };
     prev = { x, y, z };
   }
   return null;
@@ -1474,13 +1490,8 @@ function clearSight(origin, delta) {
   const steps = Math.ceil(delta.length() * 5);
   for (let i = 1; i < steps; i++) {
     const t = i / steps;
-    if (
-      world.solid(
-        Math.floor(origin.x + delta.x * t),
-        Math.floor(origin.y + delta.y * t),
-        Math.floor(origin.z + delta.z * t),
-      )
-    )
+    const p=[origin.x+delta.x*t,origin.y+delta.y*t,origin.z+delta.z*t],cell=p.map(Math.floor),id=world.get(...cell),local=p.map((v,i)=>v-cell[i]);
+    if (id && id!==21 && shapeIntersects(BLOCKS[id],local,local.map(v=>v+.001)))
       return false;
   }
   return true;
@@ -1530,8 +1541,15 @@ function showWorldName(actor) {
 function updateTarget() {
   target = getVoxelRay();
   outline.visible = !!target;
-  if (target)
-    outline.position.set(target.x + 0.5, target.y + 0.5, target.z + 0.5);
+  if (target) {
+    const info=BLOCKS[target.id],key=info.shape?info.shape+':'+info.rotation:'cube';
+    if(outline.userData.shape!==key){
+      outline.geometry.dispose();
+      const box=info.shape?null:new THREE.BoxGeometry(1.006,1.006,1.006);
+      outline.geometry=new THREE.EdgesGeometry(info.shape?shapeGeometry(info):box);box?.dispose();outline.userData.shape=key;
+    }
+    const offset=info.shape?0:.5;outline.position.set(target.x+offset,target.y+offset,target.z+offset);
+  }
   let best = null,
     score = -Infinity;
   const view = camera.getWorldDirection(new THREE.Vector3());
@@ -1572,7 +1590,7 @@ function updateTarget() {
   let text = '';
   if (best) {
     text =
-      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple' || best.kind === 'ember'
+      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple' || best.kind === 'ember' || best.kind === 'builder' || best.kind === 'builderPlot'
         ? best.label
         : best.kind === 'npc'
           ? `Parler à ${best.npc.name}`
@@ -1608,6 +1626,7 @@ function updateTarget() {
   showWorldName(best?.name ? best : name);
   $('targetLabel').textContent = !best && target ? BLOCKS[target.id].name + (blockWords[target.id] ? ' · ' + blockWords[target.id] : '') : '';
   if (typeof ember !== 'undefined' && ember) emberAim(best);
+  if(typeof updateBuildPreview==='function')updateBuildPreview();
 }
 function anchorVillageProps() {
   // Restore the footing even when loading an older, excavated village.
@@ -1721,6 +1740,7 @@ function spawnParticles(x, y, z, color) {
 }
 function placeBlock() {
   if (paused || !playing) return;
+  if(S.builder?.active && typeof placeBuild==='function'){placeBuild();return;}
   let k = S.hotbar[S.selected];
   if (typeof ember !== 'undefined' && ember && !['apple','bread','stone','plank','brick','glass'].includes(k)) {
     toast('Ici, construis avec la pierre, les planches, les briques ou le verre.'); return;
@@ -1816,7 +1836,9 @@ function movePlayer(dt) {
       !collision(x, player.pos.y + 1.05, z) &&
       world.solid(Math.floor(x), Math.floor(player.pos.y), Math.floor(z))
     ) {
-      player.pos.y += 1.01;
+      let low=player.pos.y,high=player.pos.y+1.05;
+      for(let i=0;i<12;i++){const mid=(low+high)/2;if(collision(x,mid,z))low=mid;else high=mid;}
+      player.pos.y=high+.0001;
       player.pos[a] += v;
     }
   }
@@ -1833,10 +1855,10 @@ function movePlayer(dt) {
   player.velY -= (swimming ? 7 : 21) * dt;
   let nextY = player.pos.y + player.velY * dt;
   if (collision(player.pos.x, nextY, player.pos.z)) {
-    if (player.velY < 0) {
-      player.pos.y = Math.ceil(nextY);
-      player.grounded = true;
-    } else player.pos.y = Math.floor(nextY + 1.72) - 1.73;
+    let clear=player.pos.y,blocked=nextY;
+    for(let i=0;i<14;i++){const mid=(clear+blocked)/2;if(collision(player.pos.x,mid,player.pos.z))blocked=mid;else clear=mid;}
+    player.pos.y=clear;
+    if (player.velY < 0) player.grounded = true;
     player.velY = 0;
   } else {
     player.pos.y = nextY;
