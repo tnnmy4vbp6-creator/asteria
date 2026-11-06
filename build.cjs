@@ -9,6 +9,8 @@ const scripts = {
   THREE: 'three.min.js',
   DATA: 'data.js',
   SHAPES: 'shapes.js',
+  RESTORATION:'restoration.js',
+  SCENERY:'scenery.js',
   PROFILES: 'profiles.js',
   ENGINE: 'engine.js',
   UI: 'ui.js',

@@ -23,6 +23,7 @@ const ctx = vm.createContext({
 vm.runInContext(require('./content.cjs')(), ctx);
 for (const file of [
   'shapes',
+  'restoration',
   'data',
   'engine',
   'builder',

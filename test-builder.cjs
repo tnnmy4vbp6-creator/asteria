@@ -38,6 +38,18 @@ async function run() {
     };
     await page.goto(url);
     await page.waitForSelector('#titleBuilder', { state: 'visible' });
+    // Compatibility fixture for the retired six-project flow. The new public
+    // entry point is covered by test-restoration.cjs, without a numeric quiz.
+    await page.evaluate(() => {
+      S.restoration.site = -1;
+      localStorage.setItem(SAVE_KEY, JSON.stringify(S));
+      replacingSave = true;
+    });
+    await page.reload();
+    await page.evaluate(() => {
+      builderJournal = legacyBuilderJournal;
+      $('titleBuilder').onclick = () => { beginPlay(); legacyBuilderJournal(); };
+    });
     assert(
       await page.evaluate(
         () =>
@@ -127,6 +139,7 @@ async function run() {
       );
       if (i === 2) {
         await page.reload();
+        await page.evaluate(() => { builderJournal = legacyBuilderJournal; });
         await tap('#playButton');
         assert.equal(await page.evaluate(() => S.builder.completed.length), 3);
         assert.equal(

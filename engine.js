@@ -119,6 +119,7 @@ class VoxelWorld {
     }
   }
   refreshFloraAt(x, z) {
+    if(typeof refreshSceneryAt==='function')refreshSceneryAt(x,z);
     const parts = this.floraColumns.get(x + VW * z);
     if (!parts) return;
     for (const { mesh, index, matrix, base } of parts) {
@@ -1361,6 +1362,7 @@ function initEngine() {
   scene.add(chunkGroup);
   buildTemple();
   if(typeof enrichBuildersWorld==='function')enrichBuildersWorld();
+  buildRestoration();
   streamTerrain(true);
   for (const key of world.dirty) {
     rebuildChunk(...key.split(',').map(Number));
@@ -1373,6 +1375,7 @@ function initEngine() {
   buildField();
   anchorVillageProps();
   batchVillage();
+  dressVillageScenery();
   ForestFauna.dressFoxes(animals.filter((a) => a.type === 'fox')).catch(
     console.error,
   );
@@ -1431,6 +1434,7 @@ function intersectsPlayer(x, y, z) {
   );
 }
 function collision(x, y, z) {
+  if (typeof sceneryCollision === 'function' && sceneryCollision(x,y,z)) return true;
   if (typeof ember !== 'undefined' && ember && emberCollision(x,y,z)) return true;
   for (let a = Math.floor(x - 0.26); a <= Math.floor(x + 0.26); a++)
     for (let b = Math.floor(z - 0.26); b <= Math.floor(z + 0.26); b++)
@@ -1556,7 +1560,7 @@ function updateTarget() {
   let name = null,
     nameScore = -Infinity;
   for (let o of interactive) {
-    if ((o.kind === 'field' || o.type === 'watcher') && !o.group.visible) continue;
+    if ((o.kind === 'field' || o.kind==='restoration' || o.type === 'watcher') && !o.group.visible) continue;
     if (o.kind === 'treasure' && S.opened.includes(o.id)) continue;
     let d = Math.hypot(o.pos.x - player.pos.x, o.pos.z - player.pos.z);
     if (d > 14) continue;
@@ -1590,7 +1594,7 @@ function updateTarget() {
   let text = '';
   if (best) {
     text =
-      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple' || best.kind === 'ember' || best.kind === 'builder' || best.kind === 'builderPlot'
+      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple' || best.kind === 'ember' || best.kind === 'builder' || best.kind === 'builderPlot' || best.kind === 'restoration'
         ? best.label
         : best.kind === 'npc'
           ? `Parler à ${best.npc.name}`
@@ -1764,6 +1768,7 @@ function placeBlock() {
   }
   let { x, y, z } = target.prev;
   if (
+    (typeof restorationReserved==='function'&&restorationReserved(x,y,z)) ||
     !world.inBounds(x, y, z) ||
     world.get(x, y, z) !== 0 ||
     (typeof ember !== 'undefined' && ember ? emberReserved(x,y,z) : typeof temple !== 'undefined' && temple && x >= temple.x && x <= temple.x + 14 && z >= temple.z && z <= temple.z + 15 && y >= 5 && y <= 12) ||
@@ -2039,6 +2044,7 @@ function tick(ts) {
   lastFrame = ts;
   if (playing && !paused) adaptResolution(frameSeconds);
   elapsed += dt;
+  if (playing && restorationMode) S.playSeconds += dt;
   if (playing && !paused) {
     const seconds = Math.min(1, (ts - (tick.realTime || ts)) / 1000);
     S.playSeconds += Math.max(0, seconds);
@@ -2078,6 +2084,7 @@ function tick(ts) {
       rebuildChunk(...key.split(',').map(Number));
   }
   tick.realTime = ts;
-  if (!paused || !playing || world.dirty.size) renderer.render(scene, camera);
+  if(typeof tickRestoration==='function')tickRestoration(dt);
+  if (!paused || !playing || world.dirty.size || restorationMode) renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }

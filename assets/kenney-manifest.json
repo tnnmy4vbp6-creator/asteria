@@ -1,0 +1,357 @@
+[
+  {
+    "file": "assets/models/kenney/flower_purpleA.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 7112,
+    "sha256": "f6fc34c96a03420a74fe36d4c2d0ec88f15204fcad99cd1416c3c4ecb22e48c4"
+  },
+  {
+    "file": "assets/models/kenney/flower_redA.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 7104,
+    "sha256": "171930b7789ddbf735af3745576b5393750beb9133b9ff4a444bb6bb2986c020"
+  },
+  {
+    "file": "assets/models/kenney/flower_yellowA.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 7120,
+    "sha256": "8a3b08cd2ca411c21f9c581d5bda651d78b13c50cba45ad8fa0389398ead6d1d"
+  },
+  {
+    "file": "assets/models/kenney/grass_large.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 18504,
+    "sha256": "af49a595624abca7249824eeefb944d4baf974abeeb5b16110d175da3563d6cd"
+  },
+  {
+    "file": "assets/models/kenney/plant_bushSmall.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 3212,
+    "sha256": "a9620a7d1fb165ae68d323676f80dbb2a9e3aafb21110d18d18d90b07026b91d"
+  },
+  {
+    "file": "assets/models/kenney/plant_bushDetailed.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 10172,
+    "sha256": "2e0487020d68ccf664435db9d829c78ae00e6d2785ee3ec10b9f89cc70a10406"
+  },
+  {
+    "file": "assets/models/kenney/mushroom_redGroup.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 14960,
+    "sha256": "29f02df0589dd2b09e8d2aff6a4662394dac5cfcf1fec701640dcbd6127e0802"
+  },
+  {
+    "file": "assets/models/kenney/mushroom_tanGroup.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 14956,
+    "sha256": "2dc979485f164d7dce34329096271f44e0c9ea329c104251d94bcfbc8f8fe05e"
+  },
+  {
+    "file": "assets/models/kenney/rock_smallA.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 3044,
+    "sha256": "df9fff9d711e61370e8df0caa2514c89b8f8a8dc6c6fafaf4eb2ec79c5ae07c1"
+  },
+  {
+    "file": "assets/models/kenney/rock_smallB.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 3528,
+    "sha256": "11b26bc0a12e971a3b69df1401e530e24432d528c262df94b99c412e7f372763"
+  },
+  {
+    "file": "assets/models/kenney/log_stack.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 10896,
+    "sha256": "90eaae4a01ba1f25c2f0c6d83087e4a7a8fac684f2452615245333968d118d68"
+  },
+  {
+    "file": "assets/models/kenney/lily_small.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 5664,
+    "sha256": "38184c9eeb560acabd4d7f1d16852422df056edf0b318c97854c250e048cad3c"
+  },
+  {
+    "file": "assets/models/kenney/crop_carrot.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 12664,
+    "sha256": "2a3641c609dd837a4feebb4f5c95d4cd43c3046e800acd416f4f6a3b923ba9d8"
+  },
+  {
+    "file": "assets/models/kenney/crop_pumpkin.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 10840,
+    "sha256": "5b4878c5996033629419c26ac32153ce8ac06bbbdac98e4fa8a5cbab98f78077"
+  },
+  {
+    "file": "assets/models/kenney/pot_small.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 7004,
+    "sha256": "1141d9e16099c2103f1a177de0cae4ea979a3246439e33074923e4cfe3098df8"
+  },
+  {
+    "file": "assets/models/kenney/canoe.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 15780,
+    "sha256": "ad9c7a315f55accbce8d1ee3dc853f919f01f97ab4e3096bb235d1815aed6941"
+  },
+  {
+    "file": "assets/models/kenney/canoe_paddle.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 3952,
+    "sha256": "7f8e0bc5beacfa1e4ae12f942ab045b1f7a13a04b497859f749bf7999b99d0bd"
+  },
+  {
+    "file": "assets/models/kenney/workbench.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 26104,
+    "sha256": "bf72d2d535fa29127e5078a6c4c2023a74fa5cd7d02d91ad550e897e088e1dc8"
+  },
+  {
+    "file": "assets/models/kenney/workbench-anvil.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 30084,
+    "sha256": "a6253df726c1eba7cbaddf7e31cd5a4adfac31309894bf647e4b803d9d75c275"
+  },
+  {
+    "file": "assets/models/kenney/tool-pickaxe.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 8152,
+    "sha256": "2b77a238b8666338094d83fc5561984643c335c49ccacd9e0e0a50fb2849c542"
+  },
+  {
+    "file": "assets/models/kenney/tool-hammer.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 6520,
+    "sha256": "9b27f03c26dabd49a7ea358615e63fe65e1c3d0157887d4ee1ecdfa1f0e688f3"
+  },
+  {
+    "file": "assets/models/kenney/tool-axe.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 8612,
+    "sha256": "de5c6cc51cdb5bcfad8bd7128b7ff0e37a34e6f4f8deddec82bb8634c25cc20d"
+  },
+  {
+    "file": "assets/models/kenney/bucket.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 7816,
+    "sha256": "ff173908480929067cd634d5edfedba038428f1503db487521492975fa5c8274"
+  },
+  {
+    "file": "assets/models/kenney/box.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 14056,
+    "sha256": "346eebd23986793b992ca6e05e9f98d6f5db96a9bfa3aa7c8360ac8b7920def8"
+  },
+  {
+    "file": "assets/models/kenney/box-open.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 17052,
+    "sha256": "2169e2291052ef9c378af4d6736df3fcff4ebca8fc39cbcdb4b7ad6accdff568"
+  },
+  {
+    "file": "assets/models/kenney/chest.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 35172,
+    "sha256": "84b03023e425cc1f96c6d0b0f352608be9e8e01b112790e6b00b8651bf84379b"
+  },
+  {
+    "file": "assets/models/kenney/resource-planks.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 8884,
+    "sha256": "d3804257474a3baab7ac067be91de5c3d6d18d5803775dc876cb6d9442c30873"
+  },
+  {
+    "file": "assets/models/kenney/resource-wood.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 7272,
+    "sha256": "1d5f559da9432f89bd323731ef76b60372e0deb261a96d0da8d5af570c485d80"
+  },
+  {
+    "file": "assets/models/kenney/campfire-pit.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 26468,
+    "sha256": "a78ce38de408456649146077e1917d70bb39f7c87c3c7370276d809d2409b0ab"
+  },
+  {
+    "file": "assets/models/kenney/tent-canvas.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 16864,
+    "sha256": "efc4bca46a22e4cc4fe391aeafba161c24bc39bfa75e192c57eaacaf686f9717"
+  },
+  {
+    "file": "assets/sounds/click_003.wav",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/interface-sounds",
+    "license": "CC0-1.0",
+    "bytes": 358,
+    "sha256": "e38d80e158cc3863f00399f206315ab166c83904642ca481524eb786eeeec1d2",
+    "adaptation": "PCM WAV mono 22050 Hz, converted from the original OGG for browser compatibility"
+  },
+  {
+    "file": "assets/sounds/confirmation_002.wav",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/interface-sounds",
+    "license": "CC0-1.0",
+    "bytes": 23814,
+    "sha256": "ce07160b2814064d544858bf9cbd441f918d5a9b32420f8fdebd8dd0677e9ea1",
+    "adaptation": "PCM WAV mono 22050 Hz, converted from the original OGG for browser compatibility"
+  },
+  {
+    "file": "assets/sounds/error_006.wav",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/interface-sounds",
+    "license": "CC0-1.0",
+    "bytes": 22096,
+    "sha256": "9f69558e832e9bf302dcb9d852ac2ba723460f56b261024275a08b7c53d85bd6",
+    "adaptation": "PCM WAV mono 22050 Hz, converted from the original OGG for browser compatibility"
+  },
+  {
+    "file": "assets/sounds/open_002.wav",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/interface-sounds",
+    "license": "CC0-1.0",
+    "bytes": 13882,
+    "sha256": "14bc95c42b529aabb6d084de25e3df2ca9967e24d6535c022326519a634c8c93",
+    "adaptation": "PCM WAV mono 22050 Hz, converted from the original OGG for browser compatibility"
+  },
+  {
+    "file": "assets/sounds/switch_003.wav",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/interface-sounds",
+    "license": "CC0-1.0",
+    "bytes": 22094,
+    "sha256": "41a26231c940069b06de4d6714881b8ff0aca23d899f52b423f9c9fda57a0928",
+    "adaptation": "PCM WAV mono 22050 Hz, converted from the original OGG for browser compatibility"
+  },
+  {
+    "file": "assets/icons/kenney/return.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15821
+  },
+  {
+    "file": "assets/icons/kenney/checkmark.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15751
+  },
+  {
+    "file": "assets/icons/kenney/question.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15636
+  },
+  {
+    "file": "assets/icons/kenney/audioOn.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15628
+  },
+  {
+    "file": "assets/icons/kenney/exit.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15378
+  },
+  {
+    "file": "assets/icons/kenney/target.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 16104
+  },
+  {
+    "file": "assets/icons/kenney/wrench.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15771
+  },
+  {
+    "file": "assets/icons/kenney/next.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15389
+  },
+  {
+    "file": "assets/icons/kenney/home.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/game-icons",
+    "license": "CC0-1.0",
+    "bytes": 15222
+  },
+  {
+    "file": "assets/models/kenney/Textures/colormap.png",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 7440
+  }
+]

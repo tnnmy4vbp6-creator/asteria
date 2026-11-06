@@ -1,12 +1,12 @@
 # Astéria — Les gardiens du savoir
 
-**Version 2.6.0 · Le monde des bâtisseurs.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
+**Version 2.7.0 · Le hameau des deux rives.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
 
 **[Jouer dans le navigateur](https://tnnmy4vbp6-creator.github.io/asteria/)** · [Code source](https://github.com/tnnmy4vbp6-creator/asteria) · [Nouveautés](CHANGELOG.md)
 
 ## Pour la famille
 
-**Construire & géométrie** ouvre six chantiers : rectangle, portique symétrique, cube, pyramide, toit et tour. Rejoindre un chantier, ouvrir les outils, choisir les dimensions puis poser avec **＋**. Le journal vérifie les blocs réellement construits avant le problème de géométrie. Dans l’atelier libre : **16 matériaux, 7 formes et 9 motifs**, aperçu, rotation et annulation. Un kit de 64 pièces par matériau est offert une seule fois par partie ; le créatif reste illimité.
+**Le hameau à sauver** ouvre une histoire continue : assembler un passage avec quatre cubes et quatre demi-blocs, orienter les quatre prismes du toit de la réserve, puis rétablir un signal symétrique. Les pièces se touchent directement dans le décor ; le chariot, l’eau et la lumière montrent le résultat. Les réparations restent dans le monde. Les indices et la lecture à voix haute sont disponibles. La construction libre conserve **16 matériaux, 7 formes et 9 motifs**, rotation, aperçu et annulation.
 
 La carte indique quatre nouveaux lieux : parc des géomètres, atelier du charpentier, carrière exploitable et verger symétrique. Les boutons de la carte permettent de les rejoindre. Les emplacements alternatifs évitent de remplacer les constructions d’anciennes parties. [Détails et limites de la construction](docs/BATISSEURS.md).
 

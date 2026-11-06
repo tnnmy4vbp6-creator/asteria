@@ -1,5 +1,17 @@
 # Apprendre en transformant le monde
 
+## Le hameau des deux rives (2.7.0)
+
+Les trois réparations ont une cause narrative commune : acheminer puis protéger les graines de Lila. L’enfant manipule les vrais blocs du village dans une vue rapprochée et peut retourner explorer à tout moment. Le jeu n’attend pas une réponse écrite après la construction.
+
+| Situation | Geste et raisonnement | Conséquence observable |
+|---|---|---|
+| Six emplacements, quatre cubes et quatre moitiés | Répartir le stock ; retourner et joindre deux demi-blocs | Le chariot traverse seulement un passage plat et complet |
+| Quatre trous dans une toiture existante | Comparer les surfaces et tourner les prismes triangulaires | L’écoulement animé suit les versants corrects ; les emplacements incorrects laissent une fuite |
+| Trois pierres manquantes près du fanal | Associer sphère, pyramide et cylindre à leur reflet | Le signal relie les rives et révèle une cache |
+
+Les essais erronés sont permis sans perte définitive ; deux niveaux d’indices explicitent progressivement l’observation utile. Les découvertes sont relues dans le carnet, les essais sont tracés dans l’espace parent. Cette séquence couvre composition de moitiés, orientation spatiale, solides et symétrie. Elle ne démontre pas à elle seule un transfert scolaire, et ne remplace pas les contenus existants d’anglais, grammaire, logique et culture générale. Une observation d’enfants sur tablette reste nécessaire pour mesurer compréhension et difficulté.
+
 ## Les commandes du village (2.4.0)
 
 Six cargaisons donnent chacune un contexte à six apprentissages. Les consignes en anglais se jouent sur le sens des mots, des positions, des quantités ou de l’ordre des actions. La grammaire alterne repérage et écriture. Les quantités se composent en manipulant des lots. Les problèmes demandent de retenir plusieurs informations et de choisir des opérations. Les énigmes de logique demandent de respecter plusieurs contraintes. Une légende de terrain mobilise les connaissances de nature, d’histoire, de géographie ou de sciences.

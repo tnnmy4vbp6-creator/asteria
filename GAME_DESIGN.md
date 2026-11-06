@@ -1,5 +1,9 @@
 # Astéria • Le moulin des deux rives
 
+**Évolution 2.7.0 — Le hameau des deux rives.** La construction guidée rejoint désormais l’histoire des provisions : Mina attend devant un passage détruit, Éloi doit protéger la réserve, Aïna rétablit le signal pour Lila. Chacune des trois manipulations change les blocs du même monde et débloque l’étape suivante. Le retour d’essai est visible dans la scène. Les anciennes fiches de six projets ne constituent plus l’entrée publique de la géométrie ; les constructions et données antérieures restent compatibles. La palette libre reste disponible.
+
+Les nouveaux modèles Kenney habillent des lieux utiles : cargaison du chariot, réserve, atelier et coffre final. Les écoulements et déplacements de chariot sont des animations déterministes de résultat, pas un moteur universel de fluides ou de véhicules. Le monde reste fini. Cette livraison ne revendique ni la richesse intégrale de Minecraft ni la conformité totale aux 100 sections du cahier des charges.
+
 **Promesse de jeu.** « La rivière est là, le jardin est à sec, et je peux changer ça de mes propres mains. » L’enfant entre dans le rôle d’un apprenti bâtisseur dans un village qui dépend de ses inventions. Le portail des cinq gardiens forme l’horizon de l’aventure.
 
 **Les cinq premières minutes.** Une casquette brune et un repère signalent Zoé près du départ. L’enfant s’approche, touche la main pour lui parler, ouvre le sac et transforme l’une de ses deux bûches en quatre planches. Le repère pointe ensuite la roue à l’est. Une fois les deux pales réparées, il faut remonter la rive vers le nord et régler trois conduites. La roue tourne et les nouvelles parcelles sont arrosées à la plantation. Une fois réparé, le moulin prend des commandes de livraison.

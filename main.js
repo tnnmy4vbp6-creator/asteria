@@ -144,6 +144,7 @@ function wireControls() {
       playing
     )
       e.preventDefault();
+    if (key === 'escape' && restorationMode) { e.preventDefault();exitRestoration();return; }
     if (key === 'escape') {
       e.preventDefault();
       if (!$('modal').classList.contains('hidden')) closeModal();
@@ -224,7 +225,7 @@ function wireControls() {
   $('playButton').onclick = beginPlay;
   $('titleVoyage').onclick = () => { beginPlay(); voyageBoard(); };
   $('titleEmber').onclick = () => { beginPlay(); ember ? emberJournal() : emberIntro(); };
-  $('titleBuilder').onclick=()=>{beginPlay();if(ember)leaveEmber();builderJournal();};
+  $('titleBuilder').onclick=()=>{beginPlay();if(ember)leaveEmber();restorationIntro();};
   $('buildExit').onclick=()=>{S.builder.active=false;clearBuildPreview();updateHUD();saveGame(false);};
   $('buildRotate').onclick=rotateBuild;$('buildUndo').onclick=undoBuild;$('buildPalette').onclick=builderPanel;
   $('titleTemple').onclick = () => {

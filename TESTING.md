@@ -1,3 +1,13 @@
+# Vérification de la 2.7.0
+
+`npm test` : 33 vérifications de moteur/campagne/moulin et la suite des solides passent. `test-restoration.cjs chrome` joue les trois réparations par contacts tactiles, avec essais incorrects, stock épuisé, retrait et recomposition de moitiés, orientations de toit, correspondances de solides, récompense unique et sauvegarde/reprise hors connexion. Il charge les 30 modèles Kenney (56 placements dans le profil neuf), contrôle les collisions des gros accessoires et l’absence de réponse HTTP en erreur. Les emplacements tactiles et panneaux ne se recouvrent pas à 390 × 720, 844 × 390 et 1280 × 720. Les deux scénarios de migration vérifient le site alternatif puis le refus de remplacement lorsque les deux sites sont occupés.
+
+Le même parcours WebKit passe avec le son désactivé dans le profil de test. Le backend multimédia du WebKit Windows utilisé par le banc peut bloquer après plusieurs sons ; cela empêche de déclarer son parcours audio validé. Chrome est testé avec le son activé. Les nouveaux bruitages sont distribués en WAV PCM, avec leurs sources et transformations dans le manifeste. Ni iPad/iPhone physique ni panel d’enfants testé pour cette livraison.
+
+Les régressions Chrome `test-mobile-regressions.cjs`, `test-touch-night.cjs`, `test-temple.cjs`, `test-ember.cjs`, `test-voyages.cjs` passent : direction et murs du renard, prénoms, ciblage des personnages, interface, double appui, veilleurs, temple, portail, dragon et 36 étapes pédagogiques. `test-builder.cjs chrome` conserve une fixture explicite de l’ancien parcours pour vérifier anciennes constructions, collisions, pose et annulation ; l’entrée publique est testée par la nouvelle suite.
+
+Captures de référence : `.qa/restoration-chrome-bridge.png`, `-roof.png`, `-signal.png` et équivalents WebKit. Leur inspection vérifie la continuité du toit, la position des pièces et la lisibilité. Les essais du chariot et de l’eau sont des animations de résultat, pas une simulation générale de véhicules ou de fluides. Aucun objectif de fréquence d’image sur matériel mobile n’est revendiqué sans mesure sur appareil.
+
 # Vérification de la 2.6.0
 
 Les 33 tests de logique existants et la suite de solides passent. La suite supplémentaire vérifie 224 identifiants matériau/forme/orientation, géométries finies, normale du toit, rayons traversant le vide d’un demi-bloc, collisions, quantités des six projets et anciennes sauvegardes.

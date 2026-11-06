@@ -1,5 +1,13 @@
 # Versions
 
+## 2.7.0 — Le hameau des deux rives
+
+- L’entrée construction devient une histoire continue avec Mina, Éloi et Aïna : passage des provisions, toit de la réserve, puis signal entre les rives.
+- Manipulation des pièces directement dans le décor. Stock limité, réunion de deux moitiés, rotation de prismes et correspondance de solides. Le chariot s’arrête aux trous, l’eau suit les bonnes pentes ou fuit, le signal s’allume après réparation. Aucun formulaire de réponse numérique dans ce chapitre.
+- Les erreurs ne consomment pas les pièces : reprise, retrait, indices graduels et lecture à voix haute. Les réparations, essais et explications sont sauvegardés. Le coffre final ne donne son contenu qu’une fois.
+- 30 modèles de deux packs Kenney, icônes et sons de deux autres packs : végétation, outils, atelier, campement, réserve et cargaison. Licences CC0 et manifeste des fichiers distribués.
+- Cadrages de réparation distincts en portrait et paysage ; emplacements tactiles sans recouvrement avec les panneaux. Construction libre et anciennes constructions conservées.
+
 ## 2.6.0 — Le monde des bâtisseurs
 
 - Une palette de 16 matériaux et 7 formes réelles : cube, demi-bloc, escalier, prisme triangulaire, cylindre, sphère et pyramide. Rotation, aperçu, pose jumelle et annulation des 10 dernières poses de la session.

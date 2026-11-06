@@ -220,6 +220,7 @@ function updateHUD() {
   }
   drawMap($('minimap'));
   if(typeof builderHUD==='function')builderHUD();
+  if(typeof restorationHUD==='function')restorationHUD();
   let v = new THREE.Vector3(
       n.x + 0.5,
       world.heights[n.x + n.z * VW] + 5,
@@ -358,6 +359,11 @@ function drawMap(canvas, large = false) {
     }
   }
   if(typeof drawBuilderMap==='function')drawBuilderMap(g,w,h,large);
+  if (typeof restoration !== 'undefined' && restoration) {
+    const rx=(restoration.x+10)/80*w, rz=(restoration.z+9)/80*h;
+    g.fillStyle='#f1d179';g.fillRect(rx-4,rz-4,8,8);
+    if(large){g.font='bold 14px Arial';g.fillStyle='#16362f';g.fillText('Deux rives',Math.min(w-90,rx+7),rz+4);}
+  }
   g.save();
   g.translate((player.pos.x / 80) * w, (player.pos.z / 80) * h);
   g.rotate(-player.yaw);
@@ -501,7 +507,7 @@ function quests() {
     ).join('')}`,
   );
   $('voyageBook').onclick = voyageBoard;
-  const buildersCard=document.createElement('article');buildersCard.className='quest-card';buildersCard.innerHTML='<h3>Le parc des géomètres</h3><p>Six vrais bâtiments à construire : dimensions, symétrie, aire et volume.</p><button class="primary" id="questBuilders">Construire et apprendre</button>';$('modalBody').querySelector('.modal-content').prepend(buildersCard);$('questBuilders').onclick=builderJournal;
+  const buildersCard=document.createElement('article');buildersCard.className='quest-card';buildersCard.innerHTML='<h3>Le hameau des deux rives</h3><p>Rouvre le passage des provisions, protège les graines et rétablis le signal.</p><button class="primary" id="questBuilders">Aider le hameau</button>';$('modalBody').querySelector('.modal-content').prepend(buildersCard);$('questBuilders').onclick=builderJournal;
   const portalCard = document.createElement('article');
   portalCard.className = 'quest-card';
   portalCard.innerHTML = '<h3>Au-delà du portail</h3><p>Les Îles de braise : construis un pont, réveille la forge et libère le dragon.</p><button class="primary" id="questEmber">Explorer les Îles de braise</button>';
@@ -533,6 +539,10 @@ function showMap() {
     `<canvas id="largeMap" class="map-large" width="640" height="640" aria-label="Carte du monde. La mine aux cristaux se trouve au nord-ouest, en haut à gauche."></canvas><div class="map-legend"><span>◆ Gardiens</span><span>▲ Ta position</span><span>● Entrée de la mine</span><span>Nord : montagnes</span><span>Est : désert</span></div><p><b>Mine · cristaux bruts</b> — Depuis le village, monte vers le nord puis rejoins la colline à gauche du portail. Entre par l’ouverture au sud de la colline. Les blocs bleutés se trouvent à droite dans la galerie. Une pioche en fer permet de les récolter.</p><p class="muted">Le pont de Nora traverse la rivière à l’est.</p>`,
   );
   drawMap($('largeMap'), true);
+  if (restoration) {
+    const go=document.createElement('button');go.className='primary';go.textContent='Aider le hameau des deux rives';go.onclick=restorationIntro;
+    $('modalBody').querySelector('.modal-content').append(go);
+  }
   if(typeof builderSites!=='undefined'){
     const links=document.createElement('div');links.className='row';links.innerHTML=builderSites.map((site,i)=>site?'<button class="secondary" data-landmark="'+i+'">'+site.name+'</button>':'').join('');$('modalBody').querySelector('.modal-content').append(links);
     links.querySelectorAll('[data-landmark]').forEach(b=>b.onclick=()=>visitBuilderLandmark(+b.dataset.landmark));
@@ -1033,6 +1043,7 @@ function notebook() {
     .map((key) => {
       if (typeof key !== 'string') return null;
       let [type, id] = key.split(':');
+      if(type==='rest'&&RESTORATION_CHAPTERS[+id])return {title:RESTORATION_CHAPTERS[+id].title,text:RESTORATION_CHAPTERS[+id].lesson};
       if(type==='build'&&BUILD_PROJECTS[+id])return {title:BUILD_PROJECTS[+id].name,text:BUILD_PROJECTS[+id].explain};
       if (type === 'ember') {
         const facts={plan:['Le rectangle du pont','6 rangées de 3 blocs forment un sol de 18 blocs. La longueur multipliée par la largeur donne le nombre de cases.'],forge:['Additionner des débits','2 litres par minute et 4 litres par minute donnent ensemble 6 litres par minute.'],route:['Les points cardinaux en anglais','North : nord. East : est. West : ouest. South : sud. Sur la carte, le nord est en haut.']};
@@ -1121,6 +1132,7 @@ function interact() {
   if (paused || !playing) return;
   let o = nearObject;
   if(o?.kind==='builder'){o.action();return;}
+  if(o?.kind==='restoration'){o.action();return;}
   if(o?.kind==='builderPlot'){visitBuildProject(o.id);return;}
   if (typeof ember !== 'undefined' && ember) {
     if (o?.kind === 'ember') useEmber(o.id);
@@ -1422,6 +1434,6 @@ function credits() {
   modal(
     'Un monde pour apprendre',
     'À PROPOS D’ASTÉRIA',
-    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.6.0 — Solo, deux mondes finis de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
+    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Les décors du hameau, outils, cultures et végétaux viennent des packs Nature Kit et Survival Kit de Kenney ; les boutons et sons utilisent Game Icons et Interface Sounds. Ces quatre packs sont sous CC0. <a href="./assets/kenney-manifest.json">Inventaire des fichiers et sources</a>. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.7.0 — Solo, deux mondes finis de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
   );
 }
