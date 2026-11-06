@@ -1570,3 +1570,16 @@ body:has(#hud:not(.hidden)):has(#modal.hidden) {
 @media (max-width: 650px) {
   .title-actions { flex-wrap: wrap; }
 }
+.ember-cover { padding: 20px; margin-bottom: 18px; border-radius: 12px; color: #fff5df; background: linear-gradient(135deg,#382e52,#79484b); }
+.ember-cover > span { font-size: 40px; color: #ffcf84; }
+.ember-cover h3 { color: inherit; }
+.ember-option { display: flex; align-items: center; gap: 12px; margin: 20px 0; line-height: 1.5; }
+.ember-option input { width: 24px; height: 24px; flex-shrink: 0; }
+.ember-plan { display: flex; flex-direction: column-reverse; gap: 4px; margin: 18px auto; width: max-content; }
+.ember-plan > div { display: flex; gap: 4px; }
+.ember-plan i { width: 32px; height: 24px; border: 2px solid #8b799d; background: #e0dce8; }
+.ember-plan i.built { background: #725c86; }
+.ember-world #questTrack p { display: block; font-size: 12px; line-height: 1.4; margin: 6px 0; }
+[data-valve][aria-pressed=true] { background: #b3dace; box-shadow: inset 0 0 0 2px #3d8275; }
+.title-actions { flex-wrap: wrap; }
+@media (max-height: 500px) { .title-actions { max-width: 690px; gap: 8px; } .title-copy { margin: 10px 0; } .title-meta { margin-top: 12px; } }

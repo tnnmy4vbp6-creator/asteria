@@ -100,7 +100,7 @@ class VoxelWorld {
     if (!this.inBounds(x, y, z)) return;
     this.data[this.index(x, y, z)] = id;
     if (edit) {
-      S.edits[this.index(x, y, z)] = id;
+      (this.isEmber ? S.ember.edits : S.edits)[this.index(x, y, z)] = id;
       this.refreshFloraAt(x, z);
       for (let [dx, dz] of [
         [0, 0],
@@ -1253,6 +1253,7 @@ function addDetails() {
   refreshTorches();
 }
 function refreshCrops() {
+  if (typeof ember !== 'undefined' && ember) return;
   for (let c of cropMeshes) {
     while (c.group.children.length) {
       let child = c.group.children[0];
@@ -1422,6 +1423,7 @@ function intersectsPlayer(x, y, z) {
   );
 }
 function collision(x, y, z) {
+  if (typeof ember !== 'undefined' && ember && emberCollision(x,y,z)) return true;
   for (let a = Math.floor(x - 0.26); a <= Math.floor(x + 0.26); a++)
     for (let b = Math.floor(z - 0.26); b <= Math.floor(z + 0.26); b++)
       for (let h = Math.floor(y + 0.03); h <= Math.floor(y + 1.72); h++)
@@ -1429,6 +1431,7 @@ function collision(x, y, z) {
   return false;
 }
 function safePlayer() {
+  if (typeof ember !== 'undefined' && ember) { emberCheckpoint(); return; }
   if (
     player.pos.x < 1 ||
     player.pos.x > 78 ||
@@ -1443,6 +1446,7 @@ function safePlayer() {
   }
 }
 function spawn() {
+  if (typeof ember !== 'undefined' && ember) { leaveEmber(); return; }
   player.pos.set(35.5, 5, 59.5);
   player.velY = 0;
   S.health = 100;
@@ -1539,7 +1543,9 @@ function updateTarget() {
     let d = Math.hypot(o.pos.x - player.pos.x, o.pos.z - player.pos.z);
     if (d > 14) continue;
     const visibleHeight =
-      o.kind === 'animal'
+      o.kind === 'ember'
+        ? 1.25
+        : o.kind === 'animal'
         ? 0.65
         : o.kind === 'crop'
           ? 0.35
@@ -1551,6 +1557,7 @@ function updateTarget() {
     look.sub(camera.position);
     const dot = look.clone().normalize().dot(view);
     if (dot < 0 || !clearSight(camera.position, look)) continue;
+    if (o.kind === 'ember' && dot < 0.92) continue;
     const rank = dot * 3 - d * 0.07;
     if (o.name && rank > nameScore && dot > 0.65) {
       name = o;
@@ -1565,7 +1572,7 @@ function updateTarget() {
   let text = '';
   if (best) {
     text =
-      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple'
+      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple' || best.kind === 'ember'
         ? best.label
         : best.kind === 'npc'
           ? `Parler à ${best.npc.name}`
@@ -1600,6 +1607,7 @@ function updateTarget() {
   $('interactPrompt').querySelector('span').textContent = text;
   showWorldName(best?.name ? best : name);
   $('targetLabel').textContent = !best && target ? BLOCKS[target.id].name + (blockWords[target.id] ? ' · ' + blockWords[target.id] : '') : '';
+  if (typeof ember !== 'undefined' && ember) emberAim(best);
 }
 function anchorVillageProps() {
   // Restore the footing even when loading an older, excavated village.
@@ -1714,6 +1722,9 @@ function spawnParticles(x, y, z, color) {
 function placeBlock() {
   if (paused || !playing) return;
   let k = S.hotbar[S.selected];
+  if (typeof ember !== 'undefined' && ember && !['apple','bread','stone','plank','brick','glass'].includes(k)) {
+    toast('Ici, construis avec la pierre, les planches, les briques ou le verre.'); return;
+  }
   if (k === 'apple' || k === 'bread') {
     eat(k);
     return;
@@ -1735,7 +1746,7 @@ function placeBlock() {
   if (
     !world.inBounds(x, y, z) ||
     world.get(x, y, z) !== 0 ||
-    (typeof temple !== 'undefined' && temple && x >= temple.x && x <= temple.x + 14 && z >= temple.z && z <= temple.z + 15 && y >= 5 && y <= 12) ||
+    (typeof ember !== 'undefined' && ember ? emberReserved(x,y,z) : typeof temple !== 'undefined' && temple && x >= temple.x && x <= temple.x + 14 && z >= temple.z && z <= temple.z + 15 && y >= 5 && y <= 12) ||
     y < 1 ||
     y > 25 ||
     intersectsPlayer(x, y, z) ||
@@ -1907,6 +1918,7 @@ function updateWatcher(a, dt, night) {
   a.mixer.update(dt);
 }
 function animateWorld(dt) {
+  if (typeof ember !== 'undefined' && ember) { animateEmber(dt); return; }
   let phase = (S.time % 720) / 720,
     hour = (phase * 24 + 6) % 24,
     day = Math.max(0.08, Math.sin(((hour - 6) / 12) * Math.PI)),
@@ -1979,7 +1991,7 @@ function animateWorld(dt) {
   animateTemple(elapsed);
   animateWeather();
   if (millWheel && S.mill.stage === 3) millWheel.rotation.z -= dt * 1.6;
-  portal.material.opacity = S.won ? 0.5 + Math.sin(elapsed * 2) * 0.12 : 0.07;
+  portal.material.opacity = (S.won ? 0.5 : 0.3) + Math.sin(elapsed * 2) * 0.1;
   for (let p of particles) {
     let d = p.userData;
     d.life -= dt;

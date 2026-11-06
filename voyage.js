@@ -296,6 +296,7 @@ function goToJob(job) {
   toast('Approche de ' + job.npc.name + ' et touche la main pour commencer.');
 }
 function voyageBoard() {
+  if (typeof ember !== 'undefined' && ember) leaveEmber();
   const job = nextJob();
   const due = VOYAGES.flatMap((v) =>
     v.steps.map((s) => ({ v, s, id: voyageKey(v, s) })),

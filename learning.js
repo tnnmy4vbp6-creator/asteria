@@ -1,5 +1,11 @@
 const dayMs = 86400000;
 const skillNames = {
+  'ember:bridge': 'Mathématiques · Le pont de braise',
+  'ember:forge': 'Logique · Refroidir la forge',
+  'ember:route': 'Anglais · Les points cardinaux',
+  'ember:grammar': 'Grammaire · Accorder le verbe',
+  'ember:science': 'Sciences · Magma et lave',
+  'ember:problem': 'Problèmes · Les réserves du dragon',
   batch: 'Mathématiques · Doubler une recette',
   'mill-flow': 'Régler le débit',
   cargo: 'Préparer les livraisons',
