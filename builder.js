@@ -253,6 +253,7 @@ function builderConflict(cells) {
           p.y <= 12
     )
       return 'Ce lieu est réservé à une épreuve.';
+    if (typeof restorationReserved==='function'&&restorationReserved(p.x,p.y,p.z))return 'Le hameau se répare avec les pièces confiées par ses habitants.';
     if (intersectsPlayer(p.x, p.y, p.z))
       return 'Recule un peu : tu es dans le volume à construire.';
     if (
@@ -422,7 +423,7 @@ function builderPanel() {
   modal(
     'L’atelier des bâtisseurs',
     'CONSTRUIRE · OBSERVER · COMPRENDRE',
-    `<div class="build-tabs"><button class="primary" id="buildLibrary">Matériaux et formes</button><button class="secondary" id="buildMissions">Les 6 chantiers</button></div>
+    `<div class="build-tabs"><button class="primary" id="buildLibrary">Matériaux et formes</button><button class="secondary" id="buildMissions">Aider le hameau</button></div>
     <p>Un kit de départ de 64 pièces par matériau a été ajouté une seule fois à ton sac. ${S.creative ? 'Les matériaux sont illimités dans cette partie créative.' : 'Les poses utilisent les pièces de ton sac ; annuler les rend.'}</p>
     <h3>1 · Matériau</h3><div class="build-palette">${BUILD_MATERIALS.map((m) => `<button data-material="${m.key}" aria-pressed="${m.key === s.material}" title="${m.family}"><i style="background:${m.color}"></i><span>${m.name}</span><small>${S.creative ? '∞' : S.inv[m.key] || 0}</small></button>`).join('')}</div>
     <h3>2 · Forme d’une pièce</h3><div class="build-shapes">${BUILD_SHAPES.map((v) => `<button data-shape="${v.key}" aria-pressed="${v.key === s.shape}">${shapeSVG(v.key)}<span>${v.name}</span></button>`).join('')}</div><p class="banner" id="shapeLesson">${shape.lesson}</p>
@@ -561,7 +562,8 @@ function buildPlot(i) {
     ? { x: site.x + 1 + (i % 3) * 7, z: site.z + 2 + Math.floor(i / 3) * 9 }
     : null;
 }
-function builderJournal() {
+function builderJournal() { restorationIntro(); }
+function legacyBuilderJournal() {
   modal(
     'Le parc des géomètres',
     'SIX CONSTRUCTIONS À INVENTER',

@@ -70,15 +70,17 @@ function playSample(type) {
   const sounds = {
     mine: target?.id === 4 ? 'dig_choppy.1' : 'dig_cracky.1',
     place: 'place_node.1',
+    click:'click_003',success:'confirmation_002',wrong:'error_006',open:'open_002',rotate:'switch_003',
     step: 'grass_footstep.' + (1 + (stepVariant % 2)),
   };
   const name = sounds[type];
   if (!name || typeof Audio === 'undefined') return false;
+  const uiSound = ['click','success','wrong','open','rotate'].includes(type);
   if (type === 'step') stepVariant++;
   if (!samples.has(name))
-    samples.set(name, new Audio('./assets/sounds/' + name + '.ogg'));
+    samples.set(name, new Audio('./assets/sounds/' + name + (uiSound ? '.wav' : '.ogg')));
   const a = samples.get(name);
-  if (!a.canPlayType('audio/ogg')) return false;
+  if (!a.canPlayType(uiSound ? 'audio/wav' : 'audio/ogg')) return false;
   a.volume = type === 'step' ? 0.17 : 0.35;
   a.currentTime = 0;
   a.play().catch(() => {});

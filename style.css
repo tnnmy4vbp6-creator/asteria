@@ -1614,3 +1614,42 @@ body:has(#hud:not(.hidden)):has(#modal.hidden) {
 .building #interactPrompt, .building #worldName { display:none !important; }
 
 .build-measures input:disabled { opacity:1; color:#596963; background:#dce1d7; border:1px dashed #85938b; }
+
+/* The camera stays in the village while children handle the actual repair pieces. */
+#restorationView { position:fixed; inset:0; z-index:45; pointer-events:none; color:#fff3d4; touch-action:none; user-select:none; -webkit-user-select:none; }
+#restorationView[hidden] { display:none; }
+.restoring #hud, .restoring #vignette { display:none; }
+#restorationView button { pointer-events:auto; touch-action:none; min-height:44px; background:#1c403bf2; color:#fff3d4; border:1px solid #c5d8c380; border-radius:9px; padding:8px 13px; }
+#restorationView button:disabled { opacity:.55; }
+#restorationView button[hidden] { display:none; }
+#restorationView button.primary { background:#efd18b; color:#223c34; }
+#restorationView img { width:23px; height:23px; object-fit:contain; vertical-align:middle; }
+.rest-heading { display:flex; justify-content:space-between; gap:14px; margin:12px; padding:12px 16px; background:#16362fe8; border-radius:12px; }
+.rest-heading small { font-size:11px; letter-spacing:1px; }
+.rest-heading h2 { margin:4px 0 0; font-size:21px; color:#fff3d4; }
+#restSpeech { max-width:640px; margin:0 12px; padding:10px 16px; font-size:15px; line-height:1.4; background:#16362fe8; border-radius:10px; }
+.rest-console { position:absolute; bottom:max(10px,env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); width:min(760px,calc(100% - 20px)); background:#16362ff5; border:1px solid #c5d8c3; border-radius:14px; padding:10px; pointer-events:auto; }
+#restFeedback { font-size:15px; line-height:1.4; min-height:40px; margin:0 4px 8px; }
+#restPieces { display:flex; justify-content:center; gap:8px; }
+#restPieces button { display:flex; gap:8px; align-items:center; }
+#restPieces svg { width:38px; height:38px; }
+#restPieces [aria-pressed=true] { outline:3px solid #edcf82; background:#365c49; }
+.rest-actions { display:flex; justify-content:center; gap:7px; flex-wrap:wrap; margin-top:10px; }
+#restSlots button { position:absolute; transform:translate(-50%,-50%); width:42px; height:42px; min-height:42px; padding:0; border:2px solid #fff3b8; border-radius:50%; background:#183a3266; font-size:18px; font-weight:bold; box-shadow:0 2px 5px #0008; }
+#restSlots button.selected { background:#eac974; color:#183a32; }
+.rest-route { display:grid; gap:8px; margin:20px 0; }
+.rest-route span { border-left:3px solid #b8af8a; padding:8px 12px; background:#dedfce; }
+.rest-route .done { border-color:#348778; }
+@media (orientation:landscape) {
+  #restSpeech { position:absolute; right:12px; top:100px; width:min(340px,43vw); margin:0; font-size:13px; }
+  .rest-console { left:auto; right:12px; transform:none; width:min(340px,43vw); }
+  #restPieces button { flex:1; flex-direction:column; padding:5px; font-size:12px; gap:3px; }
+}
+@media(max-width:550px) { .rest-heading { padding:8px 10px; gap:6px; } .rest-heading h2 { font-size:18px; } .rest-heading small { font-size:9px; } #restSpeech { font-size:13px; } .rest-console { padding:8px; } #restFeedback { font-size:13px; } #restPieces { gap:6px; } #restPieces button { flex:1; flex-direction:column; padding:5px; font-size:12px; gap:3px; } .rest-actions { gap:5px; } #restorationView .rest-actions button { font-size:12px; padding:6px 8px; } }
+@media(max-height:500px) { .rest-heading { margin:6px; padding:6px 12px; } .rest-heading h2 { font-size:17px; } #restSpeech { max-width:275px; font-size:12px; margin:0 6px; padding:8px; } .rest-console { left:auto; right:8px; bottom:8px; transform:none; width:min(440px,calc(100% - 300px)); padding:8px; } #restFeedback { font-size:12px; min-height:32px; } #restPieces svg { width:25px; height:25px; } #restPieces button { min-height:38px; padding:4px 8px; font-size:12px; } .rest-actions { gap:5px; margin-top:6px; } #restorationView .rest-actions button { min-height:36px; font-size:12px; padding:5px 8px; } }
+@media (orientation:landscape) and (max-height:500px) {
+  #restSpeech { top:76px; width:min(340px,43vw); max-width:none; margin:0; }
+  .rest-console { width:min(340px,43vw); }
+}
+
+.rest-icon { width:23px; height:23px; object-fit:contain; vertical-align:middle; }
