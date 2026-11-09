@@ -47,5 +47,5 @@ for name in ['forest','village','volcano']:
     pcm=(np.clip(signal*fade,-1,1)*32767).astype('<i2')
     with wave.open(str(output/f'ambient-{name}.wav'),'wb') as f:
         f.setnchannels(1);f.setsampwidth(2);f.setframerate(rate);f.writeframes(pcm.tobytes())
-(output/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+(output/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
 print(f'Generated {len(manifest)} narrated clips and 3 original ambient loops.')

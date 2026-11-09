@@ -100,6 +100,6 @@ assert nx.is_connected(graph)
 content["routes"] = [dict(name=name, nodes=nx.shortest_path(graph,"hub",name), destination=pos) for name,pos in landmarks.items()]
 content["landmarks"] = landmarks
 out=ROOT/"content/living-challenges.json"
-out.write_text(json.dumps(content,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+out.write_text(json.dumps(content,ensure_ascii=False,indent=2)+"\n",encoding="utf-8",newline="\n")
 (ROOT/"content/living-validation.json").write_text(json.dumps({"generator":"tools/generate_living.py","seed":27031,"ortools": "9.15.6755", "networkx":"3.7", "solver_checked_cargo":18,"graph_checked_routes":36,"connected_landmarks":len(landmarks),"generated_challenges":sum(len(v)for v in content["challenges"].values()),"status":"passed"},indent=2)+"\n")
 print(f"Generated {sum(len(v)for v in content['challenges'].values())} variants; {verified} checks passed.")

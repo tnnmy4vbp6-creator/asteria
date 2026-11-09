@@ -1,0 +1,11 @@
+{
+  "generator": "tools/generate_living.py",
+  "seed": 27031,
+  "ortools": "9.15.6755",
+  "networkx": "3.7",
+  "solver_checked_cargo": 18,
+  "graph_checked_routes": 36,
+  "connected_landmarks": 8,
+  "generated_challenges": 84,
+  "status": "passed"
+}
