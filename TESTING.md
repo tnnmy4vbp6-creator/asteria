@@ -2,6 +2,10 @@
 
 Vérifications locales du 10 novembre 2026 :
 
+Le scénario de plateforme a également passé sur l'URL publique de la 3.0.0 :
+lecture des voix, contacts simultanés, doubles appuis, coût unique, chargement
+des modèles et reprise hors ligne avec conservation des modifications.
+
 - `npm test` : suites existantes et 9 nouvelles suites de règles (dimensions et quatre côtés de porte, contre-exemples, cargaisons, routes, canaux, production, navigation, nuit, adaptation et imports).
 - `test-living-browser.cjs` : parcours complet par commandes tactiles sous Chrome et WebKit ; trois bâtiments, récompenses uniques, toit cassé et réparation, cinq missions, veillée, sauvegarde et retour entre mondes. Captures à 390 × 720, 844 × 390 et 1024 × 768.
 - `test-living-platform.cjs` : Chrome, voix réellement en lecture, remplacement/arrêt, deux contacts simultanés (manche et caméra), remise à zéro à la pause, doubles appuis, absence de sélection/zoom, coût unique, reprise hors ligne avec modèles et narration en cache.

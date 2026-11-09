@@ -123,12 +123,19 @@ const [engine = 'chrome', url = 'http://localhost:8775/'] =
         return {
           controls,
           stage,
+          footerTop: document
+            .querySelector('.living-focus-footer')
+            .getBoundingClientRect().top,
           cells: livingFocus.hit.map((h) => {
             const q = h.el.getBoundingClientRect();
             return { x: q.x, y: q.y, w: q.width, h: q.height };
           }),
         };
       });
+      assert(
+        geometry.controls.bottom <= geometry.footerTop - 2,
+        'Tools must remain above the feedback panel',
+      );
       for (const c of geometry.cells) {
         assert(
           c.x >= 0 &&
@@ -137,6 +144,13 @@ const [engine = 'chrome', url = 'http://localhost:8775/'] =
             c.y + c.h <= height + 1,
         );
         assert(c.w >= 23 && c.h >= 23);
+        assert(
+          c.x + c.w <= geometry.controls.left ||
+            c.x >= geometry.controls.right ||
+            c.y + c.h <= geometry.controls.top ||
+            c.y >= geometry.controls.bottom,
+          'A construction cell must not overlap its toolbar',
+        );
       }
       await page.screenshot({ path: `.qa/living-${engine}-${width}.png` });
     }

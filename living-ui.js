@@ -239,6 +239,15 @@ function exitLivingFocus() {
 function livingFocusCamera() {
   const m = livingFocus;
   if (!m) return;
+  const view = $('livingView');
+  view.style.setProperty(
+    '--living-bottom',
+    view.querySelector('footer').getBoundingClientRect().height + 8 + 'px',
+  );
+  view.style.setProperty(
+    '--living-tools-height',
+    $('livingTools').getBoundingClientRect().height + 'px',
+  );
   if (m.departAt)
     m.group.position.z = -Math.min(4, (performance.now() - m.departAt) / 250);
   const box = $('livingStage').getBoundingClientRect(),
@@ -246,7 +255,7 @@ function livingFocusCamera() {
     H = innerHeight;
   const plan = m.kind === 'building' ? S.living.plots[m.index] : null;
   const width = plan
-    ? Math.max(plan.width, plan.depth) + 1.7
+    ? Math.max(plan.width, plan.depth) + (m.preview ? 3.2 : 1.7)
     : m.kind === 'forest'
       ? 7.5
       : m.kind === 'fossils'

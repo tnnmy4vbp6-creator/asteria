@@ -1694,3 +1694,7 @@ body:has(#hud:not(.hidden)):has(#modal.hidden) {
  #livingTools{top:131px;left:9px;bottom:75px;width:216px;padding:9px;font-size:11px}#livingStage{left:235px;top:62px;bottom:77px;right:10px}
  .living-focus-footer{max-height:90px;padding:7px 12px;gap:10px}.living-focus-footer .row{gap:5px}.living-focus-footer button{font-size:11px;min-height:36px;padding:6px 8px}#livingFeedback{font-size:11px;max-height:58px}#livingTools button,#livingTools select{min-height:32px;font-size:11px}
 }
+#livingTools,#livingStage{bottom:var(--living-bottom,120px)}
+@media(max-width:700px) and (orientation:portrait){
+ #livingStage{bottom:calc(var(--living-bottom,100px) + var(--living-tools-height,190px) + 10px)}
+}
