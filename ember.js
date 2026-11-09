@@ -69,6 +69,7 @@ function emberIntro() {
 }
 
 function enterEmber() {
+  if(typeof living!=='undefined'&&living)leaveLiving();
   if(typeof clearBuildPreview==='function'){clearBuildPreview();S.builder.active=false;S.builder.project=-1;}
   if (ember) {
     closeModal();
@@ -151,7 +152,7 @@ function leaveEmber() {
   old.traverse((o) => {
     if (o.geometry && o.geometry !== CUBE) geometries.add(o.geometry);
     for (const m of Array.isArray(o.material) ? o.material : [o.material])
-      if (m && m !== materials && m !== paintedSurface) mats.add(m);
+      if (m && m !== materials && m !== glassMaterial && m !== paintedSurface) mats.add(m);
   });
   geometries.forEach((g) => g.dispose());
   mats.forEach((m) => m.dispose());

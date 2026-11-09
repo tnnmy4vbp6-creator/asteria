@@ -353,5 +353,93 @@
     "source": "https://kenney.nl/assets/survival-kit",
     "license": "CC0-1.0",
     "bytes": 7440
+  },
+  {
+    "file": "assets/models/kenney/tree_oak.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 14644,
+    "sha256": "d7fd8773674928c50c11b66d12c636d49bdcc15a8b1c7fbb98e6f63a3439a3f3"
+  },
+  {
+    "file": "assets/models/kenney/tree_cone.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 10924,
+    "sha256": "90be4d214ee2cbf79d317677cb87fc11dac9873b73e446b75e8c12825a374272"
+  },
+  {
+    "file": "assets/models/kenney/tree_default.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/nature-kit",
+    "license": "CC0-1.0",
+    "bytes": 9428,
+    "sha256": "562d29638c902de3c7bee465d3a53bb77117efbc392ae04ed894faf6b5dc691d"
+  },
+  {
+    "file": "assets/models/kenney/barrel.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 34256,
+    "sha256": "3a0d12f6bdd1badd361f64ce0fbbf878a4ccfc2de8ff1ac4ed4c1aea2a9ee04a"
+  },
+  {
+    "file": "assets/models/kenney/barrel-open.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 31772,
+    "sha256": "f24ab1c5ab3685fc758f7e7298bf4f255f039fc6dfc7463711fbe90c4c011a41"
+  },
+  {
+    "file": "assets/models/kenney/signpost.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 5924,
+    "sha256": "6d33757888c4ec9249610266ca8d60532b1138ae28fd37e93fa843ec4856fd25"
+  },
+  {
+    "file": "assets/models/kenney/rock-a.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 10812,
+    "sha256": "343bab63ea4c51a5b6c881a9d546f165789cfc26e1f60c517d59e4baa384c82a"
+  },
+  {
+    "file": "assets/models/kenney/rock-b.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 15184,
+    "sha256": "f0f4eec72f18722dee56f799c6045953835a91856929dff6fb71331602b12c2e"
+  },
+  {
+    "file": "assets/models/kenney/rock-c.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 11692,
+    "sha256": "a0f2e78460acfc4e02e029065472360f2e491c389d6e82f02837e3ed643b9d75"
+  },
+  {
+    "file": "assets/models/kenney/fish.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 31688,
+    "sha256": "274842585f064b42baa84cb4ec086c8613971726a16acd5c955d2bf90dabe6c2"
+  },
+  {
+    "file": "assets/models/kenney/fish-large.glb",
+    "author": "Kenney",
+    "source": "https://kenney.nl/assets/survival-kit",
+    "license": "CC0-1.0",
+    "bytes": 31728,
+    "sha256": "c8fc10fdf493cc21751bd5846ea5639268ecc064a82f3a050ee915fdbe2c45e3"
   }
 ]

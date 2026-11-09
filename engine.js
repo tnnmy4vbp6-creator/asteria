@@ -102,7 +102,7 @@ class VoxelWorld {
     if (!this.inBounds(x, y, z)) return;
     this.data[this.index(x, y, z)] = id;
     if (edit) {
-      (this.isEmber ? S.ember.edits : S.edits)[this.index(x, y, z)] = id;
+      (this.isLiving ? S.living.edits : this.isEmber ? S.ember.edits : S.edits)[this.index(x, y, z)] = id;
       this.refreshFloraAt(x, z);
       for (let [dx, dz] of [
         [0, 0],
@@ -450,6 +450,7 @@ let world = new VoxelWorld(),
   raycaster;
 let chunkMeshes = new Map(),
   materials,
+  glassMaterial,
   atlas,
   clock3d,
   clouds = [],
@@ -685,13 +686,16 @@ function rebuildChunk(cx, cz) {
     norm = [],
     uv = [],
     colors = [],
-    indices = [],
+    opaqueIndices = [],
+    glassIndices = [],
+    indices = opaqueIndices,
     count = 0;
   for (let x = cx * 16; x < Math.min(VW, (cx + 1) * 16); x++)
     for (let z = cz * 16; z < Math.min(VD, (cz + 1) * 16); z++)
       for (let y = 0; y < VH; y++) {
         let id = world.get(x, y, z);
         if (!id) continue;
+        indices = BLOCKS[id].drop === 'glass' ? glassIndices : opaqueIndices;
         if(BLOCKS[id].shape){count=appendShape(BLOCKS[id],x,y,z,pos,norm,uv,colors,indices,count);continue;}
         for (let face of FACES) {
           let [nx, ny, nz] = face.n,
@@ -764,9 +768,11 @@ function rebuildChunk(cx, cz) {
   geo.setAttribute('normal', new THREE.Float32BufferAttribute(norm, 3));
   geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-  geo.setIndex(indices);
+  geo.setIndex([...opaqueIndices,...glassIndices]);
+  geo.addGroup(0,opaqueIndices.length,0);
+  if(glassIndices.length)geo.addGroup(opaqueIndices.length,glassIndices.length,1);
   geo.computeBoundingSphere();
-  let mesh = new THREE.Mesh(geo, materials);
+  let mesh = new THREE.Mesh(geo, [materials,glassMaterial||materials]);
   mesh.castShadow = true;
   mesh.receiveShadow = true;
   chunkGroup.add(mesh);
@@ -1358,6 +1364,7 @@ function initEngine() {
     roughness: 1,
     metalness: 0,
   });
+  glassMaterial = new THREE.MeshStandardMaterial({map:atlas,vertexColors:true,roughness:.2,transparent:true,opacity:.3,depthWrite:false,side:THREE.DoubleSide});
   chunkGroup = new THREE.Group();
   scene.add(chunkGroup);
   buildTemple();
@@ -1419,8 +1426,8 @@ function applyQuality() {
     Math.min(devicePixelRatio, low ? 0.9 : tier === 'medium' ? 1.25 : 1.6),
   );
   renderer.shadowMap.enabled = tier === 'high';
-  scene.fog.far = world.isEmber ? 75 : low ? 38 : 42;
-  scene.fog.near = world.isEmber ? 30 : low ? 18 : 22;
+  scene.fog.far = world.isLiving ? 73 : world.isEmber ? 75 : low ? 38 : 42;
+  scene.fog.near = world.isLiving ? 28 : world.isEmber ? 30 : low ? 18 : 22;
   streamTerrain(true);
 }
 function intersectsPlayer(x, y, z) {
@@ -1434,6 +1441,7 @@ function intersectsPlayer(x, y, z) {
   );
 }
 function collision(x, y, z) {
+  if(typeof living!=='undefined' && living && livingCollision(x,y,z))return true;
   if (typeof sceneryCollision === 'function' && sceneryCollision(x,y,z)) return true;
   if (typeof ember !== 'undefined' && ember && emberCollision(x,y,z)) return true;
   for (let a = Math.floor(x - 0.26); a <= Math.floor(x + 0.26); a++)
@@ -1443,6 +1451,7 @@ function collision(x, y, z) {
   return false;
 }
 function safePlayer() {
+  if(typeof living!=='undefined' && living){livingSafePlayer();return;}
   if (typeof ember !== 'undefined' && ember) { emberCheckpoint(); return; }
   if (
     player.pos.x < 1 ||
@@ -1458,6 +1467,7 @@ function safePlayer() {
   }
 }
 function spawn() {
+  if(typeof living!=='undefined' && living){player.pos.set(37.5,5,54.5);player.velY=0;S.health=100;return;}
   if (typeof ember !== 'undefined' && ember) { leaveEmber(); return; }
   player.pos.set(35.5, 5, 59.5);
   player.velY = 0;
@@ -1594,7 +1604,7 @@ function updateTarget() {
   let text = '';
   if (best) {
     text =
-      best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple' || best.kind === 'ember' || best.kind === 'builder' || best.kind === 'builderPlot' || best.kind === 'restoration'
+      best.kind === 'living' || best.kind === 'field' || best.kind === 'mill' || best.kind === 'temple' || best.kind === 'ember' || best.kind === 'builder' || best.kind === 'builderPlot' || best.kind === 'restoration'
         ? best.label
         : best.kind === 'npc'
           ? `Parler à ${best.npc.name}`
@@ -1646,6 +1656,7 @@ function anchorVillageProps() {
   }
 }
 function protectedVoxel(t) {
+  if(world.isLiving)return world.protected.has(world.index(t.x,t.y,t.z))||livingReserved(t.x,t.y,t.z);
   return (
     BLOCKS[t.id]?.protected ||
     world.protected.has(world.index(t.x, t.y, t.z)) ||
@@ -1710,7 +1721,7 @@ function mine(dt) {
     if (t.id === 5 && Math.random() < 0.12) give({ apple: 1 });
     if (t.id === 5 && Math.random() < 0.15) give({ seed: 1 });
     if (t.id === 14) {
-      let key = world.index(t.x, t.y, t.z),
+      let key = (world.isLiving?'valley:':'')+world.index(t.x, t.y, t.z),
         items = S.chests[key];
       if (items) {
         give(items);
@@ -1768,10 +1779,11 @@ function placeBlock() {
   }
   let { x, y, z } = target.prev;
   if (
+    (world.isLiving && livingReserved(x,y,z)) ||
     (typeof restorationReserved==='function'&&restorationReserved(x,y,z)) ||
     !world.inBounds(x, y, z) ||
     world.get(x, y, z) !== 0 ||
-    (typeof ember !== 'undefined' && ember ? emberReserved(x,y,z) : typeof temple !== 'undefined' && temple && x >= temple.x && x <= temple.x + 14 && z >= temple.z && z <= temple.z + 15 && y >= 5 && y <= 12) ||
+    (typeof ember !== 'undefined' && ember ? emberReserved(x,y,z) : !world.isLiving && typeof temple !== 'undefined' && temple && x >= temple.x && x <= temple.x + 14 && z >= temple.z && z <= temple.z + 15 && y >= 5 && y <= 12) ||
     y < 1 ||
     y > 25 ||
     intersectsPlayer(x, y, z) ||
@@ -1945,6 +1957,7 @@ function updateWatcher(a, dt, night) {
   a.mixer.update(dt);
 }
 function animateWorld(dt) {
+  if(typeof living!=='undefined' && living){animateLiving(dt);return;}
   if (typeof ember !== 'undefined' && ember) { animateEmber(dt); return; }
   let phase = (S.time % 720) / 720,
     hour = (phase * 24 + 6) % 24,
@@ -2044,7 +2057,7 @@ function tick(ts) {
   lastFrame = ts;
   if (playing && !paused) adaptResolution(frameSeconds);
   elapsed += dt;
-  if (playing && restorationMode) S.playSeconds += dt;
+  if (playing && (restorationMode || (typeof livingFocus!=='undefined'&&livingFocus))) {S.playSeconds += dt;if(typeof livingFocus!=='undefined'&&livingFocus&&livingFocus.kind==='building')advanceLivingProduction(dt,true);}
   if (playing && !paused) {
     const seconds = Math.min(1, (ts - (tick.realTime || ts)) / 1000);
     S.playSeconds += Math.max(0, seconds);
@@ -2063,7 +2076,7 @@ function tick(ts) {
       $('mineProgress').style.display = 'none';
     }
     if (frameCount % 15 === 0) updateHUD();
-    if (frameCount % 120 === 0) refreshCrops();
+    if (!world.isLiving && frameCount % 120 === 0) refreshCrops();
     if (S.time - lastSave > 20) {
       saveGame(false);
       lastSave = S.time;
@@ -2085,6 +2098,7 @@ function tick(ts) {
   }
   tick.realTime = ts;
   if(typeof tickRestoration==='function')tickRestoration(dt);
-  if (!paused || !playing || world.dirty.size || restorationMode) renderer.render(scene, camera);
+  if(typeof livingFocus!=='undefined'&&livingFocus){livingFocusCamera();renderer.render(scene,livingFocus.camera);}
+  else if (!paused || !playing || world.dirty.size || restorationMode) renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }

@@ -206,7 +206,7 @@ function builderCells(config, origin) {
   return [...result.values()];
 }
 function builderAnchor() {
-  if (S.builder.project >= 0 && !world.isEmber) {
+  if (S.builder.project >= 0 && !world.isEmber && !world.isLiving) {
     const p = buildPlot(S.builder.project);
     return p ? { x: p.x, y: 6, z: p.z } : null;
   }
@@ -244,7 +244,7 @@ function builderConflict(cells) {
     if (
       world.isEmber
         ? emberReserved(p.x, p.y, p.z)
-        : temple &&
+        : world.isLiving ? livingReserved(p.x,p.y,p.z) : temple &&
           p.x >= temple.x &&
           p.x <= temple.x + 14 &&
           p.z >= temple.z &&
@@ -562,7 +562,7 @@ function buildPlot(i) {
     ? { x: site.x + 1 + (i % 3) * 7, z: site.z + 2 + Math.floor(i / 3) * 9 }
     : null;
 }
-function builderJournal() { restorationIntro(); }
+function builderJournal() { if(world.isLiving)livingJournal();else restorationIntro(); }
 function legacyBuilderJournal() {
   modal(
     'Le parc des géomètres',
@@ -700,7 +700,7 @@ function builderHUD() {
   $('buildTools').hidden = !S.builder.active;
   document.body.classList.toggle('building', S.builder.active);
   if (!S.builder.active) clearBuildPreview();
-  if (!world.isEmber) {
+  if (!world.isEmber && !world.isLiving) {
     const site = builderSites.find(
       (s) =>
         s &&
@@ -711,7 +711,7 @@ function builderHUD() {
     );
     if (site) $('biome').textContent = site.name.toLocaleUpperCase('fr');
   }
-  if (!world.isEmber && S.builder.project >= 0) {
+  if (!world.isEmber && !world.isLiving && S.builder.project >= 0) {
     const p = BUILD_PROJECTS[S.builder.project],
       plot = buildPlot(S.builder.project);
     if (plot) {
@@ -964,7 +964,7 @@ function enrichBuildersWorld() {
   if (Object.keys(S.edits).length) world.settleTrees();
 }
 function drawBuilderMap(g, w, h, large) {
-  if (world.isEmber) return;
+  if (world.isEmber || world.isLiving) return;
   for (const site of builderSites) {
     if (!site) continue;
     const x = ((site.x + site.w / 2) * w) / 80,

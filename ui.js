@@ -62,6 +62,7 @@ function toast(text) {
   setTimeout(() => d.remove(), 4300);
 }
 function stopInput() {
+  if(typeof stickController!=='undefined')stickController?.reset();
   keys = {};
   mouseDown = false;
   miningFinger = null;
@@ -71,6 +72,7 @@ function stopInput() {
   if ($('mineProgress')) $('mineProgress').style.display = 'none';
 }
 function modal(title, eyebrow, html) {
+  if(typeof GamePlatform!=='undefined'){GamePlatform.stopVoice();GamePlatform.stopAmbient();}
   modalToken++;
   lastFocus = document.activeElement;
   paused = true;
@@ -83,6 +85,7 @@ function modal(title, eyebrow, html) {
   return modalToken;
 }
 function closeModal() {
+  if(typeof GamePlatform!=='undefined')GamePlatform.stopVoice();
   modalToken++;
   $('modal').classList.add('hidden');
   paused = !playing;
@@ -190,6 +193,7 @@ function updateHUD() {
     }
   }
   if (typeof ember !== 'undefined' && ember) { n = emberHUD(); distance = Math.round(Math.hypot(n.x-player.pos.x,n.z-player.pos.z)); }
+  if(typeof living!=='undefined'&&living){n=livingHUD();distance=Math.round(Math.hypot(n.x-player.pos.x,n.z-player.pos.z));}
   let angle = ((((player.yaw * 180) / Math.PI) % 360) + 360) % 360;
   $('compassDir').textContent =
     angle < 45 || angle > 315
@@ -250,6 +254,7 @@ function selectSlot(i) {
 }
 let mapImage = null;
 function drawMap(canvas, large = false) {
+  if(typeof living!=='undefined'&&living){drawLivingMap(canvas);return;}
   if (typeof ember !== 'undefined' && ember) { drawEmberMap(canvas,large); return; }
   let g = canvas.getContext('2d'),
     w = canvas.width,
@@ -481,6 +486,7 @@ function inventory(tab = 'craft') {
   );
 }
 function quests() {
+  if(typeof living!=='undefined'&&living){livingJournal();return;}
   if(S.builder?.project>=0&&!world.isEmber){builderJournal();return;}
   if (typeof ember !== 'undefined' && ember) { emberJournal(); return; }
   modal(
@@ -529,6 +535,7 @@ function quests() {
   );
 }
 function showMap() {
+  if(typeof living!=='undefined'&&living){livingJournal();return;}
   if (typeof ember !== 'undefined' && ember) {
     modal('Les Îles de braise', 'CARTE DE L’EXPÉDITION', '<canvas id="largeMap" class="map-large" width="640" height="640" aria-label="Carte des Îles de braise"></canvas><p>Le portail de retour est au sud. Traverse le pont vers la forge, puis rejoins les balises à l’est et la forteresse au nord. Le cercle turquoise indique ton prochain objectif.</p>');
     drawEmberMap($('largeMap'),true); return;
@@ -1043,6 +1050,7 @@ function notebook() {
     .map((key) => {
       if (typeof key !== 'string') return null;
       let [type, id] = key.split(':');
+      if(type==='living'&&LIVING_SKILLS[id])return {title:LIVING_SKILLS[id],text:S.notes[key]||'Une découverte dans la vallée des inventeurs.'};
       if(type==='rest'&&RESTORATION_CHAPTERS[+id])return {title:RESTORATION_CHAPTERS[+id].title,text:RESTORATION_CHAPTERS[+id].lesson};
       if(type==='build'&&BUILD_PROJECTS[+id])return {title:BUILD_PROJECTS[+id].name,text:BUILD_PROJECTS[+id].explain};
       if (type === 'ember') {
@@ -1080,7 +1088,7 @@ function notebook() {
   $('learnMore').onclick = () => knowledgeQuestion();
 }
 function chestUI(t) {
-  let key = world.index(t.x, t.y, t.z);
+  let key = (world.isLiving?'valley:':'')+world.index(t.x, t.y, t.z);
   S.chests[key] ??= {};
   let content = S.chests[key];
   modal(
@@ -1131,6 +1139,7 @@ function chestUI(t) {
 function interact() {
   if (paused || !playing) return;
   let o = nearObject;
+  if(o?.kind==='living'){livingInteract(o.id);return;}
   if(o?.kind==='builder'){o.action();return;}
   if(o?.kind==='restoration'){o.action();return;}
   if(o?.kind==='builderPlot'){visitBuildProject(o.id);return;}
@@ -1434,6 +1443,6 @@ function credits() {
   modal(
     'Un monde pour apprendre',
     'À PROPOS D’ASTÉRIA',
-    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Les décors du hameau, outils, cultures et végétaux viennent des packs Nature Kit et Survival Kit de Kenney ; les boutons et sons utilisent Game Icons et Interface Sounds. Ces quatre packs sont sous CC0. <a href="./assets/kenney-manifest.json">Inventaire des fichiers et sources</a>. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 2.7.0 — Solo, deux mondes finis de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. Les voix de synthèse dépendent du navigateur et du système.</p>`,
+    `<p>Astéria est une aventure indépendante de construction et de découverte, inspirée du genre des jeux de blocs. Elle n’est ni un produit Minecraft, ni un jeu officiel de Mojang ou Microsoft.</p><p>Le moulin et le village sont créés pour Astéria. Les décors du hameau, outils, cultures et végétaux viennent des packs Nature Kit et Survival Kit de Kenney ; les boutons et sons utilisent Game Icons et Interface Sounds. Ces quatre packs sont sous CC0. <a href="./assets/kenney-manifest.json">Inventaire des fichiers et sources</a>. Le modèle, les animations et la tenue des veilleurs viennent du pack Animated Characters 1 de Kenney (<a href="./licenses/Kenney-characters.txt">licence CC0</a>). Le renard est signé PixelMannen, tomkranis, AsoboStudio et scurest (<a href="./licenses/Fox.md">licences et adaptations</a>). La musique Port Town Loop est de beardalaxy (CC0). Les textures et bruitages de Minetest Game sont crédités dans les <a href="./licenses/Minetest-credits.md" target="_blank" rel="noopener">crédits des artistes</a>. Les conditions figurent dans les <a href="./licenses/Minetest-media.txt" target="_blank" rel="noopener">licences des médias</a>. Le moteur graphique utilise <b>Three.js r160</b>, sous licence MIT.</p><p>La vallée ajoute une maison, une serre et un dépôt fonctionnels, des échanges et 84 variantes de missions. Les voix françaises SIWIS et anglaises LJ Speech sont produites avec Piper ; <a href="./licenses/Voices.md">attributions des voix</a>. La lecture et la spatialisation utilisent <a href="./licenses/howler.txt">Howler.js (MIT)</a>, le manche tactile <a href="./licenses/nipplejs.txt">nipplejs (MIT)</a>. OR-Tools et NetworkX vérifient les données avant publication, sans service distant pendant le jeu.</p><p>La construction et l’exploration libres s’inspirent des principes présentés sur le <a href="https://www.minecraft.net/en-us/about-minecraft" target="_blank" rel="noopener">site officiel de Minecraft</a>. Le rendu s’appuie sur la <a href="https://threejs.org/docs/" target="_blank" rel="noopener">documentation de Three.js</a>.</p><p>Les règles de fabrication et le temps de croissance des plantes sont simplifiés pour le jeu. Ils ne représentent pas des procédés réels à reproduire.</p><p class="muted">Version 3.0.0 — Solo, trois mondes finis de 80 × 80 blocs. Pas de compte, pas de publicité, pas d’achat intégré. Le jeu n’envoie pas la progression à un serveur. La vallée inclut des narrations locales ; les autres lectures dépendent du navigateur et du système.</p>`,
   );
 }

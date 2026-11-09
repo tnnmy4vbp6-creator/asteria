@@ -84,7 +84,7 @@ function dressVillageScenery() {
   sceneryReady.catch(() => {});
 }
 function sceneryCollision(x, y, z) {
-  if (world.isEmber) return false;
+  if (world.isEmber || world.isLiving) return false;
   return sceneryColliders.some(
     (b) =>
       x + 0.26 > b.min.x &&
@@ -96,7 +96,7 @@ function sceneryCollision(x, y, z) {
   );
 }
 function refreshSceneryAt(x, z) {
-  if (world.isEmber) return;
+  if (world.isEmber || world.isLiving) return;
   for (const a of sceneryAnchors) {
     const [gx, y, gz, id] = a.anchor;
     if (gx !== x || gz !== z) continue;

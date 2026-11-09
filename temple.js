@@ -295,6 +295,7 @@ function useTemple(id) {
 }
 
 function visitTemple() {
+  if(typeof living!=='undefined'&&living)leaveLiving();
   S.builder.active = false;
   S.builder.project = -1;
   clearBuildPreview();
