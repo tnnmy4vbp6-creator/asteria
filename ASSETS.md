@@ -23,6 +23,20 @@ Toutes les ressources de jeu sont distribuées avec le site. Les liens ci-dessou
 
 ## Sélection pour les itérations suivantes
 
+## Ajouts de la 3.0.0
+
+La vallée charge onze modèles CC0 supplémentaires des deux packs Kenney déjà
+licenciés : trois arbres, deux tonneaux, un panneau, trois rochers et deux poissons.
+Les GLB sont normalisés sur leur sol et instanciés ; les troncs ont des collisions.
+L'inventaire et les empreintes sont dans `assets/kenney-manifest.json`.
+
+Onze narrations WAV générées localement (sept françaises, quatre anglaises) et
+trois ambiances procédurales sont distribuées. [Sources et attribution des voix](licenses/Voices.md).
+Piper, OR-Tools et NetworkX servent uniquement au développement. Howler.js et
+nipplejs sont intégrés dans `platform.js`, avec leurs licences MIT dans `licenses/`.
+Les petites constructions, canaux, chariots et couches de fouille restent des
+géométries originales adaptées aux manipulations de l'enfant.
+
 Le dragon des Îles de braise, ses ailes animées, les balises et les mécanismes de forge sont des géométries originales du projet, construites dans `ember.js`. Le sol et les fortifications réutilisent l’atlas de textures déjà crédité ci-dessus. Ce chapitre n’utilise pas de modèle, de texture ou de personnage extrait de Minecraft.
 
 Castle Kit et Mini Characters restent des pistes, sans intégration revendiquée. Nature Kit et Game Icons sont désormais intégrés dans la 2.7.0, avec Survival Kit et Interface Sounds.

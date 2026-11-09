@@ -13,6 +13,7 @@ try {
     'test-campaign.cjs',
     'test-mill.cjs',
     'test-shapes.cjs',
+    'test-living-core.cjs',
     'build.cjs',
   ])
     execFileSync(process.execPath, [file], { cwd: root, stdio: 'inherit' });

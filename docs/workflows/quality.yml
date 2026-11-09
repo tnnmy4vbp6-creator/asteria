@@ -1,0 +1,31 @@
+# Ready to activate in .github/workflows/quality.yml with a GitHub token that
+# has the workflow scope. Current repository credentials cannot publish workflows.
+name: Game quality
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  rules-and-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright-core install --with-deps chromium webkit
+      - name: Test both browser engines
+        run: |
+          mkdir -p .qa
+          PORT=8775 node serve.cjs &
+          node test-living-browser.cjs chrome
+          node test-living-browser.cjs webkit
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: game-screenshots
+          path: .qa/*.png

@@ -8,6 +8,7 @@ function beginPlay() {
   renderer.domElement.focus();
   safePlayer();
   if (S.ember.active && !ember) enterEmber();
+  else if(S.living.active && !living)enterLiving();
   updateHUD();
   sfx('success');
   if (loadNotice) toast(loadNotice);
@@ -144,6 +145,7 @@ function wireControls() {
       playing
     )
       e.preventDefault();
+    if(key==='escape' && livingFocus){e.preventDefault();exitLivingFocus();return;}
     if (key === 'escape' && restorationMode) { e.preventDefault();exitRestoration();return; }
     if (key === 'escape') {
       e.preventDefault();
@@ -223,7 +225,8 @@ function wireControls() {
     (profile.mode === 'creative' ? 'Créatif' : 'Aventure');
   $('creditsButton').onclick = credits;
   $('playButton').onclick = beginPlay;
-  $('titleVoyage').onclick = () => { beginPlay(); voyageBoard(); };
+  $('titleLiving').onclick=()=>{beginPlay();if(living)livingJournal();else enterLiving();};
+  $('titleVoyage').onclick = () => { beginPlay(); if(living)leaveLiving();voyageBoard(); };
   $('titleEmber').onclick = () => { beginPlay(); ember ? emberJournal() : emberIntro(); };
   $('titleBuilder').onclick=()=>{beginPlay();if(ember)leaveEmber();restorationIntro();};
   $('buildExit').onclick=()=>{S.builder.active=false;clearBuildPreview();updateHUD();saveGame(false);};

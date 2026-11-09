@@ -10,6 +10,7 @@ const types = {
   '.png': 'image/png',
   '.glb': 'model/gltf-binary',
   '.ogg': 'audio/ogg',
+  '.wav': 'audio/wav',
   '.md': 'text/plain',
   '.txt': 'text/plain',
 };

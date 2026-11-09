@@ -28,7 +28,11 @@ export async function dressVillageProps(placements, fallbackParent) {
       size = box.getSize(new THREE.Vector3()),
       center = box.getCenter(new THREE.Vector3()),
       span = Math.max(size.x, size.y, size.z);
-    if (/^(workbench|tent-canvas|box|box-open)$/.test(name)) {
+    if (
+      /^(workbench|tent-canvas|box|box-open|barrel|barrel-open|rock-a|rock-b|rock-c)$/.test(
+        name,
+      )
+    ) {
       for (const p of items)
         if (!p.parent) {
           const k = p.size / span;

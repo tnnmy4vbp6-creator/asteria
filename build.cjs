@@ -7,6 +7,9 @@ const dir = 'dist';
 const read = (p) => fs.readFileSync(p, 'utf8');
 const scripts = {
   THREE: 'three.min.js',
+  LIVINGRULES: 'living-rules.js',
+  LIVINGWORLD: 'living-world.js',
+  LIVINGUI: 'living-ui.js',
   DATA: 'data.js',
   SHAPES: 'shapes.js',
   RESTORATION:'restoration.js',
@@ -60,6 +63,7 @@ async function build() {
       },
     ],
   });
+  await esbuild.build({entryPoints:['platform.mjs'],outfile:dir+'/platform.js',bundle:true,format:'iife',globalName:'GamePlatform',minify:true});
   fs.writeFileSync(dir + '/content.js', require('./content.cjs')());
   let html = read('shell.html').replace(
     '<style>/*STYLE*/</style>',
@@ -69,7 +73,7 @@ async function build() {
     html = html.replace(
       '<script>/*' + key + '*/</script>',
       (key === 'SHAPES' ? '<script src="./content.js"></script>' : '') +
-        (key === 'MAIN' ? '<script src="./fauna.js"></script>' : '') +
+        (key === 'MAIN' ? '<script src="./fauna.js"></script><script src="./platform.js"></script>' : '') +
         '<script src="./' +
         file +
         '"></script>',

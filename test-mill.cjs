@@ -24,6 +24,7 @@ vm.runInContext(require('./content.cjs')(), ctx);
 for (const file of [
   'shapes',
   'restoration',
+  'living-rules',
   'data',
   'engine',
   'builder',

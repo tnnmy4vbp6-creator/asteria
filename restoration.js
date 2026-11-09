@@ -141,7 +141,7 @@ function restorationSlots(index) {
 }
 function restorationReserved(x, y, z) {
   return (
-    !world.isEmber &&
+    !world.isEmber && !world.isLiving &&
     restoration &&
     x >= restoration.x &&
     x < restoration.x + 21 &&
@@ -381,6 +381,7 @@ function buildRestoration() {
   saveGame(false);
 }
 function restorationIntro() {
+  if(typeof living!=='undefined'&&living)leaveLiving();
   if (ember) leaveEmber();
   S.builder.active = false;
   S.builder.project = -1;
@@ -740,7 +741,7 @@ function claimRestorationReward() {
 function restorationHUD() {
   if (
     !restoration ||
-    world.isEmber ||
+    world.isEmber || world.isLiving ||
     !S.restoration.started ||
     restorationMode ||
     S.builder.active ||

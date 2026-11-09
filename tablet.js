@@ -1,4 +1,5 @@
 let stickInput = { x: 0, y: 0 };
+let stickController=null;
 function wireGameTouches() {
   const taps = new Map();
   const options = { capture: true, passive: false };
@@ -39,6 +40,7 @@ function wireGameTouches() {
   window.addEventListener('blur', () => taps.clear());
 }
 function wireStick() {
+  if(typeof GamePlatform!=='undefined'){stickController=GamePlatform.joystick($('joystick'),(x,y)=>{stickInput=playing&&!paused?{x,y}:{x:0,y:0};});return;}
   const base = $('joystick'),
     thumb = base.firstElementChild;
   let owner = null;

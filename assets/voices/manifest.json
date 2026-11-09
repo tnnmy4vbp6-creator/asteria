@@ -1,0 +1,79 @@
+[
+  {
+    "file": "assets/voices/welcome.wav",
+    "text": "Bienvenue dans la vallée des inventeurs. Construis un abri, une serre et un entrepôt. Tes découvertes feront vivre le village.",
+    "language": "fr",
+    "voice": "fr_FR-siwis-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/building.wav",
+    "text": "Choisis la taille de ton bâtiment. Pose le sol, puis deux couches de murs. Laisse une porte au même endroit dans les deux couches. Termine par un toit. Observe combien de cases restent libres à l’intérieur.",
+    "language": "fr",
+    "voice": "fr_FR-siwis-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/cargo.wav",
+    "text": "Les explorateurs attendent des vivres et du bois. Un sac pèse une unité. Une caisse de bois en pèse deux. Répartis les objets en respectant la masse de chaque chariot.",
+    "language": "fr",
+    "voice": "fr_FR-siwis-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/forest.wav",
+    "text": "June cherche une clairière. Écoute les indications en anglais. Avancer change de case. Tourner change la direction du regard.",
+    "language": "fr",
+    "voice": "fr_FR-siwis-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/fossils.wav",
+    "text": "Ces couches de roches n’ont pas été bouleversées. Fouille du haut vers le bas. Puis classe les traces du plus ancien au plus récent. La position de chaque découverte est conservée.",
+    "language": "fr",
+    "voice": "fr_FR-siwis-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/volcano.wav",
+    "text": "Tao répare le canal de son atelier. Tourne chaque pièce d’un quart de tour. Relie l’arrivée bleue à gauche à la sortie dorée à droite.",
+    "language": "fr",
+    "voice": "fr_FR-siwis-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/grammar.wav",
+    "text": "Prépare la consigne du convoi. Choisis les étiquettes et place-les dans l’ordre. Observe le sujet, le nombre et le temps. Certains mots ne conviennent pas.",
+    "language": "fr",
+    "voice": "fr_FR-siwis-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/forward.wav",
+    "text": "Go forward.",
+    "language": "en",
+    "voice": "en_US-ljspeech-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/left.wav",
+    "text": "Turn left.",
+    "language": "en",
+    "voice": "en_US-ljspeech-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/right.wav",
+    "text": "Turn right.",
+    "language": "en",
+    "voice": "en_US-ljspeech-medium",
+    "generator": "Piper 1.8.0"
+  },
+  {
+    "file": "assets/voices/arrived.wav",
+    "text": "You found the clearing. Well done!",
+    "language": "en",
+    "voice": "en_US-ljspeech-medium",
+    "generator": "Piper 1.8.0"
+  }
+]

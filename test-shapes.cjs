@@ -19,7 +19,7 @@ const ctx = vm.createContext({
   clearTimeout() {},
 });
 vm.runInContext(require('./content.cjs')(), ctx);
-for (const file of ['shapes.js', 'restoration.js', 'data.js', 'engine.js', 'builder.js'])
+for (const file of ['shapes.js', 'restoration.js', 'living-rules.js', 'data.js', 'engine.js', 'builder.js'])
   vm.runInContext(fs.readFileSync(__dirname + '/' + file, 'utf8'), ctx);
 const run = (s) => vm.runInContext(s, ctx);
 assert.equal(run('BUILD_LIMIT'), 247);

@@ -1,10 +1,23 @@
 # Astéria — Les gardiens du savoir
 
-**Version 2.7.0 · Le hameau des deux rives.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
+**Version 3.0.0 · La vallée des inventeurs.** Une aventure voxel en français pour explorer, bâtir et résoudre des problèmes dans le monde.
 
 **[Jouer dans le navigateur](https://tnnmy4vbp6-creator.github.io/asteria/)** · [Code source](https://github.com/tnnmy4vbp6-creator/asteria) · [Nouveautés](CHANGELOG.md)
 
 ## Pour la famille
+
+**Bâtir un village** ouvre la nouvelle vallée : trois bâtiments à construire sur le
+terrain, des habitants qui s'y déplacent, des cultures, des réserves et des échanges.
+La maison abrite, la serre produit, le dépôt augmente le stockage. Les expéditions
+font manipuler cargaisons, itinéraires anglais parlés, strates géologiques, canaux
+et messages. Préparer la veillée demande un abri, une couverture lumineuse et un
+circuit de porte. **84 variantes**, trois paliers et des indices sont disponibles.
+Les voix sont locales et les découvertes alimentent le carnet. [Parcours et limites](docs/VALLEE-DES-INVENTEURS.md).
+
+Pour commencer : ouvrir le lien, toucher **Bâtir un village**, puis **Rencontrer
+Mila**. L'atelier permet de poser des blocs, rangées et contours directement sur le
+terrain. Le journal **◈** regroupe les chantiers, les cultures, le marché et les
+destinations. Les anciennes aventures restent accessibles depuis l'accueil.
 
 **Le hameau à sauver** ouvre une histoire continue : assembler un passage avec quatre cubes et quatre demi-blocs, orienter les quatre prismes du toit de la réserve, puis rétablir un signal symétrique. Les pièces se touchent directement dans le décor ; le chariot, l’eau et la lumière montrent le résultat. Les réparations restent dans le monde. Les indices et la lecture à voix haute sont disponibles. La construction libre conserve **16 matériaux, 7 formes et 9 motifs**, rotation, aperçu et annulation.
 

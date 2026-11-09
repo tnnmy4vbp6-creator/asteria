@@ -36,6 +36,7 @@ function recordPractice(id, correct, now = Date.now()) {
   saveGame(false);
 }
 function skillTitle(id) {
+  if(id.startsWith('living:'))return LIVING_SKILLS[id.slice(7)]||'La vallée des inventeurs';
   if(id.startsWith('rest:'))return 'Construction · '+RESTORATION_CHAPTERS[+id.slice(5)].title;
   if(id.startsWith('build:'))return 'Géométrie · '+BUILD_PROJECTS[Number(id.slice(6))].name;
   if (id.startsWith('v:')) {
@@ -85,7 +86,7 @@ function parentPanel() {
       ' min de jeu actif · ' +
       S.stats.crafted +
       ' fabrications · ' +
-      S.learned.length +
+      (S.learned.length + (S.living?.discoveries.length||0)) +
       ' découvertes de culture générale.</p>' +
       (topics.length ? '<h3>Les commandes du village</h3><ul>'+topics.join('')+'</ul>' : '') +
       (list.length

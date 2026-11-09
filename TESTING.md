@@ -1,3 +1,14 @@
+# Vérification de la 3.0.0
+
+Vérifications locales du 10 novembre 2026 :
+
+- `npm test` : suites existantes et 9 nouvelles suites de règles (dimensions et quatre côtés de porte, contre-exemples, cargaisons, routes, canaux, production, navigation, nuit, adaptation et imports).
+- `test-living-browser.cjs` : parcours complet par commandes tactiles sous Chrome et WebKit ; trois bâtiments, récompenses uniques, toit cassé et réparation, cinq missions, veillée, sauvegarde et retour entre mondes. Captures à 390 × 720, 844 × 390 et 1024 × 768.
+- `test-living-platform.cjs` : Chrome, voix réellement en lecture, remplacement/arrêt, deux contacts simultanés (manche et caméra), remise à zéro à la pause, doubles appuis, absence de sélection/zoom, coût unique, reprise hors ligne avec modèles et narration en cache.
+- Régressions Chrome : photos de bugs mobiles (noms, renard, murs, fleurs), doubles appuis et veilleurs, les trois réparations du hameau, portail et dragon.
+
+Les tests WebKit tournent avec le son coupé : ils ne valident pas le rendu sonore Safari sur un iPhone physique. Le test de son est exécuté sous Chrome, son activé. Aucun essai sur téléphone ou tablette physique n'est revendiqué. Le workflow de qualité est fourni dans `docs/workflows/quality.yml` ; il n'est pas activé sur GitHub, les identifiants disponibles n'ayant pas le droit `workflow`.
+
 # Vérification de la 2.7.0
 
 `npm test` : 33 vérifications de moteur/campagne/moulin et la suite des solides passent. `test-restoration.cjs chrome` joue les trois réparations par contacts tactiles, avec essais incorrects, stock épuisé, retrait et recomposition de moitiés, orientations de toit, correspondances de solides, récompense unique et sauvegarde/reprise hors connexion. Il charge les 30 modèles Kenney (56 placements dans le profil neuf), contrôle les collisions des gros accessoires et l’absence de réponse HTTP en erreur. Les emplacements tactiles et panneaux ne se recouvrent pas à 390 × 720, 844 × 390 et 1280 × 720. Les deux scénarios de migration vérifient le site alternatif puis le refus de remplacement lorsque les deux sites sont occupés.

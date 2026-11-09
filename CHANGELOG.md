@@ -1,5 +1,21 @@
 # Versions
 
+## 3.0.0 — La vallée des inventeurs
+
+- Troisième monde de 80 × 80 blocs, avec maison, serre, dépôt, port, forêt, galerie
+  des fossiles et région volcanique. Les modifications des trois mondes sont isolées.
+- Atelier tactile dans le décor : dimensions, matériaux, blocs, rangées, contours,
+  retrait et annulation. Les conditions d'usage acceptent plusieurs constructions.
+- Habitants avec recherche de chemin, cultures arrosées, capacité de stockage,
+  marché et forge. Un bâtiment endommagé cesse de remplir sa fonction.
+- 84 variantes de cargaisons, itinéraires anglais, fouilles, canaux et messages,
+  trois paliers, indices graduels, carnet et suivi parent. OR-Tools et NetworkX
+  servent à générer et vérifier les données avant publication.
+- Veillée de 30 secondes : couverture des lanternes, circuit de porte et abri.
+- Onze modèles Kenney supplémentaires, verre transparent, onze narrations Piper,
+  ambiances locales spatialisées par Howler.js et joystick nipplejs.
+- Tests des règles, parcours tactile complet, sauvegardes et transitions de monde.
+
 ## 2.7.0 — Le hameau des deux rives
 
 - L’entrée construction devient une histoire continue avec Mina, Éloi et Aïna : passage des provisions, toit de la réserve, puis signal entre les rives.

@@ -19,6 +19,7 @@ let replacingSave = false;
 function freshState() {
   return {
     version: 2,
+    living: freshLivingState(),
     restoration:{site:null,started:false,stage:0,pieces:[Array(6).fill(0),Array(4).fill(0),Array(3).fill(0)],tries:[0,0,0],hints:[0,0,0],reward:false},
     builder: { active:false, material:'plank', shape:'cube', rotation:0, pattern:'single', width:3, depth:3, height:3, mirror:false, supplied:false, completed:[], sites:null, project:-1 },
     ember: { active: false, bridge: 0, cooled: false, route: 0, hits: 0, charged: false, assisted: true, edits: {} },
@@ -82,6 +83,8 @@ function validSave(s) {
     return !!(
       s &&
       s.version === 2 &&
+      (s.living===undefined||validLiving(s.living)) &&
+      !(s.living?.active && s.ember?.active) &&
       (s.restoration===undefined||validRestoration(s.restoration)) &&
       (s.builder===undefined || (obj(s.builder) && ['active','mirror','supplied'].every(k=>typeof s.builder[k]==='boolean') && BUILD_MATERIALS.some(m=>m.key===s.builder.material) && BUILD_SHAPES.some(v=>v.key===s.builder.shape) && int(s.builder.rotation,4) && ['single','line','floor','wall','solid','arch','pyramid','tower','roof'].includes(s.builder.pattern) && ['width','depth','height'].every(k=>Number.isInteger(s.builder[k])&&s.builder[k]>=1&&s.builder[k]<=7) && Array.isArray(s.builder.completed) && s.builder.completed.every(i=>int(i,6)) && Number.isInteger(s.builder.project)&&s.builder.project>=-1&&s.builder.project<6 && (s.builder.sites===null || (Array.isArray(s.builder.sites)&&s.builder.sites.length===4&&s.builder.sites.every(i=>Number.isInteger(i)&&i>=-1&&i<2))))) &&
       (s.ember === undefined || (obj(s.ember) &&
@@ -108,7 +111,7 @@ function validSave(s) {
         (obj(s.practice) &&
           Object.entries(s.practice).every(
             ([id, p]) =>
-              (['mill-flow', 'cargo','batch','ember:bridge','ember:forge','ember:route','ember:grammar','ember:science','ember:problem'].includes(id) || /^build:[0-5]$/.test(id) || /^rest:[0-2]$/.test(id) ||
+              (/^living:(building|cargo|forest|fossils|volcano|grammar|night)$/.test(id) || ['mill-flow', 'cargo','batch','ember:bridge','ember:forge','ember:route','ember:grammar','ember:science','ember:problem'].includes(id) || /^build:[0-5]$/.test(id) || /^rest:[0-2]$/.test(id) ||
                 VOYAGES.some(v => v.steps.some(step => id === 'v:' + v.id + ':' + step.subject)) ||
                 /^k:\d+$/.test(id) ||
                 (id.startsWith('p:') &&
@@ -206,7 +209,8 @@ try {
 let saveTimer;
 function saveGame(show = true) {
   if (replacingSave) return;
-  if (typeof player !== 'undefined' && player && !(typeof ember !== 'undefined' && ember)) {
+  if(typeof living !== 'undefined' && living && player) S.living.pose={x:player.pos.x,y:player.pos.y,z:player.pos.z,yaw:player.yaw,pitch:player.pitch};
+  if (typeof player !== 'undefined' && player && !(typeof living !== 'undefined' && living) && !(typeof ember !== 'undefined' && ember)) {
     S.player = {
       x: player.pos.x,
       y: player.pos.y,

@@ -1,12 +1,14 @@
 {
   "dependencies": {
-    "linkedom": "^0.18.12"
+    "howler": "2.2.4",
+    "linkedom": "^0.18.12",
+    "nipplejs": "1.0.4"
   },
   "name": "asteria",
-  "version": "2.7.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
-    "test": "node test-core.cjs && node test-campaign.cjs && node test-mill.cjs && node test-shapes.cjs",
+    "test": "node test-core.cjs && node test-campaign.cjs && node test-mill.cjs && node test-shapes.cjs && node test-living-core.cjs",
     "build": "node build.cjs",
     "start": "node serve.cjs",
     "publish:pages": "node publish.cjs"
