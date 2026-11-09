@@ -177,7 +177,10 @@ const [engine = 'chrome', url = 'http://localhost:8775/'] =
       'PASS real roof edit stops production; repairs restore eligibility',
     );
     const original = await page.evaluate(() =>
-      JSON.stringify(livingVillage.world.data.slice(0, 10000)),
+      livingVillage.world.data.reduce(
+        (hash, id) => Math.imul(hash ^ id, 16777619) >>> 0,
+        2166136261,
+      ),
     );
     await page.evaluate(() => {
       saveGame(false);
@@ -270,7 +273,12 @@ const [engine = 'chrome', url = 'http://localhost:8775/'] =
       leaveLiving();
     });
     assert.equal(
-      await page.evaluate(() => JSON.stringify(world.data.slice(0, 10000))),
+      await page.evaluate(() =>
+        world.data.reduce(
+          (hash, id) => Math.imul(hash ^ id, 16777619) >>> 0,
+          2166136261,
+        ),
+      ),
       original,
     );
     assert.equal(await page.evaluate(() => S.living.active), false);

@@ -5,6 +5,9 @@ Vérifications locales du 10 novembre 2026 :
 Le scénario de plateforme a également passé sur l'URL publique de la 3.0.0 :
 lecture des voix, contacts simultanés, doubles appuis, coût unique, chargement
 des modèles et reprise hors ligne avec conservation des modifications.
+Le parcours complet a ensuite passé sur l'URL publique finale sous Chrome et
+WebKit, avec contrôle du terrain original sur ses 192 000 cellules, des trois
+bâtiments, des cinq missions, de la veillée et des ressources chargées sans erreur.
 
 - `npm test` : suites existantes et 9 nouvelles suites de règles (dimensions et quatre côtés de porte, contre-exemples, cargaisons, routes, canaux, production, navigation, nuit, adaptation et imports).
 - `test-living-browser.cjs` : parcours complet par commandes tactiles sous Chrome et WebKit ; trois bâtiments, récompenses uniques, toit cassé et réparation, cinq missions, veillée, sauvegarde et retour entre mondes. Captures à 390 × 720, 844 × 390 et 1024 × 768.
